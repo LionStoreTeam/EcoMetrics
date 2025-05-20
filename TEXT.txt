@@ -1,0 +1,152 @@
+
+*** Corregir el toast de Código Incorrecto ADMIN AUTH
+
+* Requerimientos faltantes
+
+- Mejorar el UI de Insignias.
+
+- Puntos Totales => "Eco Points"
+
+- Sección Inicio de Sesión y Registro: Mejorar la UI. 
+
+- Página de Inicio: Mejorar la UI.
+
+- Sección Recompensas: Agregar Rdecompensas REALES con funcionalidad independiente por cada una.
+  • Verificar la funcionalidad cuando una Recompensa haya expirado.
+
+npx prisma generate --no-engine
+
+- Funcionalidades extas:
+Continuando con el desarrollo del proyecto. Necesito que integres una nueva funcionalidad que esté únicamente disponible para los usuarios "ADMIN", sus requerimientos son los siguientes:
+- Visualizar cada una de las "Actividades" realizadas de todos los Usuarios.
+- Añade el respectivo Buscador por "Nombre" y "Correo".
+- Añade el respectivo selector por "Tipo de Usuario".
+- Exclusivamente solo los usuarios "ADMIN" ahora podrán: "MODIFICAR" Y "ELIMINAR" cualquier actividad de todos los Usuarios.
+- Si se realiza una "MODIFICACIÓN" en alguna activadad, los "Puntos" actuales del Usuario no recibirán algún cambio.
+- Si se realiza una "ELIMINACIÓN" en alguna actividad, los puntos que fueron obtenidos con esa actividad deberán ser descontados de la Base de Datos. 
+- Desarrolla una funcionalidad que permita a los Usuarios "ADMIN" poder mandar "Mensajes de notificación" hacia los demás Usuarios.
+- Estos "Mensajes de notificación" deberán ser mostrados en la sección "Mi Perfil" en la ruta "/app/perfil/page.tsx"
+
+
+Después de integrar estás actualizaciones que generaste se presentarón los siguientes problemas:
+- Cuando el ADMIN "EDITAR" alguna Actividad por primera vez, se aplica la modificación de manera correcta, sin embargo al intentar "EDITAR" de nuevo la actividad se generá el error "Error: Datos inválidos - No se pudo actualizar", yo considero que el error se puede genera a partir de los "params" de la Actividad. 
+
+Después de solucionar los errores, las correcciones que necesito son las siguientes:
+- Si se actualiza el tipo o la cantidad, recalcular los puntos basados en la nueva información y actualizar los Puntos Totales del Usuario en la Base de Datos.
+- Poder ELIMINAR "Imágenes - Videos" de la Actividad.
+- Genera en endpoint "/api/admin/notifications" de manera correcta. 
+
+
+The file "/vercel/path0/.next/routes-manifest.json" couldn't be found. This is often caused by a misconfiguration in your project.
+
+
+# - Sección Mapa: Integrar la API de Google Maps o Leaflet para mostrar un Mapa real.
+# • Agregar la funcionalidad y ubicación REAL para los Centros de Acopio.
+
+# Continuando con el desarrollo del proyecto. En la sección llamada "Mapas de Centros de Acopio" ubicada en la ruta "/app/mapa/page.tsx" Desarrollar su funcionalidad con los siguientes requerimientos:
+# - Realiza un análisis complete del archivo "/app/mapa/page.tsx", Notarás que la funcionalidad original del el archivo "/app/mapa/page.tsx" es estática ya que se está "Simulando la carga de datos". 
+# - Para evitar la simulación de datos considerá integrar las siguientes funcionalidades:
+#     - Los requerimientos disponibles únicamente para los Usuarios Tipo "ADMIN" (Administradores) serán señalados con un "*"
+#     * En la ruta "app/admin" desarrolla una nueva interfaz de Frontend con un formulario llamado "Añadir Nuevo Centro de Acopio", los datos que solicitará ese formulario serán:
+#     * Título, Descripción, Dirección, Ubicación (Latitud y Longitud para una ubicación precisa y posteriormente ser mostrada en el mapa), Horarios,  "Materiales Aceptados", Teléfono, Email(Opcional), Sitio Web(Opcional), Social Media(Opcional), Selector con los "32 Estados" de la "República Mexicana".
+#     * Los "Centros de Acopio" registrados por el formulario deberán ser duraderos y almacenados en la Base de Datos.
+
+#     A partir de las modificaciones anteriores que realizaste. Ahora para la sección "Mapa de Centros de Acopio" en la ruta "/app/mapa/page.tsx" añade los siguientes requerimientos.
+#     • Integra "Leaflet" para la visualización de un Mapa interactivo con respecto a los "Centro de Acopio" disponibles.
+#     • Obten la (Latitud y Longitud) proveniente de la Base de Datos para cada uno de los "Centro de Acopio" y poder mostrarlos en el Mapa.
+#     • Añade un Botón llamado "Obtener mi úbicación" para obtener la ubicación actual del Usuario y mostrarla en el Mapa.  
+#     • La ubicación por defecto del Mapa deberá ser "Ciudad de México (CDMX) Zona Centro"(solo en caso de que no se obtenga de manerá automática la ubicación actual del Usuario).
+#     • Cuando un usuario selecciona un Estado de la República Mexicana el Mapa se redireccionará al "Centro de Acopio" más cercano con respecto a la ubicación del Usuario.
+#     • A partir de la ubicación del usuario o en su defecto "(CDMX) Zona Centro", se mostrará la lista de los "Centros de Acopio Encontrados" correspondientes a su ubicación actual o a la ubicación con respecto al selector de los 32 Estados.  
+#     • Al dar clic sobre un "Centro de Acopio" disponible en la lista se redireccionará en el mapa a la ubicación de ese "Centro de Acopio" o en su defecto al presionar el botón "Ver en el Mapa".
+#     • Por cada uno de los Centros de Acopio disponibles se deberá mostrar su respectivo "Marker".
+
+
+
+
+# Continuando con el desarrollo del proyecto. Crea una nueva sección llamada "Insignias" con los siguiente requerimientos: 
+# - Utiliza el Modelo "Badge" del archivo "schema.prisma" y asegurate de que las Insignias obtenidas sean persistentes en la Base de Datos.
+# - Integrar un sistema de obtención de Insignias por Actividades completadas, Niveles superados, etc.
+# - la ruta para el Frontend de las Insignias deberá estár en la ruta "/app/badges/page.tsx"
+# - Mantener la "UI" igual que el resto del Frontend.
+# - La visualización de todas las Insignias disponibles para conseguir, será en el Frontend "/app/badges/page.tsx"
+# - La visualización de las "Insignias obtenidas" por el Usuario, será en el Frontend "app/perfil/page.tsx". Si lo deseas puedes crear un Componente en la carpeta "/components" para las "Insignias obtenidas" y así mantener más limpio el código original del archivo "app/perfil/page.tsx".
+  
+
+
+# - Sección Mi Perfil: Agregar funcionalidad para la subida y modificación de la foto de perfil del Usuario.
+#     • Agregar funcionalidad para visualizar las Insignias obtenidad por el Usuario.
+#     • Agregar validaciones en la modificación de datos del Usuario.
+
+# - Desarrollar una nueva Sección llamada "Score": Donde se mostrarán en forma de lista todos los usuarios actuales de la plataforma. Los requerimientos para la sección "Score" serán los siguientes:
+#     • Mantener la "UI" igual que el resto del Frontend.  
+#     • Integrar un Buscador para "Nombre" o "Correo". 
+#     • Un selector de visualización para agrupar la tabla por "Tipo de Usuario("Individual", "Escuela", "Comunidad" o "Gobierno")".
+#     • Visualización en forma de tabla para cada Usuario registrado en la plataforma.
+#     • Visualización de los siguientes datos para cada Usuario: Foto de Perfil, Nombre, Correo, Tipo de Usuario("Individual", "Escuela", "Comunidad" o "Gobierno"), Total de Actividades, Puntos Totales, Nivel actual, Miembro desde.
+
+
+
+# - Analiza de nuevo el archivo "/lib/s3-service.ts".
+# - También analiza el archivo "/prisma/schema.prisma", aquí enfocate en el Modelo:
+# model Profile {
+#   id        String  @id @default(cuid())
+#   bio       String?
+#   address   String?
+#   city      String?
+#   state     String?
+#   zipCode   String?
+#   phone     String?
+#   avatarUrl String?
+
+#   // Relaciones
+#   userId String  @unique
+#   user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+#   badges Badge[]
+# }
+
+# - Despues de analizar los dos archivos. Te proporcionaré 2 códigos nuevos de los archivos "/app/api/profile/route.ts" y "/app/perfil/page.tsx". y al final te daré instrucciones de lo que necesito.
+
+
+# Para el archivo "/prisma/schema.prisma" el código es el siguiente: 
+
+
+# Para el archivo "/lib/s3-service.ts" el código es el siguiente: 
+
+
+# Para el archivo "/app/api/profile/route.ts" el código es el siguiente: 
+
+
+# Para el archivo "/app/perfil/page.tsx" el código es el siguiente: 
+
+
+
+
+
+# - Dentro de mi Bucket de Amazon Web Services (AWS) (S3) existe una carpeta llamada "userimageprofile".
+
+# - Después de analizar los archivos "/lib/s3-service.ts", "/prisma/schema.prisma", "/app/api/profile/route.ts", "/app/perfil/page.tsx" y considerar la carpeta de AWS llamada "userimageprofile". 
+
+# - Necesito que desarrolles la funcionalidad necesaria en el archivo "/app/perfil/page.tsx" para que el usuario pueda "SUBIR", "ACTUALIZAR" y "ELIMINAR" su foto de perfil, los requerimientos son los siguientes:
+#     • La foto de perfil del usuario deberá ser almacenada en la carpeta "userimageprofile" de AWS y en la Base de Datos.
+#     • Cada "ACTUALIZACIÓN" o "ELIMINACIÓN" de la foto de perfil se debe reflejar en AWS y en la Base de Datos. 
+#     • Solo se permitirán imágenes con formato: (JPG, PNG, JPEG, WEBP).
+#     • El tamaño máximo de la imágen deberá ser de: 5MB.
+#     • Por defecto la foto inicial de perfil del usuario será la que se generá mediante la función "getInitials(Función para obtener las iniciales del nombre)".
+#     • Si el usuario elimina su foto de perfil que previamente publicó, la foto de perfil por defecto será la que se generá mediante la función "getInitials".
+
+# Te proporcionaré 4 códigos de mi proyecto desarrollado con Next JS, Typescript, Tailwind CSS, Prisma ORM y AWS (S3).
+# 1° "/prisma/schema.prisma".
+# 2° "/lib/s3-service.ts".
+# 3° "/app/api/profile/route.ts".
+# 4° "/app/perfil/page.tsx".
+
+# Después de que te proporcioné el último código te daré instrucciones de lo que necesito.
+
+
+
+# Utiliza el idioma Español. 
+# Te proporcionaré un repositorio de Github que contiene un proyecto desarrollado con Next JS, TypeScrip, Tailwind CSS, Prisma ORM y Amazon Web Services (AWS)(S3). Realiza un completo análisis del contenido del proyecto y de todos sus archivos. Después de que finalices el análisis de proyecto de daré instrucciones de lo que necesito.
+
+
+

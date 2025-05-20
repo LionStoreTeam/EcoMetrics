@@ -1,0 +1,285 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url      = "file:./dev.db"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Usuario
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  userType  UserType @default(INDIVIDUAL)
+  points    Int      @default(0)
+  level     Int      @default(1) // Nuevo campo para nivel persistente
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  profile    Profile?
+  activities Activity[]
+  rewards    Reward[]
+  groups     GroupMember[]
+
+  notifications Notification[] // Notificaciones recibidas por este usuario
+}
+
+// Tipos de usuario
+enum UserType {
+  INDIVIDUAL
+  SCHOOL
+  COMMUNITY
+  GOVERNMENT
+}
+
+// Roles de usuario
+enum Role {
+  USER
+  ADMIN
+}
+
+// Perfil de usuario
+model Profile {
+  id        String  @id @default(cuid())
+  bio       String?
+  address   String?
+  city      String?
+  state     String?
+  zipCode   String?
+  phone     String?
+  avatarUrl String? // Almacena la fileKey de S3 para el avatar
+
+  // Relaciones
+  userId String  @unique
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badges Badge[] @relation("ProfileBadges") // Actualizado 18 May
+}
+
+// Modelo de Grupo (escuelas, colonias, etc.)
+model Group {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  type        GroupType
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relaciones
+  members    GroupMember[]
+  activities Activity[]
+}
+
+// Tipos de grupo
+enum GroupType {
+  SCHOOL
+  COMMUNITY
+  GOVERNMENT
+  OTHER
+}
+
+// Relación entre usuarios y grupos
+model GroupMember {
+  id       String    @id @default(cuid())
+  role     GroupRole @default(MEMBER)
+  joinedAt DateTime  @default(now())
+
+  // Relaciones
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, groupId])
+}
+
+// Roles dentro de un grupo
+enum GroupRole {
+  ADMIN
+  MODERATOR
+  MEMBER
+}
+
+// Modelo de Actividad Ecológica
+model Activity {
+  id          String       @id @default(cuid())
+  title       String
+  description String?
+  type        ActivityType
+  quantity    Float
+  unit        String
+  points      Int
+  date        DateTime
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Relaciones
+  userId   String
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  groupId  String?
+  group    Group?     @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  evidence Evidence[]
+}
+
+// Tipos de actividad
+enum ActivityType {
+  RECYCLING
+  TREE_PLANTING
+  WATER_SAVING
+  COMPOSTING
+  ENERGY_SAVING
+  EDUCATION
+  OTHER
+}
+
+// Añadir este modelo para las evidencias
+model Evidence {
+  id         String   @id @default(cuid())
+  activityId String
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  fileUrl    String
+  fileType   String // "image" o "video"
+  fileName   String
+  fileSize   Int
+  format     String // "jpg", "png", "mp4", etc.
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([activityId])
+}
+
+// Categorías de recompensas
+enum RewardCategory {
+  DISCOUNT
+  WORKSHOP
+  PRODUCT
+  RECOGNITION
+  EXPERIENCE
+  OTHER
+}
+
+// Modelo de Recompensa
+model Reward {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  pointsCost  Int
+  available   Boolean        @default(true)
+  quantity    Int?
+  expiresAt   DateTime?
+  category    RewardCategory @default(OTHER)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  // Relaciones
+  userId      String?
+  user        User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  redemptions Redemption[]
+}
+
+// Canje de recompensas
+model Redemption {
+  id         String           @id @default(cuid())
+  redeemedAt DateTime         @default(now())
+  status     RedemptionStatus @default(PENDING)
+  createdAt  DateTime         @default(now())
+
+  // Relaciones
+  rewardId String
+  reward   Reward @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+  userId   String
+}
+
+// Estado de canje
+enum RedemptionStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+// Modelo de Insignia
+model Badge {
+  id          String @id @default(cuid())
+  name        String
+  description String
+  imageUrl    String
+  criteria    String
+
+  // Relaciones
+  profiles Profile[] @relation("ProfileBadges")
+}
+
+// Modelo de Centro de Acopio
+model RecyclingCenter {
+  id           String  @id @default(cuid())
+  name         String
+  description  String?
+  address      String
+  city         String
+  state        String
+  zipCode      String?
+  phone        String?
+  email        String?
+  website      String?
+  latitude     Float?
+  longitude    Float?
+  openingHours String?
+
+  // Relaciones
+  materials CenterMaterial[]
+}
+
+// Materiales aceptados en centros de acopio
+model Material {
+  id          String           @id @default(cuid())
+  name        String
+  description String?
+  category    MaterialCategory
+
+  // Relaciones
+  centers CenterMaterial[]
+}
+
+// Categorías de materiales
+enum MaterialCategory {
+  PLASTIC
+  PAPER
+  GLASS
+  METAL
+  ORGANIC
+  ELECTRONIC
+  HAZARDOUS
+  OTHER
+}
+
+// Relación entre centros y materiales
+model CenterMaterial {
+  id String @id @default(cuid())
+
+  // Relaciones
+  centerId   String
+  center     RecyclingCenter @relation(fields: [centerId], references: [id], onDelete: Cascade)
+  materialId String
+  material   Material        @relation(fields: [materialId], references: [id], onDelete: Cascade)
+
+  @@unique([centerId, materialId])
+}
+
+// NUEVO MODELO PARA NOTIFICACIONES
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
