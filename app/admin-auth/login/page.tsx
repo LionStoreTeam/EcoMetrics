@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import toast from 'react-hot-toast';
+import Image from "next/image"
 
 export default function AdminLoginPage() {
     const router = useRouter()
@@ -72,14 +73,14 @@ export default function AdminLoginPage() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
             <div className="absolute top-8 flex items-center gap-2">
-                <Leaf className="h-6 w-6 text-green-600" />
-                <span className="text-xl font-bold">EcoTrack MX</span>
+                <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+                <span className="font-bold">EcoMetrics</span>
             </div>
 
             <Card className="w-full max-w-md">
                 <CardHeader>
                     <CardTitle className="text-2xl">Acceso de Administrador</CardTitle>
-                    <CardDescription>Inicia sesión para acceder al panel de administración de EcoTrack MX</CardDescription>
+                    <CardDescription>Inicia sesión para acceder al panel de administración de EcoMetrics</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">

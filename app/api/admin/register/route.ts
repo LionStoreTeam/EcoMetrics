@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     // Crear un perfil básico para el administrador
     await prisma.profile.create({
       data: {
-        bio: "Administrador de EcoTrack MX",
+        bio: "Administrador de EcoMetrics",
         userId: user.id,
       },
     });

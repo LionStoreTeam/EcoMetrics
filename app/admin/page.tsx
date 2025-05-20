@@ -138,7 +138,7 @@ export default function AdminPage() {
       <div className="flex flex-col gap-8 m-5 sm:m-10">
         <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-slate-700 to-slate-900 rounded-xl shadow-lg">
           <h1 className="text-3xl font-bold tracking-tight">Panel de Administración</h1>
-          <p className="text-slate-300">Gestiona los recursos de EcoTrack MX.</p>
+          <p className="text-slate-300">Gestiona los recursos de EcoMetrics.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

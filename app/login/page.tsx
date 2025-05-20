@@ -153,6 +153,7 @@ import Link from "next/link";
 import { Leaf } from "lucide-react";
 import LoginForm from "./login-form"; // Importa el nuevo componente cliente
 import { Suspense } from "react"; // Importa Suspense
+import Image from "next/image";
 
 // Un componente simple para el fallback de Suspense
 function LoginFormSkeleton() {
@@ -178,13 +179,12 @@ function LoginFormSkeleton() {
   );
 }
 
-
 export default function LoginPage() {
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center bg-gray-50">
       <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8 flex items-center gap-2 text-gray-700 hover:text-green-600 transition-colors">
-        <Leaf className="h-6 w-6 text-green-600" />
-        <span className="font-bold text-lg">EcoTrack MX</span>
+        <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+        <span className="font-bold">EcoMetrics</span>
       </Link>
 
       {/* Envuelve el componente que usa useSearchParams con Suspense */}

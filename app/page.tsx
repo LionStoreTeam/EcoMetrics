@@ -11,8 +11,8 @@ export default function Home() {
       <header className="top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex flex-col h-16 items-center justify-between md:flex-row">
           <div className="mt-4 mb-4 flex items-center gap-2">
-            <Leaf className="h-6 w-6 text-green-600" />
-            <span className="text-xl font-bold">EcoTrack MX</span>
+            <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+            <span className="text-xl font-bold">EcoMetrics</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -36,7 +36,7 @@ export default function Home() {
               <div className="flex flex-col justify-center items-center lg:flex-row gap-3 lg:mx-10 lg:gap-5">
                 <div className="space-y-4 lg:mx-10">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                    Eco Track MX - Gestión y educación ambiental comunitaria
+                    EcoMetrics - Gestión y educación ambiental comunitaria
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     Una plataforma para que escuelas, comunidades y gobiernos locales lleven un seguimiento y educación
@@ -50,7 +50,7 @@ export default function Home() {
                         1000, // wait 1s before replacing "Mice" with "Hamsters"
                         'Registrate',
                         1000,
-                        'EcoTrack MX',
+                        'EcoMetrics',
                         1000,
                       ]}
                       wrapper="span"
@@ -144,7 +144,7 @@ export default function Home() {
       <footer className="border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            © 2025 EcoTrack MX. Todos los derechos reservados.
+            © 2025 EcoMetrics. Todos los derechos reservados.
           </p>
           <div className="flex gap-4">
             <Link href="/terminos" className="text-sm text-muted-foreground hover:underline">

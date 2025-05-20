@@ -184,7 +184,7 @@ export default function ActivitiesPage() {
             <br />
             En caso de algún inconveniente puedes comunicarte al correo:
             <p className="font-bold">
-              ecosoporte@ecotracmx.com
+              ecosoporte@ecometricsmx.com
             </p>
           </span>
         </StickyBanner>

@@ -11,12 +11,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import toast from 'react-hot-toast';
+import Image from "next/image"
 
 
 export default function AdminRegistroPage() {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [adminCode, setAdminCode] = useState("")
     const [formData, setFormData] = useState({
         name: "",
@@ -52,6 +54,7 @@ export default function AdminRegistroPage() {
 
         if (adminCode !== process.env.ADMIN_CODE) {
             toast.error("El código de administrador es incorrecto")
+            return
         }
 
 
@@ -95,14 +98,14 @@ export default function AdminRegistroPage() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
             <div className="absolute top-8 flex items-center gap-2">
-                <Leaf className="h-6 w-6 text-green-600" />
-                <span className="text-xl font-bold">EcoTrack MX</span>
+                <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+                <span className="font-bold">EcoMetrics</span>
             </div>
 
             <Card className="w-full max-w-md">
                 <CardHeader>
                     <CardTitle className="text-2xl">Registro de Administrador</CardTitle>
-                    <CardDescription>Crea una cuenta de administrador para gestionar la plataforma EcoTrack MX</CardDescription>
+                    <CardDescription>Crea una cuenta de administrador para gestionar la plataforma EcoMetrics</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -162,16 +165,33 @@ export default function AdminRegistroPage() {
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="confirmPassword">Confirmar contraseña</Label>
-                            <Input
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                type="password"
-                                placeholder="••••••••"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                disabled={isLoading}
-                                required
-                            />
+                            <div className="relative">
+                                <Input
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    placeholder="••••••••"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    disabled={isLoading}
+                                    required
+                                />
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="icon"
+                                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                >
+                                    {showConfirmPassword ? (
+                                        <EyeOff className="h-4 w-4 text-muted-foreground" />
+                                    ) : (
+                                        <Eye className="h-4 w-4 text-muted-foreground" />
+                                    )}
+                                    <span className="sr-only">{showConfirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"}</span>
+                                </Button>
+                            </div>
+
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="adminCode">Código de administrador</Label>

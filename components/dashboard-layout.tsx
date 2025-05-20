@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 
 import { UserProfileData, UserStats } from "@/types/types"; // Asumo que UserProfileBadge está en types.ts
 import LevelUserCard from "./LevelUserCard";
+import Image from "next/image";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -130,8 +131,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100">
         <div className="flex flex-col items-center">
-          <Leaf className="h-16 w-16 text-green-600 mb-4 animate-bounce" />
-          <p className="text-lg font-semibold text-gray-700">Cargando EcoTrack MX...</p>
+          <Image src="/logo.svg" alt="logo" width={120} height={120} priority className="animate-bounce" />
+          <p className="text-lg font-semibold text-gray-700">Cargando EcoMetrics...</p>
           <div className="mt-2 w-24 h-2 bg-green-200 rounded-full overflow-hidden">
             <div className="h-full bg-green-600 animate-pulse-fast" style={{ width: '100%' }}></div>
           </div>
@@ -145,8 +146,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Header para móviles */}
       <header className="bg-white py-3 px-4 flex justify-between items-center lg:hidden border- shadow-sm">
         <Link href="/dashboard" className="flex items-center">
-          <Leaf className="h-6 w-6 text-green-600 mr-2" />
-          <span className="text-xl font-bold text-gray-800">EcoTrack MX</span>
+          <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+          <span className="font-bold pl-3">EcoMetrics</span>
         </Link>
 
         <div className="flex items-center gap-2">
@@ -173,8 +174,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-4 border-b">
                   <div className="flex items-center gap-2">
-                    <Leaf className="h-6 w-6 text-green-600" />
-                    <span className="text-xl font-bold text-gray-800">EcoTrack MX</span>
+                    <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+                    <span className="font-bold pl-3">EcoMetrics</span>
                   </div>
                   <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-gray-600">
@@ -247,8 +248,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <aside className="hidden lg:flex lg:flex-col lg:w-64 bg-white border- shadow-md">
           <div className="p-4 border-b">
             <Link href="/dashboard" className="flex items-center">
-              <Leaf className="h-7 w-7 text-green-600 mr-2" />
-              <span className="text-xl font-bold text-gray-800">EcoTrack MX</span>
+              <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+              <span className="font-bold pl-3">EcoMetrics</span>
             </Link>
           </div>
           {profile && (
@@ -311,7 +312,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
       <footer className="py-4 bg-white border-t">
         <div className="container mx-auto flex flex-col items-center justify-between gap-2 md:flex-row px-4">
-          <p className="text-center text-xs text-gray-600 md:text-left">© {new Date().getFullYear()} EcoTrack MX. Todos los derechos reservados.</p>
+          <p className="text-center text-xs text-gray-600 md:text-left">© {new Date().getFullYear()} EcoMetrics. Todos los derechos reservados.</p>
           <div className="flex gap-3">
             <Link href="/terminos" className="text-xs text-gray-600">Términos</Link>
             <Link href="/privacidad" className="text-xs text-gray-600">Privacidad</Link>

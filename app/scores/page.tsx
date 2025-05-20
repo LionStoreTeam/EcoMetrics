@@ -239,7 +239,7 @@ export default function ScoresPage() {
                         <h1 className="text-3xl font-bold tracking-tight">Scores de Usuarios</h1>
                     </div>
                     <p className="text-purple-100">
-                        Ranking y estadísticas de los participantes de EcoTrack MX.
+                        Ranking y estadísticas de los participantes de EcoMetrics.
                     </p>
                 </div>
 

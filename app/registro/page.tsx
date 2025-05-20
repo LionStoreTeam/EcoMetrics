@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import toast from 'react-hot-toast'
 import { Eye, EyeOff } from 'lucide-react'
+import Image from "next/image"
 
 // Asegúrate de tener instalada la librería dotenv si planeas usar variables de entorno en el cliente.
 // Sin embargo, para el código del cliente, considera exponer variables a través de Next.js runtimeConfig.
@@ -174,8 +175,8 @@ export default function RegisterPage() {
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8 flex items-center gap-2">
-        <Leaf className="h-6 w-6 text-green-600" />
-        <span className="font-bold">EcoTrack MX</span>
+        <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+        <span className="font-bold">EcoMetrics</span>
       </Link>
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">

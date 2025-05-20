@@ -99,7 +99,7 @@ export default function DashboardPage() {
       <div className="flex flex-col gap-8 m-5 sm:m-10">
         <div className="p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl">
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="">Bienvenido a tu panel de control de EcoTrack MX</p>
+          <p className="">Bienvenido a tu panel de control de EcoMetrics</p>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
@@ -121,7 +121,7 @@ export default function DashboardPage() {
                   {pointsPerLevel - pointsInCurrentLevel} puntos para el siguiente nivel
                 </p>
               </div>
-              <Image src="/vector_pts.png" alt="vector_pts" width={1000} height={1000} priority />
+              <Image src="/vector_pts.png" alt="vector_pts" width={500} height={500} priority />
             </CardContent>
           </Card>
           <Card className="border-4 border-blue-100 rounded-xl transition-all ease-linear hover:border-blue-700">
@@ -135,7 +135,7 @@ export default function DashboardPage() {
                 {stats.activityCount === 0 ? "Registra tu primera actividad" : "Sigue registrando tus actividades"}
               </p> */}
               <Link href="/actividades">
-                <Image src="/vector_act.png" alt="" width={1000} height={1000} priority />
+                <Image src="/vector_act.png" alt="" width={500} height={500} priority />
               </Link>
             </CardContent>
           </Card>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="transition-all ease-linear duration-300 hover:scale-95">
               <Link href="/recompensas">
-                <Image src="/vector_rewards.png" width={1000} height={1000} priority alt="green dash rewards" />
+                <Image src="/vector_rewards.png" width={500} height={500} priority alt="green dash rewards" />
               </Link>
               {/* <p className="text-xs text-muted-foreground">
                 {stats.totalPoints < 500
