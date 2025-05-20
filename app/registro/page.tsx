@@ -4,7 +4,6 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Leaf } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -175,7 +174,7 @@ export default function RegisterPage() {
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8 flex items-center gap-2">
-        <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+        <Image src="/logo.png" alt="logo" width={70} height={70} priority />
         <span className="font-bold">EcoMetrics</span>
       </Link>
       <Card className="w-full max-w-md">

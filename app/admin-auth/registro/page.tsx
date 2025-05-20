@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Leaf, Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -98,7 +98,7 @@ export default function AdminRegistroPage() {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
             <div className="absolute top-8 flex items-center gap-2">
-                <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+                <Image src="/logo.png" alt="logo" width={70} height={70} priority />
                 <span className="font-bold">EcoMetrics</span>
             </div>
 

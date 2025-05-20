@@ -11,7 +11,7 @@ export default function Home() {
       <header className="top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex flex-col h-16 items-center justify-between md:flex-row">
           <div className="mt-4 mb-4 flex items-center gap-2">
-            <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+            <Image src="/logo.png" alt="logo" width={70} height={70} priority />
             <span className="text-xl font-bold">EcoMetrics</span>
           </div>
 

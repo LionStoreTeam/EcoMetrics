@@ -6,7 +6,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Leaf, Map, User, LogOut, Menu, X, LayoutDashboard, BarChart2, Medal, Trophy, Bell, Gift } from "lucide-react"; // Añadido Bell y Gift (si no estaba)
+import { Leaf, Map, User, LogOut, Menu, LayoutDashboard, BarChart2, Medal, Trophy, Bell, Gift } from "lucide-react"; // Añadido Bell y Gift (si no estaba)
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -131,7 +131,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100">
         <div className="flex flex-col items-center">
-          <Image src="/logo.svg" alt="logo" width={120} height={120} priority className="animate-bounce" />
+          <Image src="/logo.png" alt="logo" width={120} height={120} priority className="animate-bounce" />
           <p className="text-lg font-semibold text-gray-700">Cargando EcoMetrics...</p>
           <div className="mt-2 w-24 h-2 bg-green-200 rounded-full overflow-hidden">
             <div className="h-full bg-green-600 animate-pulse-fast" style={{ width: '100%' }}></div>
@@ -146,7 +146,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Header para móviles */}
       <header className="bg-white py-3 px-4 flex justify-between items-center lg:hidden border- shadow-sm">
         <Link href="/dashboard" className="flex items-center">
-          <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+          <Image src="/logo.png" alt="logo" width={70} height={70} priority />
           <span className="font-bold pl-3">EcoMetrics</span>
         </Link>
 
@@ -248,7 +248,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <aside className="hidden lg:flex lg:flex-col lg:w-64 bg-white border- shadow-md">
           <div className="p-4 border-b">
             <Link href="/dashboard" className="flex items-center">
-              <Image src="/logo.svg" alt="logo" width={70} height={70} priority />
+              <Image src="/logo.png" alt="logo" width={70} height={70} priority />
               <span className="font-bold pl-3">EcoMetrics</span>
             </Link>
           </div>
