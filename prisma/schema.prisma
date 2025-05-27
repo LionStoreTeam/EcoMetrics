@@ -3,10 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-  // url      = "file:./dev.db"
+  provider = "sqlite"
+  // url       = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
+  url      = "file:./dev.db"
 }
 
 // Modelo de Usuario
@@ -108,7 +108,7 @@ enum GroupRole {
 
 // Modelo de Actividad Ecológica
 model Activity {
-  id          String       @id @default(cuid())
+  id          String         @id @default(cuid())
   title       String
   description String?
   type        ActivityType
@@ -116,8 +116,9 @@ model Activity {
   unit        String
   points      Int
   date        DateTime
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  status      ActivityStatus @default(PENDING_REVIEW) // Nuevo campo
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 
   // Relaciones
   userId   String
@@ -125,6 +126,16 @@ model Activity {
   groupId  String?
   group    Group?     @relation(fields: [groupId], references: [id], onDelete: SetNull)
   evidence Evidence[]
+
+  @@index([userId])
+  @@index([groupId])
+  @@index([status]) // Indexar el nuevo campo de estado
+}
+
+enum ActivityStatus {
+  PENDING_REVIEW
+  REVIEWED
+  // Podríamos añadir REJECTED si fuera necesario en el futuro
 }
 
 // Tipos de actividad
@@ -278,9 +289,119 @@ model Notification {
   message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+// Seccion de Modelos para Negocios
+enum BusinessType {
+  FOOD
+  PRODUCTS
+  SERVICES
+  TECHNOLOGY
+  HEALTH
+  EDUCATION
+  TOURISM
+  OTHER
+}
+
+enum BusinessPromotionStatus {
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+}
+
+// Modelo para las solicitudes de promoción de negocios
+model BusinessPromotionRequest {
+  id           String  @id @default(cuid())
+  businessName String
+  logoUrl      String? // Clave del archivo en S3
+  description  String
+  businessType String // Ej: "COMIDA", "PRODUCTOS", "SERVICIOS", "OTROS"
+  address      String
+  city         String
+  state        String // Debería coincidir con MexicanState de lib/constants.ts
+  zipCode      String?
+  phone        String?
+  email        String? // Correo de contacto del negocio
+  website      String?
+  latitude     Float?
+  longitude    Float?
+  openingHours String? // Puede ser un string formateado o JSON
+  socialMedia  String? // Puede ser un string con links o JSON
+
+  // Campos relacionados con Stripe y el pago
+  paymentIntentId String? @unique // ID del PaymentIntent de Stripe
+  paymentStatus   String? // Ej: "succeeded", "pending", "failed"
+  amountPaid      Float? // Ej: 50.00
+  currency        String? // Ej: "mxn"
+
+  status BusinessPromotionStatus @default(PENDING_APPROVAL)
+
+  submittedAt   DateTime  @default(now())
+  reviewedAt    DateTime? // Fecha de revisión por un administrador
+  reviewerNotes String? // Notas del administrador
+
+  @@index([status])
+  @@index([businessType])
+  @@index([state, city])
+}
+
+// Nuevo modelo para almacenar las URLs de las imágenes de los productos
+model ProductImage {
+  id                        String                  @id @default(cuid())
+  url                       String // Clave del archivo en S3
+  productPromotionRequestId String
+  productPromotionRequest   ProductPromotionRequest @relation(fields: [productPromotionRequestId], references: [id], onDelete: Cascade) // onDelete: Cascade para borrar imágenes si se borra la solicitud
+
+  createdAt DateTime @default(now())
+
+  @@index([productPromotionRequestId])
+}
+
+// Modelo para las solicitudes de promoción de productos (Modificado)
+model ProductPromotionRequest {
+  id               String    @id @default(cuid())
+  businessName     String
+  productName      String
+  businessLogoUrl  String? // Clave del archivo del logo del negocio en S3
+  description      String
+  businessType     String
+  // productImageUrls String[] // <--- CAMPO ELIMINADO
+  priceOrPromotion String
+  address          String
+  city             String
+  state            String
+  validUntil       DateTime?
+  zipCode          String?
+  phone            String?
+  latitude         Float?
+  longitude        Float?
+  openingHours     String?
+  contactEmail     String?
+  website          String?
+  socialMediaLinks String?
+
+  paymentIntentId String? @unique
+  paymentStatus   String?
+  amountPaid      Float?
+  currency        String?
+
+  status BusinessPromotionStatus @default(PENDING_APPROVAL)
+
+  submittedAt   DateTime  @default(now())
+  reviewedAt    DateTime?
+  reviewerNotes String?
+
+  // Relación con las imágenes del producto
+  productImages ProductImage[] // <--- NUEVO CAMPO DE RELACIÓN
+
+  @@index([status])
+  @@index([businessType])
+  @@index([state, city])
+  @@index([businessName])
+  @@index([productName])
 }

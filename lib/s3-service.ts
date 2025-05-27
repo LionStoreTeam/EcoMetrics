@@ -21,9 +21,19 @@ const bucketName = process.env.AWS_BUCKET_NAME || "";
 const s3BaseUrl = `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com`;
 
 // Tipos de archivos permitidos (solo imágenes para avatar)
-export const ALLOWED_AVATAR_TYPES = ["image/jpeg", "image/png", "image/webp"];
+export const ALLOWED_AVATAR_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/jpg",
+];
 // Tipos generales para otras subidas
-export const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+export const ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/jpg",
+];
 export const ALLOWED_VIDEO_TYPES = ["video/mp4", "image/gif"]; // GIF se trata como video para este caso
 export const ALLOWED_FILE_TYPES = [
   // Usado para validación general de archivos de evidencia

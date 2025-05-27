@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     }
 
     // Verificar el código de administrador
-    if (adminCode !== process.env.ADMIN_CODE) {
+    if (adminCode !== process.env.ADMIN_SECRET_CODE) {
       return NextResponse.json(
         { error: "Código de administrador inválido" },
         { status: 403 }

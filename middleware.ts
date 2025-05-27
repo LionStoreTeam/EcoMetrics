@@ -7,6 +7,9 @@ const protectedRoutes = [
   "/dashboard",
   "/actividades",
   "/recompensas",
+  "/badges",
+  "/scores",
+  "/mapa",
   "/perfil",
   "/estadisticas",
 ];
@@ -19,6 +22,7 @@ const adminRoutes = ["/admin/:path*", "/admin-auth/:path*"];
 
 // Rutas de autenticación de administradores
 const adminAuthRoutes = [
+  "/admin/",
   "/admin-auth/login",
   "/admin-auth/registro",
   "/admin-auth/recuperar",

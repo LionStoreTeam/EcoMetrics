@@ -1,7 +1,7 @@
+// lionstoreteam/ecometrics/EcoMetrics-9cdd9112192325b6fafd06b5945494aa18f69ba4/app/actividades/nueva/page.tsx
 "use client"
 
 import type React from "react"
-
 import { useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Recycle, TreePine, Droplets, Lightbulb, Leaf, BookOpen, HelpCircle, Upload } from "lucide-react"
@@ -14,23 +14,12 @@ import { Textarea } from "@/components/ui/textarea"
 import DashboardLayout from "@/components/dashboard-layout"
 import { z } from "zod"
 import toast from 'react-hot-toast';
+import { MIN_FILES, MAX_FILES } from "@/lib/s3-service";
 
-// For evidence
-import { MIN_FILES, MAX_FILES } from "@/lib/s3-service" // Asegúrate que este path sea correcto y exporte MIN_FILES y MAX_FILES
+// Se eliminan ACTIVITY_POINTS ya que no se usan aquí para cálculo automático
+// const ACTIVITY_POINTS = { ... }
 
-
-// Definimos los puntos fijos para cada tipo de actividad
-const ACTIVITY_POINTS = {
-  RECYCLING: 5, // 5 puntos por kg
-  TREE_PLANTING: 5, // 5 puntos por árbol
-  WATER_SAVING: 2, // 2 puntos por litro
-  ENERGY_SAVING: 2, // 2 puntos por kWh
-  COMPOSTING: 5, // 5 puntos por kg
-  EDUCATION: 5, // 5 puntos por hora
-  OTHER: 2, // 2 puntos por unidad
-}
-
-// Definimos el esquema de validación con Zod
+// Definimos el esquema de validación con Zod (sin cambios)
 const activitySchema = z.object({
   title: z.string().min(10, { message: "El título debe tener al menos 10 caracteres" }).max(100, { message: "El título no puede tener más de 100 caracteres" }),
   description: z.string().min(10, { message: "La descripción debe tener al menos 10 caracteres" })
@@ -49,24 +38,18 @@ const activitySchema = z.object({
   date: z.string().refine((date) => !isNaN(Date.parse(date)), {
     message: "Fecha inválida",
   }),
-})
+});
 
-// Tipo para los errores de validación
 type FormErrors = {
   [K in keyof z.infer<typeof activitySchema>]?: string
 }
 
 export default function NewActivityPage() {
-  // Estados para la subida de archivos
   const [evidenceError, setEvidenceError] = useState("")
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [previews, setPreviews] = useState<string[]>([])
-  const formRef = useRef<HTMLFormElement>(null) // Se mantiene por si tiene otros usos, no esencial para la lógica de subida de archivos actual
-
-  // Estado para errores generales del formulario (no específico de la subida de archivos)
+  const formRef = useRef<HTMLFormElement>(null)
   const [error, setError] = useState("")
-
-
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -76,79 +59,58 @@ export default function NewActivityPage() {
     quantity: "",
     unit: "kg",
     date: new Date().toISOString().split("T")[0],
-    // Se elimina 'evidence' de aquí, se gestiona con selectedFiles
   })
   const [errors, setErrors] = useState<FormErrors>({})
 
-  // Manejador para la selección de archivos
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
+    if (files.length === 0) return;
 
-    if (files.length === 0) return
-
-    // Validar que no exceda el número máximo de archivos
     if (selectedFiles.length + files.length > MAX_FILES) {
-      setEvidenceError(`No puedes subir más de ${MAX_FILES} archivos.`)
-      if (e.target) e.target.value = ""; // Limpiar input para permitir nueva selección
-      return
+      setEvidenceError(`No puedes subir más de ${MAX_FILES} archivos.`);
+      if (e.target) e.target.value = "";
+      return;
     }
 
-    // Validar tamaño de cada archivo (ejemplo: 5MB por archivo)
     const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
     for (const file of files) {
       if (file.size > maxSizeInBytes) {
         setEvidenceError(`El archivo "${file.name}" excede el tamaño máximo de 5MB.`);
-        if (e.target) e.target.value = ""; // Limpiar input
+        if (e.target) e.target.value = "";
         return;
       }
     }
-
-    setEvidenceError("")
-
-    const newPreviews = files.map((file) => URL.createObjectURL(file))
-
-    setSelectedFiles((prev) => [...prev, ...files])
-    setPreviews((prev) => [...prev, ...newPreviews])
-
-    // Limpiar el valor del input para permitir seleccionar el mismo archivo si se elimina y se vuelve a agregar
-    if (e.target) {
-      e.target.value = "";
-    }
+    setEvidenceError("");
+    const newPreviews = files.map((file) => URL.createObjectURL(file));
+    setSelectedFiles((prev) => [...prev, ...files]);
+    setPreviews((prev) => [...prev, ...newPreviews]);
+    if (e.target) e.target.value = "";
   }
 
-  // Manejador para eliminar un archivo seleccionado
   const removeFile = (index: number) => {
-    URL.revokeObjectURL(previews[index]) // Liberar URL de objeto
-
+    URL.revokeObjectURL(previews[index]);
     setSelectedFiles((prev) => {
-      const updated = [...prev]
-      updated.splice(index, 1)
-      return updated
-    })
-
+      const updated = [...prev];
+      updated.splice(index, 1);
+      return updated;
+    });
     setPreviews((prev) => {
-      const updated = [...prev]
-      updated.splice(index, 1)
-      return updated
-    })
+      const updated = [...prev];
+      updated.splice(index, 1);
+      return updated;
+    });
 
-    // Si se estaba mostrando un error de MAX_FILES y ahora estamos por debajo, limpiarlo.
     if (selectedFiles.length - 1 < MAX_FILES && evidenceError.includes(`más de ${MAX_FILES} archivos`)) {
       setEvidenceError("");
     }
-    // Si después de borrar, la cantidad de archivos es menor que MIN_FILES, y había un error de MIN_FILES, se podría limpiar
-    // pero la validación de MIN_FILES se hace principalmente en el submit.
-    // Si ya no hay archivos y antes había error de MIN_FILES, podemos limpiarlo.
     if (selectedFiles.length - 1 === 0 && evidenceError.includes(`al menos ${MIN_FILES}`)) {
       setEvidenceError("");
     }
-
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
-
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }))
     }
@@ -212,22 +174,19 @@ export default function NewActivityPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    setError("") // Limpiar errores generales
-    setEvidenceError("") // Limpiar errores de evidencia
+    setError("")
+    setEvidenceError("")
 
-    // Validar formulario con Zod (campos de texto)
     if (!validateForm()) {
-      setIsLoading(false) // Detener carga si la validación de Zod falla
+      setIsLoading(false)
       return
     }
 
-    // Validar archivos de evidencia
     if (selectedFiles.length < MIN_FILES) {
       setEvidenceError(`Debes subir al menos ${MIN_FILES} archivo como evidencia.`)
       setIsLoading(false)
       return
     }
-    // MAX_FILES ya se valida en handleFileChange, pero una doble comprobación no hace daño.
     if (selectedFiles.length > MAX_FILES) {
       setEvidenceError(`No puedes subir más de ${MAX_FILES} archivos.`);
       setIsLoading(false);
@@ -236,39 +195,26 @@ export default function NewActivityPage() {
 
     try {
       const quantity = Number.parseFloat(formData.quantity)
-      const pointsPerUnit = ACTIVITY_POINTS[formData.type as keyof typeof ACTIVITY_POINTS] || ACTIVITY_POINTS.OTHER
-      const points = Math.floor(quantity * pointsPerUnit)
+      // const pointsPerUnit = ACTIVITY_POINTS[formData.type as keyof typeof ACTIVITY_POINTS] || ACTIVITY_POINTS.OTHER
+      // const points = Math.floor(quantity * pointsPerUnit) // SE ELIMINA CÁLCULO DE PUNTOS AQUÍ
 
-      // Preparar FormData para enviar a la API
       const apiFormData = new FormData();
-
-      // Añadir campos de texto al FormData
       apiFormData.append("title", formData.title);
       apiFormData.append("description", formData.description);
       apiFormData.append("type", formData.type);
       apiFormData.append("quantity", quantity.toString());
       apiFormData.append("unit", formData.unit);
       apiFormData.append("date", formData.date);
-      // Opcional: apiFormData.append("points", points.toString()); si la API lo espera
+      // No se envían 'points'
 
-      // Añadir archivos al FormData
       selectedFiles.forEach((file) => {
-        apiFormData.append("evidence", file); // El backend recibirá un array de archivos bajo la clave "evidence"
+        apiFormData.append("evidence", file);
       });
 
-      console.log(
-        "Enviando formulario con archivos:",
-        selectedFiles.map((f) => f.name)
-      );
-      // Para depuración: iterar sobre FormData
-      // for (let [key, value] of apiFormData.entries()) {
-      //   console.log(`${key}:`, value);
-      // }
+      console.log("Enviando formulario con archivos:", selectedFiles.map((f) => f.name));
 
-      // Enviar datos a la API
       const response = await fetch("/api/activities", {
         method: "POST",
-        // NO establecer Content-Type manualmente, el navegador lo hará por FormData
         body: apiFormData,
       })
 
@@ -277,19 +223,19 @@ export default function NewActivityPage() {
         try {
           errorData = await response.json();
         } catch (jsonError) {
-          // Si la respuesta no es JSON o está vacía, usa el error genérico
           console.error("La respuesta de error no es JSON:", await response.text());
         }
         throw new Error(errorData.error || "Error desconocido al registrar actividad");
       } else {
-        toast.success(`Tu actividad ha sido registrada correctamente y has ganado ${points} puntos`)
+        // Mensaje de éxito ajustado
+        toast.success(`Tu actividad ha sido registrada y está pendiente de revisión.`);
         router.push("/actividades")
         router.refresh()
       }
 
     } catch (err: any) {
       console.error("Error al registrar actividad:", err)
-      setError(err.message || "Ocurrió un error inesperado.") // Mostrar error general
+      setError(err.message || "Ocurrió un error inesperado.")
       toast.error(err.message || "Error al registrar actividad")
     } finally {
       setIsLoading(false)
@@ -297,7 +243,6 @@ export default function NewActivityPage() {
   }
 
   const getActivityIcon = (type: string) => {
-    // ... (código sin cambios)
     switch (type) {
       case "RECYCLING": return <Recycle className="h-5 w-5" />;
       case "TREE_PLANTING": return <TreePine className="h-5 w-5" />;
@@ -309,25 +254,18 @@ export default function NewActivityPage() {
     }
   }
 
-  const calculateEstimatedPoints = () => {
-    // ... (código sin cambios)
-    if (!formData.quantity) return 0;
-    const quantity = Number.parseFloat(formData.quantity);
-    if (isNaN(quantity) || quantity <= 0 || quantity > 20) return 0; // Ajustado para que sea > 0
-    const pointsPerUnit = ACTIVITY_POINTS[formData.type as keyof typeof ACTIVITY_POINTS] || ACTIVITY_POINTS.OTHER;
-    return Math.floor(quantity * pointsPerUnit);
-  }
+  // Se elimina la función calculateEstimatedPoints y su uso
+  // const calculateEstimatedPoints = () => { ... }
 
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-8 m-2 sm:m-10">
         <div className="p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-green-600 to-green-700 rounded-xl">
           <h1 className="text-3xl font-bold tracking-tight m-2">Nueva Actividad</h1>
-          <p className="">Registra una nueva actividad ecológica</p>
+          <p className="">Registra una nueva actividad ecológica. Será revisada por un administrador.</p>
         </div>
 
         <Card>
-          {/* El formRef se asigna aquí, aunque no es crítico para la subida de archivos con el enfoque actual */}
           <form onSubmit={handleSubmit} ref={formRef}>
             <CardHeader>
               <CardTitle>Detalles de la actividad</CardTitle>
@@ -340,7 +278,6 @@ export default function NewActivityPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* ... (resto del JSX para campos del formulario sin cambios) ... */}
               <div className="grid gap-2">
                 <Label htmlFor="title">Título</Label>
                 <Input id="title" name="title" placeholder="Ej. Reciclaje de papel" value={formData.title} onChange={handleChange} disabled={isLoading} className={errors.title ? "border-red-500" : ""} />
@@ -365,7 +302,7 @@ export default function NewActivityPage() {
                     <div key={type.value} className="flex items-center space-x-1 border rounded-lg p-3 hover:bg-muted/50 cursor-pointer sm:space-x-2">
                       <RadioGroupItem value={type.value} id={type.value} className="sr-only" />
                       <Label htmlFor={type.value} className="flex items-center gap-2 cursor-pointer w-full">
-                        <div className={`flex h-8 w-8 items-center justify-center rounded-full ${formData.type === type.value ? "bg-green-100 text-green-600 dark:bg-green-900/20" : "bg-muted"}`}>
+                        <div className={`flex h-8 w-8 items-center justify-center rounded-full ${formData.type === type.value ? "bg-green-100 text-green-600" : "bg-muted"}`}>
                           {getActivityIcon(type.value)}
                         </div>
                         <span>{type.label}</span>
@@ -391,23 +328,22 @@ export default function NewActivityPage() {
 
               <div className="grid gap-2">
                 <Label htmlFor="date">Fecha</Label>
-                <Input id="date" name="date" type="date" value={formData.date} onChange={handleChange} disabled={isLoading} className={errors.date ? "border-red-500" : ""} />
+                <Input id="date" name="date" type="date" value={formData.date} onChange={handleChange} disabled={isLoading} className={errors.date ? "border-red-500" : ""} max={new Date().toISOString().split("T")[0]} />
                 {errors.date && <p className="text-sm text-red-500">{errors.date}</p>}
               </div>
 
-              {/* Sección de subida de archivos */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Evidencia <span className="text-red-500">*</span> <span className="text-xs text-muted-foreground">(al menos {MIN_FILES}, máximo {MAX_FILES})</span>
                 </label>
                 <div
                   className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-gray-50 transition-colors ${evidenceError ? "border-red-500" : "border-gray-300"}`}
-                  onClick={() => document.getElementById("evidence-input")?.click()} // Cambiado id para evitar conflicto con el name="evidence" del input
+                  onClick={() => document.getElementById("evidence-input")?.click()}
                 >
                   <input
                     type="file"
-                    id="evidence-input" // ID único para el input
-                    name="evidence" // El 'name' es importante si usaras un form nativo, pero aquí lo manejamos con JS
+                    id="evidence-input"
+                    name="evidence"
                     onChange={handleFileChange}
                     className="hidden"
                     accept=".jpg,.jpeg,.png,.webp,.mp4,.gif"
@@ -415,16 +351,14 @@ export default function NewActivityPage() {
                     disabled={isLoading}
                   />
                   <div className="mx-auto h-12 w-12 text-gray-400">
-                    <Upload className="h-full w-full" /> {/* Usando el icono de Lucide */}
+                    <Upload className="h-full w-full" />
                   </div>
                   <p className="mt-2 text-sm text-gray-600">Haz clic para seleccionar archivos o arrastra y suelta aquí</p>
                   <p className="text-xs text-gray-500 mt-1">
                     JPG, PNG, JPEG, WEBP, MP4, GIF • Máximo {MAX_FILES} archivos • 5MB por archivo
                   </p>
                 </div>
-
                 {evidenceError && <div className="mt-2 text-red-500 text-sm">{evidenceError}</div>}
-
                 {selectedFiles.length > 0 && (
                   <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {selectedFiles.map((file, index) => (
@@ -452,36 +386,17 @@ export default function NewActivityPage() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                           </svg>
                         </button>
-                        {/* <div className="p-2 text-sm truncate bg-white dark:bg-gray-300">
-                          {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
-                        </div> */}
-                        <div className="p-2 text-sm truncate bg-white dark:bg-gray-300">
-                          Tamaño del archivo: ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+                        <div className="p-2 text-sm truncate bg-white">
+                          Tamaño: ({(file.size / (1024 * 1024)).toFixed(2)} MB)
                         </div>
                       </div>
                     ))}
                   </div>
                 )}
               </div>
-              {/* Mensaje de error general del formulario */}
               {error && <p className="text-sm text-red-500 mt-4 text-center">{error}</p>}
 
-
-              {/* ... (resto del JSX para puntos estimados, etc. sin cambios) ... */}
-              {formData.quantity && !errors.quantity && calculateEstimatedPoints() > 0 && (
-                <div className="bg-green-50 dark:bg-green-900/10 p-4 rounded-lg">
-                  <p className="text-sm font-medium text-green-800 dark:text-green-300">Puntos estimados: {calculateEstimatedPoints()} pts</p>
-                  <p className="text-xs text-green-700 dark:text-green-400 mt-1">
-                    {formData.type === "RECYCLING" && `${ACTIVITY_POINTS.RECYCLING} pts por kg de material reciclado`}
-                    {formData.type === "TREE_PLANTING" && `${ACTIVITY_POINTS.TREE_PLANTING} pts por árbol plantado`}
-                    {formData.type === "WATER_SAVING" && `${ACTIVITY_POINTS.WATER_SAVING} pts por litro de agua ahorrado`}
-                    {formData.type === "ENERGY_SAVING" && `${ACTIVITY_POINTS.ENERGY_SAVING} pts por kWh de energía ahorrado`}
-                    {formData.type === "COMPOSTING" && `${ACTIVITY_POINTS.COMPOSTING} pts por kg de material compostado`}
-                    {formData.type === "EDUCATION" && `${ACTIVITY_POINTS.EDUCATION} pts por hora de educación ambiental`}
-                    {formData.type === "OTHER" && `${ACTIVITY_POINTS.OTHER} pts por unidad`}
-                  </p>
-                </div>
-              )}
+              {/* SE ELIMINA LA SECCIÓN DE PUNTOS ESTIMADOS */}
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button type="button" variant="outline" onClick={() => router.back()} disabled={isLoading}>Cancelar</Button>
