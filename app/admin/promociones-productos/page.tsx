@@ -949,7 +949,7 @@ export default function AdminProductPromotionsPage() {
                                     {selectedRequestAdmin.website && <p><strong className="font-medium">Sitio Web:</strong> <a href={selectedRequestAdmin.website.startsWith('http') ? selectedRequestAdmin.website : `https://${selectedRequestAdmin.website}`} target="_blank" rel="noopener noreferrer" className="text-teal-600 hover:underline">{selectedRequestAdmin.website}</a></p>}
                                     {(selectedRequestAdmin.latitude && selectedRequestAdmin.longitude) && <p><strong className="font-medium">Ubicación:</strong> Lat: {selectedRequestAdmin.latitude}, Lon: {selectedRequestAdmin.longitude}</p>}
                                     {selectedRequestAdmin.openingHours && <p><strong className="font-medium">Horarios:</strong> {selectedRequestAdmin.openingHours}</p>}
-                                    {selectedRequestAdmin.socialMediaLinks && <p><strong className="font-medium">Redes Sociales:</strong> {selectedRequestAdmin.socialMediaLinks}</p>}
+                                    {selectedRequestAdmin.socialMediaLinks && <p><strong className="font-medium">Redes Sociales:</strong> <a href={selectedRequestAdmin.socialMediaLinks.startsWith('http') ? selectedRequestAdmin.socialMediaLinks : `https://${selectedRequestAdmin.socialMediaLinks}`} target="_blank" rel="noopener noreferrer" className="text-teal-600 hover:underline">{selectedRequestAdmin.socialMediaLinks}</a></p>}
                                 </div>
 
                                 <div className="pt-2 mt-2 border-t">

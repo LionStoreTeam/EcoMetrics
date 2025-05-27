@@ -14,7 +14,7 @@ import toast from 'react-hot-toast';
 import { Briefcase, Upload, Image as ImageIcon, X, Loader2, CreditCard } from "lucide-react";
 import Image from "next/image";
 import { MEXICAN_STATES, BUSINESS_TYPES, type MexicanState } from "@/lib/constants"; //
-import { BusinessPromotionFormData } from "@/types/types"; //
+import { BusinessFormData } from "@/types/types"; //
 import { ALLOWED_AVATAR_TYPES, MAX_AVATAR_SIZE } from "@/lib/s3-service"; // Reutilizando constantes para el logo
 import { z } from "zod";
 
@@ -63,9 +63,9 @@ function PromoteBusinessForm() {
     const [formStep, setFormStep] = useState<"details" | "payment">("details");
 
 
-    const [formData, setFormData] = useState<BusinessPromotionFormData>({
+    const [formData, setFormData] = useState<BusinessFormData>({
         businessName: "",
-        logoFile: null,
+        logo: null,
         description: "",
         businessType: "",
         address: "",
@@ -265,7 +265,7 @@ function PromoteBusinessForm() {
             toast.success("¡Tu solicitud de promoción ha sido enviada con éxito y está pendiente de aprobación!");
             // Resetear formulario y estado
             setFormData({
-                businessName: "", logoFile: null, description: "", businessType: "",
+                businessName: "", logo: null, description: "", businessType: "",
                 address: "", city: "", state: "", zipCode: "", phone: "", email: "",
                 website: "", latitude: "", longitude: "", openingHours: "", socialMedia: "",
             });

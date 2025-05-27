@@ -156,7 +156,7 @@ function PromoteProductForm() {
             return;
         }
 
-        setFormData(prev => ({ ...prev, productImageFiles: newImageFiles }));
+        setFormData(prev => ({ ...prev, productImageFiles: newImageFiles } as any));
         const newPreviews = filesArray.map(file => URL.createObjectURL(file));
         setProductImagePreviews(prev => [...prev, ...newPreviews]);
         setErrors(prev => ({ ...prev, productImageFiles: undefined }));
@@ -188,6 +188,22 @@ function PromoteProductForm() {
             validUntil: formData.validUntil ? new Date(formData.validUntil) : undefined,
             latitude: formData.latitude || undefined,
             longitude: formData.longitude || undefined,
+            businessName: formData.businessName,
+            productName: formData.productName,
+            businessLogoFile: formData.businessLogoFile, // Logo del negocio
+            description: formData.description,
+            businessType: formData.businessType,
+            productImageFiles: formData.productImageFiles as any,
+            priceOrPromotion: formData.priceOrPromotion,
+            address: formData.address,
+            city: formData.city,
+            state: formData.state,
+            zipCode: formData.zipCode,
+            phone: formData.phone,
+            openingHours: formData.openingHours,
+            contactEmail: formData.contactEmail,
+            website: formData.website,
+            socialMediaLinks: formData.socialMediaLinks,
         };
 
         const validationResult = promoteProductFormSchemaClient.safeParse(dataToValidate);
@@ -294,7 +310,7 @@ function PromoteProductForm() {
         }
         // Imágenes del producto
         formData.productImageFiles.forEach((file, index) => {
-            apiFormData.append(`productImageFile_${index}`, file);
+            apiFormData.append(`productImageFile_${index}`, file as any);
         });
         apiFormData.append("paymentIntentId", paymentIntentId);
 

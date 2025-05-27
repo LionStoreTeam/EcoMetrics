@@ -175,9 +175,7 @@ export interface BusinessFormData {
   openingHours?: string;
   email?: string;
   website?: string;
-  facebook?: string; // Ejemplo de redes sociales separadas
-  instagram?: string;
-  twitter?: string;
+  socialMedia?: string;
 }
 
 export interface BusinessPromotion extends BusinessFormData {
