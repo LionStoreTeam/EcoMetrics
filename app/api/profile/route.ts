@@ -6,11 +6,10 @@ import {
   deleteFileFromS3,
   validateAvatarFile,
 } from "@/lib/s3-service";
+import { bucketName, region } from "@/types/types-s3-services";
 
 // Helper para construir la URL pública de S3
 const getPublicS3Url = (fileKey: string): string | null => {
-  const bucketName = process.env.AWS_BUCKET_NAME;
-  const region = process.env.AWS_REGION;
   if (bucketName && region && fileKey) {
     return `https://${bucketName}.s3.${region}.amazonaws.com/${fileKey}`;
   }

@@ -1,4 +1,15 @@
 import {
+  ALLOWED_AVATAR_TYPES,
+  ALLOWED_FILE_TYPES,
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
+  bucketName,
+  MAX_AVATAR_SIZE,
+  MAX_FILE_SIZE,
+  s3BaseUrl,
+  s3Client,
+} from "@/types/types-s3-services";
+import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
@@ -7,46 +18,6 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { v4 as uuidv4 } from "uuid";
-
-// Configuración del cliente S3
-const s3Client = new S3Client({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
-  },
-});
-
-const bucketName = process.env.AWS_BUCKET_NAME || "";
-const s3BaseUrl = `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com`;
-
-// Tipos de archivos permitidos (solo imágenes para avatar)
-export const ALLOWED_AVATAR_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/jpg",
-];
-// Tipos generales para otras subidas
-export const ALLOWED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/jpg",
-];
-export const ALLOWED_VIDEO_TYPES = ["video/mp4", "image/gif"]; // GIF se trata como video para este caso
-export const ALLOWED_FILE_TYPES = [
-  // Usado para validación general de archivos de evidencia
-  ...ALLOWED_IMAGE_TYPES,
-  ...ALLOWED_VIDEO_TYPES,
-];
-
-export const MAX_AVATAR_SIZE = 5 * 1024 * 1024; // 5MB para avatares
-export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB general para evidencias
-
-// Constantes para la carga de archivos de evidencia de actividad
-export const MIN_FILES = 1; // Mínimo de archivos para evidencia
-export const MAX_FILES = 3; // Máximo de archivos para evidencia
 
 // Función para generar un nombre de archivo único
 export const generateUniqueFileName = (originalName: string): string => {
@@ -98,7 +69,7 @@ export const uploadAvatarToS3 = async (
 };
 
 // Función para subir un archivo de EVIDENCIA a S3 con ACL pública
-export const uploadFileToS3 = async (
+export const uploadFileEvidenceToS3 = async (
   file: File,
   folderPrefix: string = "activity-evidence/" // Carpeta para evidencias de actividades
 ): Promise<{

@@ -381,14 +381,13 @@ import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { z } from "zod";
 import {
-  uploadFileToS3,
+  uploadFileEvidenceToS3,
   validateFile,
-  MIN_FILES,
-  MAX_FILES,
   getPublicS3Url, // Asegúrate que esta importación exista o esté correcta
 } from "@/lib/s3-service";
 import { ALL_BADGES } from "@/lib/badgeDefinitions";
 import { ActivityStatus } from "@prisma/client"; // Importar el enum generado por Prisma
+import { MAX_FILES, MIN_FILES } from "@/types/types-s3-services";
 
 // El schema de Zod se mantiene igual para la validación de entrada
 const activitySchema = z.object({
@@ -657,7 +656,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const evidenceUploadPromises = files.map((file) => uploadFileToS3(file));
+    const evidenceUploadPromises = files.map((file) =>
+      uploadFileEvidenceToS3(file)
+    );
     const evidenceResults = await Promise.all(evidenceUploadPromises);
 
     // Los puntos se inicializan en 0 y el estado en PENDING_REVIEW

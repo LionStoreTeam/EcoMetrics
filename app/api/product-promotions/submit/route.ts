@@ -4,12 +4,12 @@ import prisma from "@/lib/prisma"; //
 import { z } from "zod";
 import {
   uploadAvatarToS3, // Para el logo del negocio
-  uploadFileToS3, // Para las imágenes de producto
+  uploadFileEvidenceToS3, // Para las imágenes de producto
   validateAvatarFile, // Para el logo
   validateFile, // Para las imágenes de producto (reutilizando la validación general)
-  MAX_FILES as MAX_PRODUCT_IMAGES, // Reutilizamos MAX_FILES para el producto, podría ser una constante diferente
 } from "@/lib/s3-service"; //
 import Stripe from "stripe";
+import { MAX_FILES } from "@/types/types-s3-services";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2025-04-30.basil",
@@ -168,11 +168,11 @@ export async function POST(request: NextRequest) {
     // 3. Subir imágenes del producto a S3
     if (
       productImagesFiles.length < 1 ||
-      productImagesFiles.length > MAX_PRODUCT_IMAGES
+      productImagesFiles.length > MAX_FILES
     ) {
       return NextResponse.json(
         {
-          error: `Debes subir entre 1 y ${MAX_PRODUCT_IMAGES} imágenes para el producto.`,
+          error: `Debes subir entre 1 y ${MAX_FILES} imágenes para el producto.`,
         },
         { status: 400 }
       );
@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
         );
       }
       // Usar un prefijo diferente para las imágenes de producto
-      const s3Response = await uploadFileToS3(
+      const s3Response = await uploadFileEvidenceToS3(
         file,
         "product-promotion-images/"
       ); //
