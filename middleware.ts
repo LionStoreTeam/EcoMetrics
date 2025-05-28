@@ -6,6 +6,7 @@ import { getSession } from "./lib/auth";
 const protectedRoutes = [
   "/dashboard",
   "/actividades",
+  "/educacion",
   "/recompensas",
   "/badges",
   "/scores",
@@ -28,6 +29,13 @@ const adminAuthRoutes = [
   "/admin-auth/recuperar",
 ];
 
+const educationCreatorRoutes = [
+  "/educacion/articulos/nuevo",
+  "/educacion/articulos/editar",
+  "/educacion/visual/nuevo",
+  "/educacion/visual/editar",
+];
+
 export async function middleware(request: NextRequest) {
   const session = await getSession();
   const { pathname } = request.nextUrl;
@@ -48,6 +56,10 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
+  // Rutas protegidas para crear recursos de Educación
+  const isSchooGover = educationCreatorRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
   // Redirigir según el estado de autenticación
   if (isProtectedRoute && !session) {
     // Redirigir a login si intenta acceder a ruta protegida sin sesión
@@ -71,6 +83,12 @@ export async function middleware(request: NextRequest) {
   if (isAdminAuthRoute && session && session.role !== "ADMIN") {
     // Redirigir al dashboard normal
     return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  // Si un usuario ya está autenticado e intenta acceder a la creación de recursos de Educación
+  if (isSchooGover && session && session.userType !== "GOVERNMENT") {
+    // Redirigir al dashboard normal
+    return NextResponse.redirect(new URL("/educacion", request.url));
   }
 
   return NextResponse.next();

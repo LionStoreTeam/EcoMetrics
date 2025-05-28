@@ -28,9 +28,15 @@ model User {
   rewards    Reward[]
   groups     GroupMember[]
 
-  educationalArticles EducationalArticle[] @relation("UserEducationalArticles")
-  articleRatings      ArticleRating[]      @relation("UserArticleRatings")
-  notifications       Notification[] // Notificaciones recibidas por este usuario
+  educationalArticles   EducationalArticle[]   @relation("UserEducationalArticles")
+  articleRatings        ArticleRating[]        @relation("UserArticleRatings")
+  notifications         Notification[] // Notificaciones recibidas por este usuario
+  visualMaterials       VisualMaterial[]
+  visualMaterialRatings VisualMaterialRating[]
+  ShortVideo            ShortVideo[]
+  createdShortVideos    ShortVideo[]           @relation("UserShortVideos")
+  shortVideoRating      ShortVideoRating[]     @relation("UserShortVideoRatings")
+  ShortVideoRating      ShortVideoRating[]
 }
 
 // Tipos de usuario
@@ -458,5 +464,122 @@ model ArticleRating {
 
   @@unique([userId, articleId]) // Un usuario solo puede valorar un artículo una vez
   @@index([articleId])
+  @@index([userId])
+}
+
+// Enum para los tópicos del material visual (similar a ArticleTopic)
+enum VisualMaterialTopic {
+  INFOGRAFIA
+  VIDEO_TUTORIAL
+  PRESENTACION
+  GALERIA_IMAGENES
+  GUIA_VISUAL_RAPIDA
+  ECO_RETO_VISUAL
+  OTRO
+}
+
+model VisualMaterial {
+  id                String              @id @default(cuid())
+  title             String
+  description       String?
+  topic             VisualMaterialTopic // Nuevo enum para temas
+  authorName        String
+  authorInstitution String
+  authorInfo        String? // Para información más larga
+  userId            String // ID del User que lo creó
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  images  VisualMaterialImage[] // Relación uno-a-muchos con las imágenes
+  ratings VisualMaterialRating[] // Relación uno-a-muchos con las valoraciones
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([topic])
+}
+
+model VisualMaterialImage {
+  id               String         @id @default(cuid())
+  s3Key            String // La clave del archivo en S3
+  order            Int // Para mantener el orden de las imágenes
+  visualMaterialId String
+  visualMaterial   VisualMaterial @relation(fields: [visualMaterialId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([visualMaterialId])
+}
+
+model VisualMaterialRating {
+  id               String         @id @default(cuid())
+  liked            Boolean // true para "Me gusta", false para "No me gusta"
+  visualMaterialId String
+  visualMaterial   VisualMaterial @relation(fields: [visualMaterialId], references: [id], onDelete: Cascade)
+  userId           String
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, visualMaterialId]) // Un usuario solo puede valorar una vez
+  @@index([visualMaterialId])
+  @@index([userId])
+}
+
+enum VideoTopic {
+  TUTORIAL_PRACTICO
+  CONSEJO_RAPIDO
+  DEMOSTRACION_PROYECTO
+  ENTREVISTA_EXPERTO
+  ANIMACION_EXPLICATIVA
+  ECO_NOTICIA_BREVE
+  OTRO
+}
+
+model ShortVideo {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+
+  videoS3Key       String? // Clave del archivo de video en S3, ahora opcional
+  externalVideoUrl String? // Nueva URL para videos externos
+  // Podríamos añadir un enum VideoSourceType { S3, EXTERNAL_URL } si queremos ser más explícitos
+
+  thumbnailS3Key    String?
+  duration          Int?
+  topic             VideoTopic
+  authorName        String
+  authorInstitution String
+  authorInfo        String?
+  userId            String
+  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserShortVideos")
+
+  ratings ShortVideoRating[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Podríamos añadir una restricción a nivel de base de datos para asegurar que al menos uno de videoS3Key o externalVideoUrl esté presente.
+  // @@check(COALESCE(videoS3Key, externalVideoUrl) IS NOT NULL) // Ejemplo de restricción (la sintaxis puede variar según la DB)
+  User      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([topic])
+}
+
+model ShortVideoRating {
+  id           String     @id @default(cuid())
+  liked        Boolean
+  shortVideoId String
+  shortVideo   ShortVideo @relation(fields: [shortVideoId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserShortVideoRatings")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, shortVideoId])
+  @@index([shortVideoId])
   @@index([userId])
 }

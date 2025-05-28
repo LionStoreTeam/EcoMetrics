@@ -226,7 +226,7 @@ export default function EducationalArticlePage() {
         <DashboardLayout>
             <div className="container mx-auto px-2 sm:px-4 py-8 max-w-4xl">
                 <div className="mb-6">
-                    <Link href="/educacion" className="text-sm text-green-600 hover:underline flex items-center">
+                    <Link href="/educacion/articulos/" className="text-sm text-green-600 hover:underline flex items-center">
                         <ArrowLeft className="h-4 w-4 mr-1" /> Volver a todos los artículos
                     </Link>
                 </div>

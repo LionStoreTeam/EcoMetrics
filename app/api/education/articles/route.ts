@@ -29,8 +29,6 @@ const createArticleSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     const session = await getSession();
-    console.log(session);
-
     if (
       !session ||
       !session.id ||

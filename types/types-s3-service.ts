@@ -37,6 +37,9 @@ export const ALLOWED_FILE_TYPES = [
 export const MAX_AVATAR_SIZE = 5 * 1024 * 1024; // 5MB para avatares
 export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB general para imágenes
 
+export const MAX_SHORT_VIDEO_SIZE = 10 * 1024 * 1024; // Ejemplo: 10MB para videos cortos
+export const MAX_THUMBNAIL_SIZE = 2 * 1024 * 1024; // Ejemplo: 2MB para miniaturas (podría reusar MAX_AVATAR_SIZE si es 5MB)
+
 // Constantes para la carga de archivos
 export const MIN_FILES = 1; // Mínimo de archivos
 export const MAX_FILES = 3; // Máximo de archivos

@@ -125,6 +125,183 @@ export const uploadFileEvidenceToS3 = async (
   }
 };
 
+// Subir archivos MATERIAL VISUAL
+export const uploadVisualMaterialImageToS3 = async (
+  file: File,
+  folderPrefix: string = "visual-material-images/" // Nueva carpeta para material visual
+): Promise<{
+  fileKey: string; // Clave del objeto en S3 (ej. visual-material-images/nombre-unico.jpg)
+  publicUrl: string; // URL pública directa al objeto en S3
+  originalFileName: string;
+  fileType: string; // Mime type (ej. 'image/jpeg')
+  fileSize: number;
+  format: string; // Extensión
+}> => {
+  // Validaciones de tipo y tamaño ya se hacen en el frontend y backend antes de llamar a esta función,
+  // pero podrían duplicarse aquí por seguridad si se desea.
+  // Por ahora, asumimos que la validación principal se hace antes.
+
+  const uniqueFileName = generateUniqueFileName(file.name); // Reutilizar función existente
+  const fileKey = `${folderPrefix}${uniqueFileName}`;
+  const fileBuffer = await file.arrayBuffer();
+  const format = file.name.split(".").pop()?.toLowerCase() || "";
+
+  const params: PutObjectCommandInput = {
+    Bucket: bucketName,
+    Key: fileKey,
+    Body: Buffer.from(fileBuffer),
+    ContentType: file.type,
+    ACL: "public-read",
+  };
+
+  try {
+    await s3Client.send(new PutObjectCommand(params));
+    const publicUrl = `${s3BaseUrl}/${fileKey}`;
+    console.log(
+      "Imagen de Material Visual subida a S3. Key:",
+      fileKey,
+      "URL:",
+      publicUrl
+    );
+    return {
+      fileKey,
+      publicUrl,
+      originalFileName: file.name,
+      fileType: file.type,
+      fileSize: file.size,
+      format,
+    };
+  } catch (error) {
+    console.error("Error al subir imagen de material visual a S3:", error);
+    throw new Error("Error al subir la imagen del material visual");
+  }
+};
+
+// Subir VIDEOS CORTOS
+export const uploadShortVideoFileToS3 = async (
+  file: File,
+  folderPrefix: string = "short-videos/" // Carpeta para videos cortos
+): Promise<{
+  fileKey: string;
+  publicUrl: string;
+  originalFileName: string;
+  fileType: string; // Mime type (e.g., 'video/mp4')
+  fileSize: number;
+  format: string;
+}> => {
+  // La validación principal de tipo y tamaño se hará antes de llamar a esta función.
+  const uniqueFileName = generateUniqueFileName(file.name);
+  const fileKey = `${folderPrefix}${uniqueFileName}`;
+  const fileBuffer = await file.arrayBuffer();
+  const format = file.name.split(".").pop()?.toLowerCase() || "";
+
+  const params: PutObjectCommandInput = {
+    Bucket: bucketName,
+    Key: fileKey,
+    Body: Buffer.from(fileBuffer),
+    ContentType: file.type,
+    ACL: "public-read",
+  };
+
+  try {
+    await s3Client.send(new PutObjectCommand(params));
+    const publicUrl = `${s3BaseUrl}/${fileKey}`;
+    console.log("Video corto subido a S3. Key:", fileKey, "URL:", publicUrl);
+    return {
+      fileKey,
+      publicUrl,
+      originalFileName: file.name,
+      fileType: file.type,
+      fileSize: file.size,
+      format,
+    };
+  } catch (error) {
+    console.error("Error al subir video corto a S3:", error);
+    throw new Error("Error al subir el video corto");
+  }
+};
+
+// thumbnails DE VIDES CORTORS
+export const uploadVideoThumbnailToS3 = async (
+  file: File,
+  folderPrefix: string = "video-thumbnails/"
+): Promise<{
+  /* ...mismos campos que uploadAvatarToS3... */ fileKey: string;
+  publicUrl: string;
+  fileName: string;
+  fileType: string;
+  fileSize: number;
+  format: string;
+}> => {
+  // Esta función sería muy similar a uploadAvatarToS3, solo cambia el folderPrefix por defecto
+  // y el mensaje de log. Se puede copiar y adaptar uploadAvatarToS3.
+  const uniqueFileName = generateUniqueFileName(file.name);
+  const fileKey = `${folderPrefix}${uniqueFileName}`;
+  const fileBuffer = await file.arrayBuffer();
+  const format = file.name.split(".").pop()?.toLowerCase() || "";
+
+  const params: PutObjectCommandInput = {
+    Bucket: bucketName,
+    Key: fileKey,
+    Body: Buffer.from(fileBuffer),
+    ContentType: file.type,
+    ACL: "public-read",
+  };
+
+  try {
+    await s3Client.send(new PutObjectCommand(params));
+    const publicUrl = `${s3BaseUrl}/${fileKey}`;
+    console.log(
+      "Miniatura de video subida a S3. Key:",
+      fileKey,
+      "URL:",
+      publicUrl
+    );
+    return {
+      fileKey,
+      publicUrl,
+      fileName: file.name,
+      fileType: file.type,
+      fileSize: file.size,
+      format,
+    };
+  } catch (error) {
+    console.error("Error al subir miniatura de video a S3:", error);
+    throw new Error("Error al subir la miniatura del video");
+  }
+};
+
+// Nueva función de validación específica para videos (o adaptar la existente)
+export const validateVideoFile = (
+  file: File,
+  maxSizeMB = 10
+): { valid: boolean; error?: string } => {
+  // Ejemplo: Límite de 10MB para videos
+  const MAX_VIDEO_SIZE = maxSizeMB * 1024 * 1024;
+  // Usar ALLOWED_VIDEO_TYPES que ya existe en types-s3-service.ts
+  // Si GIF no se considera video para esta sección, se debe ajustar ALLOWED_VIDEO_TYPES o crear una nueva constante.
+  // Por ahora, asumimos que ALLOWED_VIDEO_TYPES es adecuado.
+  const currentAllowedVideoTypes = ALLOWED_VIDEO_TYPES.filter(
+    (type) => type !== "image/gif"
+  ); // Excluir GIF si solo se quieren videos reales
+
+  if (!currentAllowedVideoTypes.includes(file.type)) {
+    return {
+      valid: false,
+      error: `Tipo de archivo no permitido para video. Solo se permiten: ${currentAllowedVideoTypes
+        .map((t) => t.split("/")[1])
+        .join(", ")}.`,
+    };
+  }
+  if (file.size > MAX_VIDEO_SIZE) {
+    return {
+      valid: false,
+      error: `El video excede el tamaño máximo de ${maxSizeMB}MB.`,
+    };
+  }
+  return { valid: true };
+};
+
 // Función para obtener la URL firmada de un archivo PRIVADO en S3
 export const getSignedFileUrl = async (
   fileKey: string,

@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { z } from "zod";
 import { ArticleTopic, UserType } from "@prisma/client";
+import { deleteFileFromS3 } from "@/lib/s3-service";
 
 // Esquema de validación para la actualización de artículos
 const updateArticleSchema = z.object({

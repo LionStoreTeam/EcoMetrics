@@ -259,6 +259,43 @@ CREATE TABLE "ArticleRating" (
 );
 
 -- CreateTable
+CREATE TABLE "VisualMaterial" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "title" TEXT NOT NULL,
+    "description" TEXT,
+    "topic" TEXT NOT NULL,
+    "authorName" TEXT NOT NULL,
+    "authorInstitution" TEXT NOT NULL,
+    "authorInfo" TEXT,
+    "userId" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    CONSTRAINT "VisualMaterial_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "VisualMaterialImage" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "s3Key" TEXT NOT NULL,
+    "order" INTEGER NOT NULL,
+    "visualMaterialId" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "VisualMaterialImage_visualMaterialId_fkey" FOREIGN KEY ("visualMaterialId") REFERENCES "VisualMaterial" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "VisualMaterialRating" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "liked" BOOLEAN NOT NULL,
+    "visualMaterialId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    CONSTRAINT "VisualMaterialRating_visualMaterialId_fkey" FOREIGN KEY ("visualMaterialId") REFERENCES "VisualMaterial" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "VisualMaterialRating_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
 CREATE TABLE "_ProfileBadges" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL,
@@ -340,6 +377,24 @@ CREATE INDEX "ArticleRating_userId_idx" ON "ArticleRating"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "ArticleRating_userId_articleId_key" ON "ArticleRating"("userId", "articleId");
+
+-- CreateIndex
+CREATE INDEX "VisualMaterial_userId_idx" ON "VisualMaterial"("userId");
+
+-- CreateIndex
+CREATE INDEX "VisualMaterial_topic_idx" ON "VisualMaterial"("topic");
+
+-- CreateIndex
+CREATE INDEX "VisualMaterialImage_visualMaterialId_idx" ON "VisualMaterialImage"("visualMaterialId");
+
+-- CreateIndex
+CREATE INDEX "VisualMaterialRating_visualMaterialId_idx" ON "VisualMaterialRating"("visualMaterialId");
+
+-- CreateIndex
+CREATE INDEX "VisualMaterialRating_userId_idx" ON "VisualMaterialRating"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "VisualMaterialRating_userId_visualMaterialId_key" ON "VisualMaterialRating"("userId", "visualMaterialId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_ProfileBadges_AB_unique" ON "_ProfileBadges"("A", "B");
