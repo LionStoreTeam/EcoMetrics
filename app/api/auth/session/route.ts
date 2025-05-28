@@ -22,6 +22,7 @@ export async function GET() {
         role: true,
         points: true,
         level: true,
+        userType: true,
       },
     });
 

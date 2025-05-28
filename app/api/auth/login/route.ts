@@ -42,6 +42,7 @@ export async function POST(request: NextRequest) {
     const token = await encrypt({
       id: user.id,
       email: user.email,
+      userType: user.userType,
       role: user.role,
     });
 

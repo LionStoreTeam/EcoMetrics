@@ -56,6 +56,7 @@ export async function login(formData: FormData) {
     const token = await encrypt({
       id: user.id,
       email: user.email,
+      userType: user.userType,
       role: user.role,
     });
 
@@ -94,4 +95,7 @@ export async function updateSession(request: NextRequest) {
   return NextResponse.next();
 }
 
-export type SessionUser = Pick<User, "id" | "email" | "name" | "role">;
+export type SessionUser = Pick<
+  User,
+  "id" | "email" | "name" | "role" | "userType"
+>;

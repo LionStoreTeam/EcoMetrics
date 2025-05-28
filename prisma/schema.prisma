@@ -28,7 +28,9 @@ model User {
   rewards    Reward[]
   groups     GroupMember[]
 
-  notifications Notification[] // Notificaciones recibidas por este usuario
+  educationalArticles EducationalArticle[] @relation("UserEducationalArticles")
+  articleRatings      ArticleRating[]      @relation("UserArticleRatings")
+  notifications       Notification[] // Notificaciones recibidas por este usuario
 }
 
 // Tipos de usuario
@@ -404,4 +406,57 @@ model ProductPromotionRequest {
   @@index([state, city])
   @@index([businessName])
   @@index([productName])
+}
+
+// Sección Educación
+
+enum ArticleTopic {
+  REDUCCION_RESIDUOS
+  AHORRO_RECURSOS
+  CONSUMO_RESPONSABLE
+  BIODIVERSIDAD
+  HUERTOS_URBANOS
+  MOVILIDAD_SOSTENIBLE
+  CAMBIO_CLIMATICO
+  OTRO // Opción por si se añaden más temas no predefinidos
+}
+
+model EducationalArticle {
+  id                String       @id @default(cuid())
+  title             String
+  content           String // @db.Text // Para contenido largo
+  topic             ArticleTopic
+  authorName        String
+  authorInstitution String
+  authorInfo        String? // Información adicional del autor (opcional)
+  coverImageUrl     String? // URL de una imagen de portada (opcional)
+
+  userId String // ID del usuario creador
+  user   User   @relation("UserEducationalArticles", fields: [userId], references: [id], onDelete: Cascade) // Relación con el creador
+
+  ratings ArticleRating[] // Relación con las valoraciones
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([topic])
+}
+
+model ArticleRating {
+  id    String  @id @default(cuid())
+  liked Boolean // true para "Me gusta", false para "No me gusta"
+
+  articleId String
+  article   EducationalArticle @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation("UserArticleRatings", fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, articleId]) // Un usuario solo puede valorar un artículo una vez
+  @@index([articleId])
+  @@index([userId])
 }

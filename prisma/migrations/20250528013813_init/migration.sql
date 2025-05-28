@@ -231,6 +231,34 @@ CREATE TABLE "ProductPromotionRequest" (
 );
 
 -- CreateTable
+CREATE TABLE "EducationalArticle" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "title" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "topic" TEXT NOT NULL,
+    "authorName" TEXT NOT NULL,
+    "authorInstitution" TEXT NOT NULL,
+    "authorInfo" TEXT,
+    "coverImageUrl" TEXT,
+    "userId" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    CONSTRAINT "EducationalArticle_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "ArticleRating" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "liked" BOOLEAN NOT NULL,
+    "articleId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    CONSTRAINT "ArticleRating_articleId_fkey" FOREIGN KEY ("articleId") REFERENCES "EducationalArticle" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "ArticleRating_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- CreateTable
 CREATE TABLE "_ProfileBadges" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL,
@@ -297,6 +325,21 @@ CREATE INDEX "ProductPromotionRequest_businessName_idx" ON "ProductPromotionRequ
 
 -- CreateIndex
 CREATE INDEX "ProductPromotionRequest_productName_idx" ON "ProductPromotionRequest"("productName");
+
+-- CreateIndex
+CREATE INDEX "EducationalArticle_userId_idx" ON "EducationalArticle"("userId");
+
+-- CreateIndex
+CREATE INDEX "EducationalArticle_topic_idx" ON "EducationalArticle"("topic");
+
+-- CreateIndex
+CREATE INDEX "ArticleRating_articleId_idx" ON "ArticleRating"("articleId");
+
+-- CreateIndex
+CREATE INDEX "ArticleRating_userId_idx" ON "ArticleRating"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ArticleRating_userId_articleId_key" ON "ArticleRating"("userId", "articleId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_ProfileBadges_AB_unique" ON "_ProfileBadges"("A", "B");

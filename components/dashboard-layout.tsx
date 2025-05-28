@@ -6,7 +6,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Leaf, Map, User, LogOut, Menu, LayoutDashboard, BarChart2, Medal, Trophy, Bell, Gift } from "lucide-react"; // Añadido Bell y Gift (si no estaba)
+import { Leaf, Map, User, LogOut, Menu, LayoutDashboard, BarChart2, Medal, Trophy, Bell, Gift, GraduationCap } from "lucide-react"; // Añadido Bell y Gift (si no estaba)
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -15,6 +15,8 @@ import toast from "react-hot-toast";
 import { UserProfileData, UserStats } from "@/types/types"; // Asumo que UserProfileBadge está en types.ts
 import LevelUserCard from "./LevelUserCard";
 import Image from "next/image";
+
+
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -210,6 +212,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   <MobileNavItem href="/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} label="Dashboard" active={pathname === "/dashboard"} />
                   <MobileNavItem href="/estadisticas" icon={<BarChart2 className="h-5 w-5" />} label="Estadísticas" active={pathname === "/estadisticas"} />
                   <MobileNavItem href="/actividades" icon={<Leaf className="h-5 w-5" />} label="Actividades" active={pathname === "/actividades"} />
+                  <NavItem href="/educacion" icon={<GraduationCap className="h-5 w-5" />} label="Educacion" active={pathname === "/educacion"} />
                   <MobileNavItem href="/recompensas" icon={<Gift className="h-5 w-5" />} label="Recompensas" active={pathname === "/recompensas"} />
                   <MobileNavItem href="/badges" icon={<Medal className="h-5 w-5" />} label="Insignias" active={pathname === "/badges"} />
                   <MobileNavItem href="/scores" icon={<Trophy className="h-5 w-5" />} label="Marcadores" active={pathname === "/scores"} />
@@ -274,6 +277,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <NavItem href="/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} label="Dashboard" active={pathname === "/dashboard"} />
             <NavItem href="/estadisticas" icon={<BarChart2 className="h-5 w-5" />} label="Estadísticas" active={pathname === "/estadisticas"} />
             <NavItem href="/actividades" icon={<Leaf className="h-5 w-5" />} label="Actividades" active={pathname === "/actividades"} />
+            <NavItem href="/educacion" icon={<GraduationCap className="h-5 w-5" />} label="Educacion" active={pathname === "/educacion"} />
             <NavItem href="/recompensas" icon={<Gift className="h-5 w-5" />} label="Recompensas" active={pathname === "/recompensas"} />
             <NavItem href="/badges" icon={<Medal className="h-5 w-5" />} label="Insignias" active={pathname === "/badges"} />
             <NavItem href="/scores" icon={<Trophy className="h-5 w-5" />} label="Marcadores" active={pathname === "/scores"} />
