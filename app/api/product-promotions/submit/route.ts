@@ -9,7 +9,7 @@ import {
   validateFile, // Para las imágenes de producto (reutilizando la validación general)
 } from "@/lib/s3-service"; //
 import Stripe from "stripe";
-import { MAX_FILES } from "@/types/types-s3-services";
+import { MAX_FILES } from "@/types/types-s3-service";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
   apiVersion: "2025-04-30.basil",

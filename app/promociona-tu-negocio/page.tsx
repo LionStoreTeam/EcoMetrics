@@ -15,11 +15,11 @@ import { Briefcase, Upload, Image as ImageIcon, X, Loader2, CreditCard } from "l
 import Image from "next/image";
 import { MEXICAN_STATES, BUSINESS_TYPES, type MexicanState } from "@/lib/constants"; //
 import { BusinessFormData } from "@/types/types"; //
-import { ALLOWED_AVATAR_TYPES, MAX_AVATAR_SIZE } from "@/lib/s3-service"; // Reutilizando constantes para el logo
 import { z } from "zod";
 
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { ALLOWED_AVATAR_TYPES, MAX_AVATAR_SIZE } from "@/types/types-s3-service";
 
 // Asegúrate de que tu clave publicable de Stripe esté disponible como variable de entorno
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");

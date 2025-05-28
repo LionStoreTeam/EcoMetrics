@@ -37,32 +37,6 @@ export const MEXICAN_STATES = [
 
 export type MexicanState = (typeof MEXICAN_STATES)[number];
 
-// export const MATERIAL_CATEGORIES_ES = {
-//   PLASTIC: "Plástico",
-//   PAPER: "Papel y Cartón",
-//   GLASS: "Vidrio",
-//   METAL: "Metal",
-//   ORGANIC: "Orgánico",
-//   ELECTRONIC: "Electrónico",
-//   HAZARDOUS: "Peligroso",
-//   OTHER: "Otro",
-// } as const;
-
-// // NUEVAS CONSTANTES PARA TIPOS DE NEGOCIO
-// export const BUSINESS_TYPES_OPTIONS = [
-//   { value: "FOOD", label: "Comida y Restaurantes" },
-//   { value: "PRODUCTS", label: "Productos y Tiendas" },
-//   { value: "SERVICES", label: "Servicios Profesionales" },
-//   { value: "TECHNOLOGY", label: "Tecnología y Software" },
-//   { value: "HEALTH", label: "Salud y Bienestar" },
-//   { value: "EDUCATION", label: "Educación y Capacitación" },
-//   { value: "TOURISM", label: "Turismo y Hotelería" },
-//   { value: "OTHER", label: "Otro" },
-// ] as const;
-
-// export type BusinessTypeValue =
-//   (typeof BUSINESS_TYPES_OPTIONS)[number]["value"];
-
 export const MATERIAL_CATEGORIES_ES = {
   PLASTIC: "Plástico",
   PAPER: "Papel y Cartón",

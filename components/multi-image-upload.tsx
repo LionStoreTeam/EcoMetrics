@@ -5,9 +5,9 @@ import { useState, useRef, type ChangeEvent, useCallback, useEffect } from "reac
 import { Upload, X, Image as ImageIcon, AlertCircle } from "lucide-react";
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
+import { ALLOWED_IMAGE_TYPES, MAX_FILES, MIN_FILES } from "@/types/types-s3-service";
 // Usaremos ALLOWED_AVATAR_TYPES para ser consistentes con el logo y evitar GIFs para imágenes de producto.
 // Si se necesitaran tipos diferentes, se crearía una nueva constante.
-import { ALLOWED_AVATAR_TYPES as ALLOWED_PRODUCT_IMAGE_TYPES, MAX_FILE_SIZE, MIN_FILES as MIN_PRODUCT_IMAGES, MAX_FILES as MAX_PRODUCT_IMAGES } from "@/lib/s3-service";
 
 interface ProductImageFile {
     id: string;
@@ -25,8 +25,8 @@ interface MultiImageUploadProps {
 
 export default function MultiImageUpload({
     onFilesChange,
-    minFiles = MIN_PRODUCT_IMAGES,
-    maxFiles = MAX_PRODUCT_IMAGES,
+    minFiles = MIN_FILES,
+    maxFiles = MAX_FILES,
     formError,
     triggerReset // Recibir la prop
 }: MultiImageUploadProps) {
@@ -59,11 +59,11 @@ export default function MultiImageUpload({
         } else {
             files.forEach((file, index) => {
                 // Usar ALLOWED_PRODUCT_IMAGE_TYPES (que ahora es alias de ALLOWED_AVATAR_TYPES)
-                if (!ALLOWED_PRODUCT_IMAGE_TYPES.includes(file.type)) {
+                if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
                     currentErrors.push(`Archivo '${file.name}': Tipo no permitido (solo JPG, PNG, WEBP).`);
                     return;
                 }
-                if (file.size > MAX_FILE_SIZE) {
+                if (file.size > MAX_FILES) {
                     currentErrors.push(`Archivo '${file.name}': Excede 5MB.`);
                     return;
                 }
@@ -130,7 +130,7 @@ export default function MultiImageUpload({
                     ref={fileInputRef}
                     onChange={handleFileChange}
                     className="hidden"
-                    accept={ALLOWED_PRODUCT_IMAGE_TYPES.join(",")} // Usar la constante correcta
+                    accept={ALLOWED_IMAGE_TYPES.join(",")} // Usar la constante correcta
                     multiple
                 />
                 <Upload className="mx-auto h-10 w-10 text-gray-400" />

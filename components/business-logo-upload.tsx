@@ -4,8 +4,8 @@
 import { useState, useRef, type ChangeEvent } from "react";
 import { Upload, X, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
-import { ALLOWED_AVATAR_TYPES, MAX_AVATAR_SIZE } from "@/lib/s3-service"; // Reutilizamos validaciones de avatar por simplicidad
 import { Button } from "./ui/button";
+import { ALLOWED_AVATAR_TYPES, MAX_AVATAR_SIZE } from "@/types/types-s3-service";
 
 interface BusinessLogoUploadProps {
     onFileChange: (file: File | null) => void;

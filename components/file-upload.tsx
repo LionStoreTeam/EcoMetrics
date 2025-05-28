@@ -2,7 +2,7 @@
 
 import { useState, useRef, type ChangeEvent } from "react"
 import { X, Upload, Film } from "lucide-react"
-import { ALLOWED_FILE_TYPES, MAX_FILE_SIZE, MAX_FILES } from "@/lib/s3-service"
+import { ALLOWED_FILE_TYPES, MAX_FILE_SIZE, MAX_FILES } from "@/types/types-s3-service"
 
 interface FileUploadProps {
     onFilesChange: (files: File[]) => void

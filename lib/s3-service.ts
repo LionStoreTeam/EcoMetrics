@@ -8,7 +8,7 @@ import {
   MAX_FILE_SIZE,
   s3BaseUrl,
   s3Client,
-} from "@/types/types-s3-services";
+} from "@/types/types-s3-service";
 import {
   S3Client,
   PutObjectCommand,

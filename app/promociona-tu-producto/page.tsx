@@ -17,13 +17,13 @@ import { Package, Upload, Image as ImageIcon, X, Loader2, CreditCard, CalendarIc
 import Image from "next/image";
 import { MEXICAN_STATES, BUSINESS_TYPES, type MexicanState, type BusinessType } from "@/lib/constants";
 import { ProductPromotionFormData } from "@/types/types"; //
-import { ALLOWED_AVATAR_TYPES, MAX_AVATAR_SIZE, ALLOWED_IMAGE_TYPES, MAX_FILE_SIZE, MAX_FILES as MAX_PRODUCT_IMAGES_ALLOWED } from "@/lib/s3-service"; //
 import { z } from "zod";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { ALLOWED_AVATAR_TYPES, MAX_AVATAR_SIZE, MAX_FILE_SIZE, MAX_FILES } from "@/types/types-s3-service";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
 const PRODUCT_PROMOTION_PRICE_MXN = 30.00;
@@ -38,9 +38,9 @@ const promoteProductFormSchemaClient = z.object({
     businessType: z.string().min(1, "Debes seleccionar un tipo de negocio."),
     productImageFiles: z.array(z.instanceof(File))
         .min(1, "Debes subir al menos 1 imagen del producto.")
-        .max(MAX_PRODUCT_IMAGES_ALLOWED, `Puedes subir un máximo de ${MAX_PRODUCT_IMAGES_ALLOWED} imágenes del producto.`)
+        .max(MAX_FILES, `Puedes subir un máximo de ${MAX_FILES} imágenes del producto.`)
         .refine(files => files.every(file => file.size <= MAX_FILE_SIZE), `Cada imagen no debe exceder ${MAX_FILE_SIZE / (1024 * 1024)}MB.`)
-        .refine(files => files.every(file => ALLOWED_IMAGE_TYPES.includes(file.type)), "Alguna de las imágenes tiene un tipo de archivo no permitido (solo JPG, PNG, WEBP)."),
+        .refine(files => files.every(file => ALLOWED_AVATAR_TYPES.includes(file.type)), "Alguna de las imágenes tiene un tipo de archivo no permitido (solo JPG, PNG, WEBP)."),
     priceOrPromotion: z.string().min(3, "Especifica el precio o promoción.").max(200),
     address: z.string().min(5).max(200),
     city: z.string().min(1).max(100),
@@ -141,8 +141,8 @@ function PromoteProductForm() {
         if (filesArray.length === 0) return;
 
         const currentTotalFiles = formData.productImageFiles.length + filesArray.length;
-        if (currentTotalFiles > MAX_PRODUCT_IMAGES_ALLOWED) {
-            setErrors(prev => ({ ...prev, productImageFiles: `No puedes subir más de ${MAX_PRODUCT_IMAGES_ALLOWED} imágenes para el producto.` }));
+        if (currentTotalFiles > MAX_FILES) {
+            setErrors(prev => ({ ...prev, productImageFiles: `No puedes subir más de ${MAX_FILES} imágenes para el producto.` }));
             if (productImagesInputRef.current) productImagesInputRef.current.value = "";
             return;
         }
@@ -170,7 +170,7 @@ function PromoteProductForm() {
             productImageFiles: prev.productImageFiles.filter((_, i) => i !== index)
         }));
         setProductImagePreviews(prev => prev.filter((_, i) => i !== index));
-        if (formData.productImageFiles.length - 1 < MAX_PRODUCT_IMAGES_ALLOWED && errors.productImageFiles?.includes("máximo")) {
+        if (formData.productImageFiles.length - 1 < MAX_FILES && errors.productImageFiles?.includes("máximo")) {
             setErrors(prev => ({ ...prev, productImageFiles: undefined }));
         }
         if (formData.productImageFiles.length - 1 >= 1 && errors.productImageFiles?.includes("al menos 1")) {
@@ -431,16 +431,16 @@ function PromoteProductForm() {
 
                                 {/* Imágenes del Producto */}
                                 <div className="space-y-2">
-                                    <Label htmlFor="productImageFiles" className="font-medium text-gray-700">Imágenes del Producto ({formData.productImageFiles.length}/{MAX_PRODUCT_IMAGES_ALLOWED}) <span className="text-red-500">*</span></Label>
+                                    <Label htmlFor="productImageFiles" className="font-medium text-gray-700">Imágenes del Producto ({formData.productImageFiles.length}/{MAX_FILES}) <span className="text-red-500">*</span></Label>
                                     <div className={`p-4 border-2 ${errors.productImageFiles ? 'border-red-500' : 'border-gray-300'} border-dashed rounded-lg`}>
                                         <div
                                             className="flex items-center justify-center w-full py-3 bg-gray-50 hover:bg-gray-100 rounded-md cursor-pointer transition-colors"
                                             onClick={() => productImagesInputRef.current?.click()}
                                         >
-                                            <input type="file" id="productImageFiles" name="productImageFiles" ref={productImagesInputRef} onChange={handleProductImagesChange} className="hidden" accept="image/png, image/jpeg, image/webp" multiple disabled={isSubmittingForm || formData.productImageFiles.length >= MAX_PRODUCT_IMAGES_ALLOWED} />
+                                            <input type="file" id="productImageFiles" name="productImageFiles" ref={productImagesInputRef} onChange={handleProductImagesChange} className="hidden" accept="image/png, image/jpeg, image/webp" multiple disabled={isSubmittingForm || formData.productImageFiles.length >= MAX_FILES} />
                                             <Upload className="h-5 w-5 mr-2 text-gray-500" />
                                             <span className="text-sm text-gray-600">
-                                                {formData.productImageFiles.length >= MAX_PRODUCT_IMAGES_ALLOWED ? `Máximo ${MAX_PRODUCT_IMAGES_ALLOWED} imágenes alcanzado` : "Añadir imágenes (JPG, PNG, WEBP - Máx. 5MB c/u)"}
+                                                {formData.productImageFiles.length >= MAX_FILES ? `Máximo ${MAX_FILES} imágenes alcanzado` : "Añadir imágenes (JPG, PNG, WEBP - Máx. 5MB c/u)"}
                                             </span>
                                         </div>
                                         {productImagePreviews.length > 0 && (

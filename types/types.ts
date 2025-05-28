@@ -63,34 +63,6 @@ export interface StatsData {
   };
 }
 
-// Interfaces for User Profile Data
-
-// export interface UserProfile {
-//   id: string;
-//   name: string;
-//   email: string;
-//   role: string;
-//   userType: string;
-//   points: number;
-//   level: number;
-//   createdAt: string;
-//   profile: {
-//     bio?: string;
-//     address?: string;
-//     city?: string;
-//     state?: string;
-//     zipCode?: string;
-//     phone?: string;
-//     avatarUrl?: string;
-//   };
-//   badges: {
-//     id: string;
-//     name: string;
-//     description: string;
-//     imageUrl: string;
-//   }[];
-// }
-
 export interface UserProfileBadge {
   id: string;
   name: string;

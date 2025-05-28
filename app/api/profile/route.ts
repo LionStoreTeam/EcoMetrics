@@ -6,7 +6,7 @@ import {
   deleteFileFromS3,
   validateAvatarFile,
 } from "@/lib/s3-service";
-import { bucketName, region } from "@/types/types-s3-services";
+import { bucketName, region } from "@/types/types-s3-service";
 
 // Helper para construir la URL pública de S3
 const getPublicS3Url = (fileKey: string): string | null => {
