@@ -146,7 +146,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header para móviles */}
-      <header className="bg-white py-3 px-4 flex justify-between items-center lg:hidden border- shadow-sm">
+      <header className="bg-white py-3 px-4 flex justify-between items-center lg:hidden border-shadow-sm top-0 fixed w-full z-40">
         <Link href="/dashboard" className="flex items-center">
           <Image src="/logo.png" alt="logo" width={70} height={70} priority />
           <span className="font-bold pl-3">EcoMetrics</span>
@@ -212,7 +212,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   <MobileNavItem href="/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} label="Dashboard" active={pathname === "/dashboard"} />
                   <MobileNavItem href="/estadisticas" icon={<BarChart2 className="h-5 w-5" />} label="Estadísticas" active={pathname === "/estadisticas"} />
                   <MobileNavItem href="/actividades" icon={<Leaf className="h-5 w-5" />} label="Actividades" active={pathname === "/actividades"} />
-                  <NavItem href="/educacion" icon={<GraduationCap className="h-5 w-5" />} label="Educacion" active={pathname === "/educacion"} />
+                  <MobileNavItem href="/educacion" icon={<GraduationCap className="h-5 w-5" />} label="Educacion" active={pathname === "/educacion"} />
                   <MobileNavItem href="/recompensas" icon={<Gift className="h-5 w-5" />} label="Recompensas" active={pathname === "/recompensas"} />
                   <MobileNavItem href="/badges" icon={<Medal className="h-5 w-5" />} label="Insignias" active={pathname === "/badges"} />
                   <MobileNavItem href="/scores" icon={<Trophy className="h-5 w-5" />} label="Marcadores" active={pathname === "/scores"} />
@@ -255,6 +255,31 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <span className="font-bold pl-3">EcoMetrics</span>
             </Link>
           </div>
+          <div className="border-b">
+            <div className="p-3 border-t">
+              <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-100" onClick={handleLogout}>
+                <LogOut className="mr-2 h-5 w-5" />Cerrar Sesión
+              </Button>
+            </div>
+            <div className="mx-5 mb-5 text-sm p-2">
+              <span>
+                Notificaciones: {" "}
+                <Link href="/perfil#notifications_tab" passHref> {/* Enlace a la pestaña de notificaciones del perfil */}
+                  <Button variant="ghost" size="icon" className="relative text-gray-600">
+                    <Bell className="h-5 w-5" />
+                    {unreadNotifications > 0 && (
+                      <span className="absolute top-0.5 right-0.5 flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-white border-px"></span>
+                      </span>
+                    )}
+                    <span className="sr-only">Notificaciones</span>
+                  </Button>
+                </Link>
+              </span>
+            </div>
+          </div>
+
           {profile && (
             <div className="flex flex-col items-center py-5 px-3 border-b">
               <Avatar className="h-20 w-20 mb-3">
@@ -284,28 +309,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <NavItem href="/mapa" icon={<Map className="h-5 w-5" />} label="Mapa" active={pathname === "/mapa"} />
             <NavItem href="/perfil" icon={<User className="h-5 w-5" />} label="Mi Perfil" active={pathname === "/perfil"} />
           </nav>
-          <div className="mx-5 mb-5 text-sm p-2">
-            <span>
-              Notificaciones: {" "}
-              <Link href="/perfil#notifications_tab" passHref> {/* Enlace a la pestaña de notificaciones del perfil */}
-                <Button variant="ghost" size="icon" className="relative text-gray-600">
-                  <Bell className="h-5 w-5" />
-                  {unreadNotifications > 0 && (
-                    <span className="absolute top-0.5 right-0.5 flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-white border-px"></span>
-                    </span>
-                  )}
-                  <span className="sr-only">Notificaciones</span>
-                </Button>
-              </Link>
-            </span>
-          </div>
-          <div className="p-3 border-t">
-            <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-100" onClick={handleLogout}>
-              <LogOut className="mr-2 h-5 w-5" />Cerrar Sesión
-            </Button>
-          </div>
+
+
         </aside>
 
         <main className="flex-1 overflow-auto bg-gray-100">

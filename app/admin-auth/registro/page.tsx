@@ -97,12 +97,12 @@ export default function AdminRegistroPage() {
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
-            <div className="absolute top-8 flex items-center gap-2">
+            <div className="top-0 flex items-center justify-center text-center gap-2 fixed bg-white w-full p-8">
                 <Image src="/logo.png" alt="logo" width={70} height={70} priority />
                 <span className="font-bold">EcoMetrics</span>
             </div>
 
-            <Card className="w-full max-w-md">
+            <Card className="w-full max-w-md m-28">
                 <CardHeader>
                     <CardTitle className="text-2xl">Registro de Administrador</CardTitle>
                     <CardDescription>Crea una cuenta de administrador para gestionar la plataforma EcoMetrics</CardDescription>

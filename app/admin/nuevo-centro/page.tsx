@@ -3,7 +3,7 @@
 
 import { useState, useEffect, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { PlusCircle, Loader2, Building } from "lucide-react";
+import { PlusCircle, Loader2, Building, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import DashboardLayout from "@/components/dashboard-layout"; // Asumiendo que ti
 import { MEXICAN_STATES, type MexicanState } from "@/lib/constants";
 import { type MaterialDefinition } from "@/lib/materialDefinitions"; // Para tipar los materiales
 import toast from 'react-hot-toast';
+import Link from "next/link";
 
 
 interface FormData {
@@ -210,6 +211,11 @@ export default function AdminNewRecyclingCenterPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
+                <div className="mt-10 lg:mt-0">
+                    <Link href="/admin" className="text-sm text-blue-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver
+                    </Link>
+                </div>
                 <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3">
                         <Building className="h-8 w-8" />

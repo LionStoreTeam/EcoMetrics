@@ -185,7 +185,7 @@ export default function RewardsPage() {
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-8 m-5 sm:m-10">
-        <div className="p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-amber-500 to-amber-600 rounded-xl">
+        <div className="mt-10 lg:mt-0 p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-amber-500 to-amber-600 rounded-xl">
           <h1 className="text-3xl font-bold tracking-tight">Recompensas</h1>
           <p className="">Canjea tus puntos por recompensas exclusivas</p>
         </div>

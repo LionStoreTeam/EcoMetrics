@@ -229,8 +229,8 @@ export default function ActivitiesPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-8 m-5 sm:m-10">
-        <StickyBanner className="bg-transparent">
+      <div className="flex flex-col gap-8 m-5">
+        <StickyBanner className="bg-transparent mt-10 lg:mt-0">
           <span className="mx-0 max-w-[90%] text-red-800 text-[12px] md:text-[13px] xl:text-[15px] bg-red-50 p-3 rounded-md border border-red-200">
             <p className="font-bold">
               Aviso importante:

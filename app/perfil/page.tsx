@@ -326,7 +326,7 @@ export default function ProfilePage() {
     <DashboardLayout>
       {AvatarInput()}
       <div className="flex flex-col gap-8 m-5 sm:m-10">
-        <div className="p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-black to-slate-800 rounded-xl">
+        <div className="mt-10 lg:mt-0 p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-black to-slate-800 rounded-xl">
           <h1 className="text-3xl font-bold tracking-tight">Mi Perfil</h1>
           <p className="">Gestiona tu información personal, logros y notificaciones.</p>
         </div>

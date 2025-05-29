@@ -233,7 +233,7 @@ export default function ScoresPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
-                <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl shadow-lg">
+                <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3">
                         <Users className="h-8 w-8" />
                         <h1 className="text-3xl font-bold tracking-tight">Scores de Usuarios</h1>

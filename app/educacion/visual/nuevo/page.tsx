@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, FormEvent, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Loader2, ImagePlus, Save, X, Upload } from "lucide-react";
+import { BookOpen, Loader2, ImagePlus, Save, X, Upload, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import { z } from "zod";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { ALLOWED_IMAGE_TYPES, MAX_FILES, MIN_FILES, MAX_FILE_SIZE } from "@/types/types-s3-service";
+import Link from "next/link";
 
 // Esquema de validación Zod para el frontend
 const visualMaterialFormSchemaClient = z.object({
@@ -192,7 +193,12 @@ export default function NewVisualMaterialPage() {
     return (
         <DashboardLayout>
             <div className="container mx-auto px-4 py-8">
-                <Card className="max-w-3xl mx-auto">
+                <div className="mb-6 mt-10 lg:mt-0">
+                    <Link href="/educacion/visual/" className="text-sm text-purple-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver a Material Visual
+                    </Link>
+                </div>
+                <Card className="max-w-3xl mx-auto 0">
                     <CardHeader>
                         <div className="flex items-center gap-3 mb-2">
                             <ImagePlus className="h-7 w-7 text-purple-600" />

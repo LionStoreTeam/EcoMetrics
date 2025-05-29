@@ -14,7 +14,7 @@ import { Textarea } from "@/components/ui/textarea"
 import DashboardLayout from "@/components/dashboard-layout"
 import { z } from "zod"
 import toast from 'react-hot-toast';
-import { MIN_FILES, MAX_FILES } from "@/lib/s3-service";
+import { MAX_FILES, MIN_FILES } from "@/types/types-s3-service"
 
 // Se eliminan ACTIVITY_POINTS ya que no se usan aquí para cálculo automático
 // const ACTIVITY_POINTS = { ... }
@@ -259,8 +259,8 @@ export default function NewActivityPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-8 m-2 sm:m-10">
-        <div className="p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-green-600 to-green-700 rounded-xl">
+      <div className="flex flex-col gap-8 m-5">
+        <div className="mt-10 lg:mt-0 p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-green-600 to-green-700 rounded-xl">
           <h1 className="text-3xl font-bold tracking-tight m-2">Nueva Actividad</h1>
           <p className="">Registra una nueva actividad ecológica. Será revisada por un administrador.</p>
         </div>

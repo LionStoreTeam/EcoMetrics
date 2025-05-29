@@ -186,7 +186,7 @@ export default function ShortVideoDetailPage() {
 
     return (
         <DashboardLayout>
-            <div className="container mx-auto px-2 sm:px-4 py-8 max-w-4xl">
+            <div className="container mx-auto px-2 sm:px-4 py-8 max-w-4xl mt-10 lg:mt-0">
                 <div className="mb-6"><Link href="/educacion/videos" className="text-sm text-blue-600 hover:underline flex items-center"><ArrowLeft className="h-4 w-4 mr-1" /> Volver a Videos</Link></div>
                 <Card className="shadow-lg overflow-hidden">
                     <div className="relative w-full aspect-video bg-black">

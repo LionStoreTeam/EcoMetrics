@@ -4,7 +4,7 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { BookOpen, Loader2, ImagePlus, AlertCircle, Save, X } from "lucide-react";
+import { BookOpen, Loader2, ImagePlus, AlertCircle, Save, X, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -234,7 +234,12 @@ export default function NewEducationalArticlePage() {
 
     return (
         <DashboardLayout>
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8 mt-10 lg:mt-0">
+                <div className="mb-6">
+                    <Link href="/educacion/articulos/" className="text-sm text-green-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver a todos los artículos
+                    </Link>
+                </div>
                 <Card className="max-w-3xl mx-auto">
                     <CardHeader>
                         <div className="flex items-center gap-3 mb-2">

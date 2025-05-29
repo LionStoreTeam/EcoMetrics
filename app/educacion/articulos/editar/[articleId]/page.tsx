@@ -278,7 +278,7 @@ export default function EditEducationalArticlePage() {
 
     return (
         <DashboardLayout>
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8 mt-10 lg:mt-0">
                 <Card className="max-w-3xl mx-auto">
                     <CardHeader>
                         <div className="flex items-center gap-3 mb-2">

@@ -219,7 +219,7 @@ export default function ShortVideosListPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
-                <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+                <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-blue-500 to-cyan-600 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3">
                         <Video className="h-8 w-8" />
                         <h1 className="text-3xl font-bold tracking-tight">Videos Cortos Educativos</h1>

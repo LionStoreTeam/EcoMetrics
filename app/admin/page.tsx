@@ -136,7 +136,7 @@ export default function AdminPage() {
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-8 m-5 sm:m-10">
-        <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-slate-700 to-slate-900 rounded-xl shadow-lg">
+        <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-slate-700 to-slate-900 rounded-xl shadow-lg">
           <h1 className="text-3xl font-bold tracking-tight">Panel de Administración</h1>
           <p className="text-slate-300">Gestiona los recursos de EcoMetrics.</p>
         </div>

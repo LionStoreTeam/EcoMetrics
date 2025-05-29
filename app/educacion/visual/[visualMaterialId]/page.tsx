@@ -212,7 +212,7 @@ export default function VisualMaterialDetailPage() {
 
     return (
         <DashboardLayout>
-            <div className="container mx-auto px-2 sm:px-4 py-8 max-w-4xl">
+            <div className="container mx-auto px-2 sm:px-4 py-8 max-w-4xl mt-10 lg:mt-0">
                 <div className="mb-6">
                     <Link href="/educacion/visual/" className="text-sm text-purple-600 hover:underline flex items-center">
                         <ArrowLeft className="h-4 w-4 mr-1" /> Volver a Material Visual

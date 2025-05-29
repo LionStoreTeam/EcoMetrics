@@ -324,7 +324,7 @@ export default function MapPage() {
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-6 m-4 sm:m-8">
-        <div className="p-5 flex flex-col gap-1 text-white bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl shadow-lg">
+        <div className="mt-10 lg:mt-0 p-5 flex flex-col gap-1 text-white bg-gradient-to-r from-teal-500 to-cyan-600 rounded-xl shadow-lg">
           <div className="flex items-center gap-2">
             <MapPin className="h-7 w-7" />
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Mapa de Centros de Acopio</h1>
@@ -363,7 +363,7 @@ export default function MapPage() {
           </CardHeader>
         </Card>
 
-        <Tabs defaultValue="map" className="w-full z-50">
+        <Tabs defaultValue="map" className="w-full z-20">
           <TabsList className="grid w-full grid-cols-2 mb-4">
             <TabsTrigger value="map">Mapa</TabsTrigger>
             <TabsTrigger value="list">Lista</TabsTrigger>

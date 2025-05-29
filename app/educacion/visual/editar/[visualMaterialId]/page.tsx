@@ -4,7 +4,7 @@
 import React, { useState, useEffect, FormEvent, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
-import { BookOpen, Loader2, ImagePlus, AlertCircle, Save, X, Trash2, RotateCcw } from "lucide-react";
+import { BookOpen, Loader2, ImagePlus, AlertCircle, Save, X, Trash2, RotateCcw, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -245,6 +245,11 @@ export default function EditVisualMaterialPage() {
     return (
         <DashboardLayout>
             <div className="container mx-auto px-4 py-8">
+                <div className="mb-6 mt-10 lg:mt-0">
+                    <Link href="/educacion/visual/" className="text-sm text-purple-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver a Material Visual
+                    </Link>
+                </div>
                 <Card className="max-w-3xl mx-auto">
                     <CardHeader>
                         <div className="flex items-center gap-3 mb-2"><BookOpen className="h-7 w-7 text-purple-600" /><CardTitle className="text-2xl font-semibold">Editar Material Visual</CardTitle></div>

@@ -110,8 +110,8 @@ export default function StatsPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-8 m-5 sm:m-10">
-        <div className="p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-red-500 to-red-600 rounded-xl">
+      <div className="flex flex-col gap-8 m-5">
+        <div className="mt-10 lg:mt-0 p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-red-500 to-red-600 rounded-xl">
           <h1 className="text-3xl font-bold tracking-tight">Estadísticas</h1>
           <p className="">Visualiza el impacto de tus actividades ecológicas</p>
         </div>

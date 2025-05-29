@@ -4,7 +4,7 @@
 import React, { useState, useEffect, FormEvent, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
-import { Video as VideoIconLucide, Loader2, ImagePlus, Save, X, AlertCircle, Upload, Trash2, Link2 } from "lucide-react"; // Agregado Link2
+import { Video as VideoIconLucide, Loader2, ImagePlus, Save, X, AlertCircle, Upload, Trash2, Link2, ArrowLeft } from "lucide-react"; // Agregado Link2
 import { Button } from "@/components/ui/button"; //
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"; //
 import { Input } from "@/components/ui/input"; //
@@ -217,7 +217,12 @@ export default function EditShortVideoPage() {
 
     return (
         <DashboardLayout>
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8 mt-10 lg:mt-0">
+                <div className="mb-6">
+                    <Link href="/educacion/videos" className="text-sm text-blue-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver a Videos</Link>
+                </div>
+
                 <Card className="max-w-3xl mx-auto">
                     <CardHeader>
                         <div className="flex items-center gap-3 mb-2"><VideoIconLucide className="h-7 w-7 text-blue-600" /><CardTitle className="text-2xl font-semibold">Editar Video Corto</CardTitle></div>

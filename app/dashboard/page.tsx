@@ -96,8 +96,8 @@ export default function DashboardPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-8 m-5 sm:m-10">
-        <div className="p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl">
+      <div className="flex flex-col gap-8 m-5">
+        <div className="mt-10 lg:mt-0 p-5 flex flex-col gap-2 text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl">
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="">Bienvenido a tu panel de control de EcoMetrics</p>
         </div>

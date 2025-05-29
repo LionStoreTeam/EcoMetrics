@@ -172,12 +172,12 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
-      <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8 flex items-center gap-2">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
+      <Link href="/" className="w-full top-0 fixed flex items-center justify-start p-8 z-10 bg-white">
         <Image src="/logo.png" alt="logo" width={70} height={70} priority />
-        <span className="font-bold">EcoMetrics</span>
+        <span className="font-bold pl-2">EcoMetrics</span>
       </Link>
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md m-28">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Crear una cuenta</CardTitle>
           <CardDescription>Ingresa tus datos para registrarte en la plataforma</CardDescription>
