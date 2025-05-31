@@ -261,11 +261,13 @@ export default function EditShortVideoPage() {
                             {/* Selección de Fuente de Video para Edición */}
                             <div className="space-y-2">
                                 <Label>Fuente del Video <span className="text-red-500">*</span></Label>
-                                <RadioGroup value={formDataState.videoSourceType} onValueChange={(val) => handleVideoSourceTypeChange(val as "upload" | "url" | "keep")} className="flex space-x-4">
-                                    <div className="flex items-center space-x-2"><RadioGroupItem value="keep" id="video-keep" /><Label htmlFor="video-keep">Mantener actual</Label></div>
-                                    <div className="flex items-center space-x-2"><RadioGroupItem value="upload" id="video-upload-edit" /><Label htmlFor="video-upload-edit">Subir nuevo</Label></div>
-                                    <div className="flex items-center space-x-2"><RadioGroupItem value="url" id="video-url-edit" /><Label htmlFor="video-url-edit">Usar URL externa</Label></div>
-                                </RadioGroup>
+                                <div className="flex flex-col">
+                                    <RadioGroup value={formDataState.videoSourceType} onValueChange={(val) => handleVideoSourceTypeChange(val as "upload" | "url" | "keep")}>
+                                        <div className="flex items-center space-x-2"><RadioGroupItem value="keep" id="video-keep" /><Label htmlFor="video-keep">Mantener actual</Label></div>
+                                        <div className="flex items-center space-x-2"><RadioGroupItem value="upload" id="video-upload-edit" /><Label htmlFor="video-upload-edit">Subir nuevo</Label></div>
+                                        <div className="flex items-center space-x-2"><RadioGroupItem value="url" id="video-url-edit" /><Label htmlFor="video-url-edit">Usar URL externa</Label></div>
+                                    </RadioGroup>
+                                </div>
                             </div>
 
                             {formDataState.videoSourceType === "upload" && (
@@ -348,7 +350,7 @@ export default function EditShortVideoPage() {
                             </div>
 
                         </CardContent>
-                        <CardFooter className="flex justify-end gap-3">
+                        <CardFooter className="flex flex-col justify-center gap-3 sm:flex-row sm:items-start sm:justify-end">
                             <Button type="button" variant="outline" onClick={() => router.back()} disabled={isSubmitting}>Cancelar</Button>
                             <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={isSubmitting}>
                                 {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}

@@ -325,7 +325,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex gap-3">
             <Link href="/terminos" className="text-xs text-gray-600">Términos</Link>
             <Link href="/privacidad" className="text-xs text-gray-600">Privacidad</Link>
-            <Link href="/contacto" className="text-xs text-gray-600">Contacto</Link>
           </div>
         </div>
       </footer>

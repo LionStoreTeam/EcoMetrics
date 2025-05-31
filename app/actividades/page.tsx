@@ -167,12 +167,12 @@ const ActivityCard = ({ activity }: { activity: ExtendedActivity }) => (
       {/* Mostrar estado de la actividad */}
       <div className="mt-4 pt-3 border-t border-gray-200">
         {activity.status === "PENDING_REVIEW" ? (
-          <Badge variant="outline" className="text-amber-600 border-amber-500 bg-amber-50 flex items-center gap-1.5">
+          <Badge variant="outline" className="text-amber-600 border-amber-500 bg-amber-50 flex items-center gap-1.5 w-max">
             <Clock className="h-3.5 w-3.5" />
             Pendiente por revisar
           </Badge>
         ) : activity.status === "REVIEWED" ? (
-          <Badge variant="default" className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-1.5">
+          <Badge variant="default" className="bg-green-600 hover:bg-green-700 text-white flex items-center gap-1.5 w-max">
             <CheckCircle className="h-3.5 w-3.5" />
             Revisado. Puntos Obtenidos: {activity.points}
           </Badge>

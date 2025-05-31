@@ -5,6 +5,7 @@ import { Leaf } from "lucide-react"
 import { BackgroundLines } from "@/components/ui/background-lines"
 import { TypeAnimation } from 'react-type-animation';
 import Image from "next/image"
+import { GlobeDemo } from "@/components/GlobeDemo"
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -69,7 +70,7 @@ export default function Home() {
             </div>
           </section>
         </BackgroundLines>
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12 md:py-24">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -140,6 +141,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <section className="">
+          <GlobeDemo />
+        </section>
       </main>
       <footer className="border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
@@ -152,9 +156,6 @@ export default function Home() {
             </Link>
             <Link href="/privacidad" className="text-sm text-muted-foreground hover:underline">
               Privacidad
-            </Link>
-            <Link href="/contacto" className="text-sm text-muted-foreground hover:underline">
-              Contacto
             </Link>
           </div>
         </div>

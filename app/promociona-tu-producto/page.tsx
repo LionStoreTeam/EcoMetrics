@@ -581,10 +581,10 @@ function PromoteProductForm() {
 
 
                             </CardContent>
-                            <CardFooter className="border-t pt-6">
-                                <Button type="submit" className="w-full bg-sky-600 hover:bg-sky-700 text-lg py-3" disabled={isSubmittingForm}>
+                            <CardFooter className="border-t pt-6 flex flex-col justify-center items-center">
+                                <Button type="submit" className="w-max bg-sky-600 hover:bg-sky-700 text-lg py-3" disabled={isSubmittingForm}>
                                     {isSubmittingForm ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <CreditCard className="mr-2 h-5 w-5" />}
-                                    Proceder al Pago (${PRODUCT_PROMOTION_PRICE_MXN.toFixed(2)} MXN)
+                                    Pagar (${PRODUCT_PROMOTION_PRICE_MXN.toFixed(2)} MXN)
                                 </Button>
                             </CardFooter>
                         </form>

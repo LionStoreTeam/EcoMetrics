@@ -13,10 +13,6 @@ import toast from 'react-hot-toast'
 import { Eye, EyeOff } from 'lucide-react'
 import Image from "next/image"
 
-// Asegúrate de tener instalada la librería dotenv si planeas usar variables de entorno en el cliente.
-// Sin embargo, para el código del cliente, considera exponer variables a través de Next.js runtimeConfig.
-// Para este ejemplo, asumiremos que la variable de entorno está accesible de alguna manera.
-
 export default function RegisterPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)

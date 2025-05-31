@@ -7,9 +7,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: [
-      "api.microlink.io", // Microlink Image Preview
-    ],
+    unoptimized: true,
   },
 };
 

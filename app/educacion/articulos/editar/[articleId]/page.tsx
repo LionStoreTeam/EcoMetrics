@@ -4,7 +4,7 @@
 import React, { useState, useEffect, FormEvent, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
-import { BookOpen, Loader2, ImagePlus, AlertCircle, Save, X } from "lucide-react";
+import { BookOpen, Loader2, ImagePlus, AlertCircle, Save, X, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -279,9 +279,14 @@ export default function EditEducationalArticlePage() {
     return (
         <DashboardLayout>
             <div className="container mx-auto px-4 py-8 mt-10 lg:mt-0">
+                <div className="mb-6">
+                    <Link href="/educacion/articulos/" className="text-sm text-blue-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver a todos los artículos
+                    </Link>
+                </div>
                 <Card className="max-w-3xl mx-auto">
                     <CardHeader>
-                        <div className="flex items-center gap-3 mb-2">
+                        <div className="flex flex-col justify-center items-center gap-3 mb-2 sm:flex-row sm:items-start sm:justify-start">
                             <BookOpen className="h-7 w-7 text-blue-600" />
                             <CardTitle className="text-2xl font-semibold">Editar Artículo o Guía</CardTitle>
                         </div>
@@ -355,7 +360,7 @@ export default function EditEducationalArticlePage() {
                                     className={`mt-2 ${errors.coverImageUrl ? "border-red-500" : ""} ${!!coverImageFile ? "bg-gray-100" : ""}`}
                                 />
                                 {errors.coverImageUrl && <p className="text-sm text-red-500">{errors.coverImageUrl}</p>}
-                                {formData.coverImageUrl && !coverImageFile && <p className="text-xs text-muted-foreground mt-1">URL actual: {formData.coverImageUrl}</p>}
+                                {/* {formData.coverImageUrl && !coverImageFile && <p className="text-xs text-muted-foreground mt-1">URL actual: {formData.coverImageUrl}</p>} */}
                             </div>
 
                             {/* Información del Autor */}
@@ -381,7 +386,7 @@ export default function EditEducationalArticlePage() {
                             </div>
 
                         </CardContent>
-                        <CardFooter className="flex justify-end gap-3">
+                        <CardFooter className="flex flex-col justify-center gap-3 sm:flex-row sm:items-start sm:justify-end">
                             <Button type="button" variant="outline" onClick={() => router.back()} disabled={isSubmitting}>
                                 Cancelar
                             </Button>

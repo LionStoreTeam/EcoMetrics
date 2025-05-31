@@ -1,12 +1,11 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ToastProvider } from "@/components/toast-provider"
 import ScrollToTopButton from "@/components/ScrollToTopButton"
+import { inter } from "./fonts/font"
 
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "EcoMetrics",
@@ -28,7 +27,7 @@ export default function RootLayout({
           crossOrigin=""
         />
       </head>
-      <body className={inter.className} >
+      <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <ScrollToTopButton />
           <ToastProvider />

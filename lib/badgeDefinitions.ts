@@ -1,11 +1,11 @@
 // lib/badgeDefinitions.ts
-import prisma from "./prisma";
+import prisma from "./prisma"; //
 
 export interface BadgeDefinition {
   id: string; // Será el identificador único, ej: "FIRST_ACTIVITY_BADGE"
   name: string;
   description: string;
-  imageUrl: string;
+  imageUrl: string; // Actualizado para rutas locales
   criteriaType:
     | "ACTIVITY_COUNT"
     | "SPECIFIC_ACTIVITY_TYPE_COUNT"
@@ -21,7 +21,7 @@ export const ALL_BADGES: BadgeDefinition[] = [
     id: "FIRST_ACTIVITY_BADGE",
     name: "Eco-Iniciado",
     description: "Registraste tu primera actividad ecológica. ¡Sigue así!",
-    imageUrl: "https://placehold.co/128x128/A8D895/333333?text=EI", // Verde claro
+    imageUrl: "/badges/eco-iniciado.png", // Ruta actualizada
     criteriaType: "ACTIVITY_COUNT",
     criteriaThreshold: 1,
   },
@@ -29,16 +29,16 @@ export const ALL_BADGES: BadgeDefinition[] = [
     id: "RECYCLER_BRONZE_BADGE",
     name: "Reciclador Bronce",
     description: "Has reciclado 10 kg de materiales. ¡Buen trabajo!",
-    imageUrl: "https://placehold.co/128x128/CD7F32/FFFFFF?text=RB", // Bronce
+    imageUrl: "/badges/bronce.png", // Ruta actualizada
     criteriaType: "SPECIFIC_ACTIVITY_TYPE_COUNT",
-    criteriaActivityType: "RECYCLING", // Coincide con el 'type' en el modelo Activity
-    criteriaThreshold: 10, // Suma de 'quantity' para actividades de tipo RECYCLING
+    criteriaActivityType: "RECYCLING",
+    criteriaThreshold: 10,
   },
   {
     id: "LEVEL_5_REACHED_BADGE",
     name: "Nivel 5 Alcanzado",
     description: "¡Has alcanzado el Nivel 5! Tu compromiso es inspirador.",
-    imageUrl: "https://placehold.co/128x128/FFD700/333333?text=N5", // Oro
+    imageUrl: "/badges/level5.png", // Ruta actualizada
     criteriaType: "USER_LEVEL",
     criteriaThreshold: 5,
   },
@@ -46,20 +46,20 @@ export const ALL_BADGES: BadgeDefinition[] = [
     id: "TREE_PLANTER_BADGE",
     name: "Sembrador de Vida",
     description: "Has plantado 5 árboles. ¡Gracias por oxigenar el planeta!",
-    imageUrl: "https://placehold.co/128x128/228B22/FFFFFF?text=SV", // Verde bosque
+    imageUrl: "/badges/sembrador.png", // Ruta actualizada
     criteriaType: "SPECIFIC_ACTIVITY_TYPE_COUNT",
     criteriaActivityType: "TREE_PLANTING",
-    criteriaThreshold: 5, // Suma de 'quantity' para actividades de tipo TREE_PLANTING
+    criteriaThreshold: 5,
   },
   {
     id: "POINTS_MASTER_100_BADGE",
     name: "Maestro de Puntos (100)",
     description: "Has acumulado 100 eco-puntos. ¡Excelente!",
-    imageUrl: "https://placehold.co/128x128/8A2BE2/FFFFFF?text=P100", // Azul violeta
+    imageUrl: "/badges/100.png", // Ruta actualizada
     criteriaType: "TOTAL_POINTS",
     criteriaThreshold: 100,
   },
-  // Puedes añadir más insignias aquí
+  // Puedes añadir más insignias aquí siguiendo el mismo patrón para imageUrl
 ];
 
 // Función para asegurar que las insignias existan en la BD (se puede llamar al iniciar la app o en un script de seed)
@@ -76,20 +76,43 @@ export async function seedBadges() {
           id: badgeDef.id,
           name: badgeDef.name,
           description: badgeDef.description,
-          imageUrl: badgeDef.imageUrl,
+          imageUrl: badgeDef.imageUrl, // Se guarda la nueva ruta
           criteria: `${badgeDef.criteriaType}:${badgeDef.criteriaThreshold}${
             badgeDef.criteriaActivityType
               ? `:${badgeDef.criteriaActivityType}`
               : ""
-          }`, // Guardar criterio como string
+          }`,
         },
       });
-      console.log(`Insignia "${badgeDef.name}" creada.`);
+      console.log(
+        `Insignia "${badgeDef.name}" creada con imagen ${badgeDef.imageUrl}.`
+      );
+    } else {
+      // Opcional: Actualizar si la definición (ej. imageUrl) cambia
+      if (
+        existingBadge.name !== badgeDef.name ||
+        existingBadge.description !== badgeDef.description ||
+        existingBadge.imageUrl !== badgeDef.imageUrl
+        // Puedes añadir más campos a verificar si es necesario
+      ) {
+        await prisma.badge.update({
+          where: { id: badgeDef.id },
+          data: {
+            name: badgeDef.name,
+            description: badgeDef.description,
+            imageUrl: badgeDef.imageUrl,
+            criteria: `${badgeDef.criteriaType}:${badgeDef.criteriaThreshold}${
+              badgeDef.criteriaActivityType
+                ? `:${badgeDef.criteriaActivityType}`
+                : ""
+            }`,
+          },
+        });
+        console.log(
+          `Insignia "${badgeDef.name}" actualizada con imagen ${badgeDef.imageUrl}.`
+        );
+      }
     }
   }
   console.log("Verificación de insignias completada.");
 }
-
-// (Opcional) Llama a seedBadges() aquí si quieres que se ejecute al importar el módulo,
-// aunque es mejor llamarlo explícitamente en un punto de inicio de tu aplicación si es necesario.
-// seedBadges().catch(console.error);

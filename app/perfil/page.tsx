@@ -374,7 +374,7 @@ export default function ProfilePage() {
                         className="flex items-center gap-1 px-2 py-1 bg-green-50 text-green-800"
                       >
                         {/* Asumiendo que badge.imageUrl es una URL completa y pública */}
-                        <img src={badge.imageUrl || "/placeholder.svg"} alt={badge.name} className="h-4 w-4" />
+                        <img src={badge.imageUrl || ""} alt={badge.name} className="h-4 w-4" />
                         {badge.name}
                       </UiBadge>
                     ))}

@@ -263,6 +263,7 @@ function PromoteBusinessForm() {
             }
 
             toast.success("¡Tu solicitud de promoción ha sido enviada con éxito y está pendiente de aprobación!");
+            toast.success("Dentro de 1 a 24 horas tu negocio se podrá ver reflejado en la seccion Negocios Disponibles de nuestra plataforma.");
             // Resetear formulario y estado
             setFormData({
                 businessName: "", logo: null, description: "", businessType: "",
@@ -476,10 +477,10 @@ function PromoteBusinessForm() {
                                     {errors.socialMedia && <p className="text-sm text-red-500">{errors.socialMedia}</p>}
                                 </div>
                             </CardContent>
-                            <CardFooter className="border-t pt-6">
-                                <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-lg py-3" disabled={isSubmitting}>
+                            <CardFooter className="border-t pt-6 text-wrap md:w-full justify-center items-center flex flex-col text-center">
+                                <Button type="submit" className="w-[250px] text-wrap p-5 bg-green-600 hover:bg-green-700 text-lg" disabled={isSubmitting}>
                                     {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <CreditCard className="mr-2 h-5 w-5" />}
-                                    Proceder al Pago ($50.00 MXN)
+                                    Pagar ($50.00 MXN)
                                 </Button>
                             </CardFooter>
                         </form>
@@ -519,7 +520,7 @@ function PromoteBusinessForm() {
             <footer className="w-full max-w-4xl mt-12 text-center">
                 <p className="text-xs text-gray-500">
                     © {new Date().getFullYear()} EcoMetrics. Todos los derechos reservados.
-                    <Link href="/terminos-promocion" className="underline hover:text-green-600 ml-2">Términos de Promoción</Link>
+                    <Link href="/terminos-promocion-negocio" className="underline hover:text-green-600 ml-2">Términos de Promoción de Negocio</Link>
                 </p>
             </footer>
         </div>

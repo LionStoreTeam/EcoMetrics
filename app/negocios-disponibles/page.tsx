@@ -180,7 +180,7 @@ export default function NegociosDisponiblesPage() {
         <div className="min-h-screen bg-gray-50">
             {/* Header similar al de la página principal, pero sin botones de login/registro si es una vista pública */}
             <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                <div className="container flex h-16 items-center justify-between">
+                <div className="container flex flex-col h-24 gap-2 items-center justify-center md:flex-row md:justify-between md:h-16">
                     <Link href="/" className="flex items-center gap-2">
                         <Image src="/logo.png" alt="EcoMetrics Logo" width={40} height={40} priority />
                         <span className="text-xl font-bold">EcoMetrics</span>

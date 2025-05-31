@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress"
 import DashboardLayout from "@/components/dashboard-layout"
 import { UserStats } from "@/types/types"
 import Image from "next/image"
+import { playpen } from "../fonts/font"
 
 
 export default function DashboardPage() {
@@ -103,7 +104,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
-          <Card className="border-4 border-blue-100 rounded-xl transition-all ease-linear hover:border-blue-700">
+          <Card className="flex flex-col justify-center items-center border-4 border-blue-100 rounded-xl transition-all ease-linear hover:border-blue-700">
             <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
               {/* <TrendingUp className="h-4 w-4 text-muted-foreground" /> */}
               <CardTitle className="text-sm font-medium text-center">Puntos Totales</CardTitle>
@@ -121,50 +122,62 @@ export default function DashboardPage() {
                   {pointsPerLevel - pointsInCurrentLevel} puntos para el siguiente nivel
                 </p>
               </div>
-              <Image src="/vector_pts.png" alt="vector_pts" width={500} height={500} priority />
+              <Image src="/Success factors-rafiki.svg" alt="vector_pts" width={500} height={500} priority />
             </CardContent>
           </Card>
-          <Card className="border-4 border-blue-100 rounded-xl transition-all ease-linear hover:border-blue-700">
-            <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
-              {/* <PlusCircle className="h-4 w-4 text-muted-foreground" /> */}
-              <CardTitle className="text-sm font-medium text-center">Mira tus actividades registradas</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center transition-all ease-linear duration-300 hover:scale-95">
-              {/* <div className="text-2xl font-bold">{stats.activityCount}</div> */}
-              {/* <p className="text-xs text-muted-foreground">
+          <Card className="flex flex-col justify-around items-center border-4 border-green-100 rounded-xl transition-all ease-linear hover:border-green-500">
+            <Link href="/actividades">
+              <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
+                {/* <PlusCircle className="h-4 w-4 text-muted-foreground" /> */}
+                <CardTitle className="text-sm font-medium text-center">
+                  <p className={`mb-7 text-green-500 text-3xl font-light`}>
+                    Registra nuevas Actividades Ecológicas
+                  </p>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="w-full flex justify-center items-center text-center transition-all ease-linear duration-300 hover:scale-95">
+                {/* <div className="text-2xl font-bold">{stats.activityCount}</div> */}
+                {/* <p className="text-xs text-muted-foreground">
                 {stats.activityCount === 0 ? "Registra tu primera actividad" : "Sigue registrando tus actividades"}
               </p> */}
-              <Link href="/actividades">
-                <Image src="/vector_act.png" alt="" width={500} height={500} priority />
-              </Link>
-            </CardContent>
+                <Image src="/Success factors-bro.svg" alt="" width={500} height={500} priority />
+              </CardContent>
+            </Link>
           </Card>
-          <Card className="border-4 border-blue-100 rounded-xl transition-all ease-linear hover:border-blue-700">
-            <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
-              {/* <Gift className="h-4 w-4 text-muted-foreground" /> */}
-              <CardTitle className="text-sm font-medium text-center">Explora la sección Recompensas</CardTitle>
-            </CardHeader>
-            <CardContent className="transition-all ease-linear duration-300 hover:scale-95">
-              <Link href="/recompensas">
-                <Image src="/vector_rewards.png" width={500} height={500} priority alt="green dash rewards" />
-              </Link>
-              {/* <p className="text-xs text-muted-foreground">
+          <Card className="flex flex-col justify-around items-center border-4 border-amber-100 rounded-xl transition-all ease-linear hover:border-amber-400">
+            <Link href="/recompensas">
+              <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
+                {/* <Gift className="h-4 w-4 text-muted-foreground" /> */}
+                <CardTitle className="text-sm font-medium text-center">
+                  <p className={`mb-7 text-amber-400 text-3xl font-light`}>
+                    Cajea increibles Recompensas
+                  </p>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="w-full flex justify-center items-center transition-all ease-linear duration-300 hover:scale-95">
+                <Image src="/Investment data-cuate.svg" width={500} height={500} priority alt="green dash rewards" />
+                {/* <p className="text-xs text-muted-foreground">
                 {stats.totalPoints < 500
-                  ? "Necesitas más puntos para canjear"
-                  : `Puedes canjear ${Math.floor(stats.totalPoints / 500)} recompensas`}
-              </p> */}
-            </CardContent>
+                ? "Necesitas más puntos para canjear"
+                : `Puedes canjear ${Math.floor(stats.totalPoints / 500)} recompensas`}
+                </p> */}
+              </CardContent>
+            </Link>
           </Card>
-          <Card className="border-4 border-blue-100 rounded-xl transition-all ease-linear hover:border-blue-700">
-            <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
-              {/* <Map className="h-4 w-4 text-muted-foreground" /> */}
-              <CardTitle className="text-sm font-medium text-center">Explora la sección Centros de Acopio</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center transition-all ease-linear duration-300 hover:scale-95">
-              <Link href="/mapa">
-                <Image src="/vector_map.png" width={1000} height={1000} alt="vector_map" priority />
-              </Link>
-            </CardContent>
+          <Card className="flex flex-col justify-around items-center border-4 border-cyan-100 rounded-xl transition-all ease-linear hover:border-cyan-500">
+            <Link href="/mapa">
+              <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
+                {/* <Map className="h-4 w-4 text-muted-foreground" /> */}
+                <CardTitle className="text-sm font-medium text-center">
+                  <p className={`mb-7 text-cyan-500 text-3xl font-light`}>
+                    Encuentra Centros de Acopio cercanos
+                  </p>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="w-full flex justify-center items-center text-center transition-all ease-linear duration-300 hover:scale-95">
+                <Image src="/Location search-bro.svg" width={1000} height={1000} alt="vector_map" priority />
+              </CardContent>
+            </Link>
           </Card>
         </div>
 

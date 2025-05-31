@@ -283,7 +283,7 @@ export default function NewShortVideoPage() {
                             </div>
 
                         </CardContent>
-                        <CardFooter className="flex justify-end gap-3">
+                        <CardFooter className="flex flex-col justify-center gap-3 sm:flex-row sm:items-start sm:justify-end">
                             <Button type="button" variant="outline" onClick={() => router.back()} disabled={isSubmitting}>Cancelar</Button>
                             <Button type="submit" className="bg-blue-600 hover:bg-blue-700" disabled={isSubmitting}>
                                 {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}

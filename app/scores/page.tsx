@@ -250,7 +250,7 @@ export default function ScoresPage() {
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                                 <Input
                                     type="search"
-                                    placeholder="Buscar por nombre o correo..."
+                                    placeholder="Buscar por Nombre"
                                     className="pl-10 py-2 text-base"
                                     value={searchTerm}
                                     onChange={handleSearchChange}
@@ -292,7 +292,7 @@ export default function ScoresPage() {
                                             <TableRow>
                                                 <TableHead className="w-[80px]">Avatar</TableHead>
                                                 <TableHead>Nombre</TableHead>
-                                                <TableHead className="hidden md:table-cell">Correo</TableHead>
+                                                {/* <TableHead className="hidden md:table-cell">Correo</TableHead> */}
                                                 <TableHead>Tipo</TableHead>
                                                 <TableHead className="text-center">Actividades</TableHead>
                                                 <TableHead className="text-center">Puntos</TableHead>
@@ -312,7 +312,7 @@ export default function ScoresPage() {
                                                         </Avatar>
                                                     </TableCell>
                                                     <TableCell className="font-medium">{user.name}</TableCell>
-                                                    <TableCell className="hidden md:table-cell text-muted-foreground">{user.email}</TableCell>
+                                                    {/* <TableCell className="hidden md:table-cell text-muted-foreground">{user.email}</TableCell> */}
                                                     <TableCell>
                                                         <Badge
                                                             variant={
