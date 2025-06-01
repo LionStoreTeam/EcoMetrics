@@ -42,7 +42,7 @@ export default function LoginPage() {
       </Suspense>
 
       <footer className="absolute bottom-4 text-center text-xs text-gray-500 w-full px-4">
-        © {new Date().getFullYear()} EcoTrack MX. Todos los derechos reservados.
+        © {new Date().getFullYear()} EcoMetrics. Todos los derechos reservados.
         <div className="mt-1">
           <Link href="/terminos" className="hover:underline">Términos</Link> | <Link href="/privacidad" className="hover:underline">Privacidad</Link>
         </div>

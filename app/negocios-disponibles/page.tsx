@@ -20,7 +20,6 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import Image from "next/image";
 import { MEXICAN_STATES, BUSINESS_TYPES, type MexicanState, type BusinessType } from "@/lib/constants"; //
-import { BackgroundGradient } from "@/components/ui/background-gradient"; //
 import { Label } from "@radix-ui/react-label";
 
 
@@ -186,12 +185,17 @@ export default function NegociosDisponiblesPage() {
                         <span className="text-xl font-bold">EcoMetrics</span>
                     </Link>
                     <nav className="flex items-center gap-4">
+                        <Link href="/dashboard" legacyBehavior passHref>
+                            <Button variant="outline" size="sm" className="bg-green-600 text-white hover:bg-green-700 hover:text-white">
+                                Inicio
+                            </Button>
+                        </Link>
                         <Link href="/promociona-tu-negocio" legacyBehavior passHref>
-                            <Button variant="outline" size="sm" className="border-green-600 text-green-600 hover:bg-green-50">
+                            <Button variant="outline" size="sm" className="text-green-600 border border-green-600 hover:bg-green-600 hover:text-white">
                                 Promociona tu Negocio
                             </Button>
                         </Link>
-                        {/* Aquí podrían ir otros enlaces públicos si los tienes */}
+                        {/* Aquí podrían ir otros enlaces públicos */}
                     </nav>
                 </div>
             </header>

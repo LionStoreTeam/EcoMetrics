@@ -247,13 +247,22 @@ export default function ProductosDisponiblesPage() {
                     </Link>
                     <nav className="flex items-center gap-4">
                         <Link href="/promociona-tu-producto" legacyBehavior passHref>
-                            <Button variant="outline" size="sm" className="border-sky-600 text-sky-600 hover:bg-sky-50">
+                            <Button variant="outline" size="sm" className="text-sky-600 border border-sky-500 hover:bg-sky-500 hover:text-white">
                                 Promociona tu Producto
                             </Button>
                         </Link>
                         <Link href="/negocios-disponibles" legacyBehavior passHref>
-                            <Button variant="outline" size="sm" className="border-green-600 text-green-600 hover:bg-green-50">
+                            <Button variant="outline" size="sm" className="text-green-600 border border-green-600 hover:bg-green-600 hover:text-white">
                                 Negocios
+                            </Button>
+                        </Link>
+                    </nav>
+                </div>
+                <div className="mb-3 w-full container flex flex-col gap-2 items-center justify-end md:flex-row md:justify-between">
+                    <nav className="gap-4 flex justify-end w-full">
+                        <Link href="/dashboard" legacyBehavior passHref>
+                            <Button variant="outline" size="sm" className="bg-green-600 text-white hover:bg-green-700 hover:text-white">
+                                Inicio
                             </Button>
                         </Link>
                     </nav>

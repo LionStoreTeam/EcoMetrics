@@ -7,7 +7,6 @@ import { PlusCircle, Search, Filter, Loader2, FileQuestion, ImageOff, CheckCircl
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardLayout from "@/components/dashboard-layout";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -326,6 +325,7 @@ export default function ActivitiesPage() {
 
 // Helpers (sin cambios, solo asegurarse que ActivityType.type sea usado correctamente)
 import { Recycle, TreePine, Droplets, Lightbulb, Leaf, BookOpen, HelpCircle } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const getActivityIcon = (type: string) => {
   switch (type) {

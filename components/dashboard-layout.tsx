@@ -6,7 +6,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Leaf, Map, User, LogOut, Menu, LayoutDashboard, BarChart2, Medal, Trophy, Bell, Gift, GraduationCap } from "lucide-react"; // Añadido Bell y Gift (si no estaba)
+import { Leaf, Map, User, LogOut, Menu, LayoutDashboard, BarChart2, Medal, Trophy, Bell, Gift, GraduationCap, Store, ShoppingBasket, ShoppingBag } from "lucide-react"; // Añadido Bell y Gift (si no estaba)
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -214,6 +214,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   <MobileNavItem href="/actividades" icon={<Leaf className="h-5 w-5" />} label="Actividades" active={pathname === "/actividades"} />
                   <MobileNavItem href="/educacion" icon={<GraduationCap className="h-5 w-5" />} label="Educacion" active={pathname === "/educacion"} />
                   <MobileNavItem href="/recompensas" icon={<Gift className="h-5 w-5" />} label="Recompensas" active={pathname === "/recompensas"} />
+                  <MobileNavItem href="/negocios-disponibles" icon={<Store className="h-5 w-5" />} label="Negocios Disponibles" active={pathname === "/negocios-disponibles"} />
+                  <MobileNavItem href="/productos-disponibles" icon={<ShoppingBasket className="h-5 w-5" />} label="Productos Disponibles" active={pathname === "/productos-disponibles"} />
                   <MobileNavItem href="/badges" icon={<Medal className="h-5 w-5" />} label="Insignias" active={pathname === "/badges"} />
                   <MobileNavItem href="/scores" icon={<Trophy className="h-5 w-5" />} label="Marcadores" active={pathname === "/scores"} />
                   <MobileNavItem href="/mapa" icon={<Map className="h-5 w-5" />} label="Mapa" active={pathname === "/mapa"} />
@@ -304,6 +306,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <NavItem href="/actividades" icon={<Leaf className="h-5 w-5" />} label="Actividades" active={pathname === "/actividades"} />
             <NavItem href="/educacion" icon={<GraduationCap className="h-5 w-5" />} label="Educacion" active={pathname === "/educacion"} />
             <NavItem href="/recompensas" icon={<Gift className="h-5 w-5" />} label="Recompensas" active={pathname === "/recompensas"} />
+            <NavItem href="/negocios-disponibles" icon={<Store className="h-5 w-5" />} label="Negocios Disponibles" active={pathname === "/negocios-disponibles"} />
+            <NavItem href="/productos-disponibles" icon={<ShoppingBasket className="h-5 w-5" />} label="Productos Disponibles" active={pathname === "/productos-disponibles"} />
             <NavItem href="/badges" icon={<Medal className="h-5 w-5" />} label="Insignias" active={pathname === "/badges"} />
             <NavItem href="/scores" icon={<Trophy className="h-5 w-5" />} label="Marcadores" active={pathname === "/scores"} />
             <NavItem href="/mapa" icon={<Map className="h-5 w-5" />} label="Mapa" active={pathname === "/mapa"} />

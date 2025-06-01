@@ -289,7 +289,7 @@ export default function AdminPromotionsPage() {
                                         </TableHeader>
                                         <TableBody>
                                             {requests.map((req) => {
-                                                const StatusIcon = STATUS_MAP[req.status].icon; // Correcto: Asignar a variable con mayúscula
+                                                const StatusIcon = STATUS_MAP[req.status].icon as any; // Correcto: Asignar a variable con mayúscula
                                                 return (
                                                     <TableRow key={req.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
                                                         <TableCell>
