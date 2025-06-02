@@ -8,6 +8,7 @@ import { es } from "date-fns/locale";
 import {
     Search, Filter, Eye, CheckCircle, XCircle, Clock, Package, ImageOff,
     Loader2, AlertTriangle, Info, BadgeCheck, BadgeX, RotateCcw,
+    ArrowLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +34,7 @@ import { BusinessPromotionStatus } from "@prisma/client";
 import { BUSINESS_TYPES } from "@/lib/constants";
 import Image from "next/image";
 import { ProductLightboxViewer } from "@/components/product-lightbox-viewer";
+import Link from "next/link";
 
 interface DisplayProductPromotion {
     id: string;
@@ -301,8 +303,13 @@ export default function AdminProductPromotionsPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
+                <div className="mt-10 lg:mt-0">
+                    <Link href="/admin" className="text-sm text-cyan-700 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver
+                    </Link>
+                </div>
                 {/* ... (Header de la página de admin sin cambios) ... */}
-                <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-teal-600 to-cyan-700 rounded-xl shadow-lg">
+                <div className="lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-teal-600 to-cyan-700 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3">
                         <Package className="h-8 w-8" />
                         <h1 className="text-3xl font-bold tracking-tight">Revisión de Promociones de Productos</h1>

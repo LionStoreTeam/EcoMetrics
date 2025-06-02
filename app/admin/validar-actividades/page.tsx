@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Search, Filter, Edit3, Trash2, Eye, Loader2, AlertTriangle, MessageSquare, ListChecks, UserCog, Award, CalendarIcon as CalendarIconLucide, CheckCircle, Clock } from "lucide-react"; // Renombrado CalendarIcon
+import { Search, Filter, Edit3, Trash2, Eye, Loader2, AlertTriangle, MessageSquare, ListChecks, UserCog, Award, CalendarIcon as CalendarIconLucide, CheckCircle, Clock, ArrowLeft } from "lucide-react"; // Renombrado CalendarIcon
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -38,6 +38,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import toast from "react-hot-toast";
 import { ActivityStatus } from "@prisma/client";
 import { ActivityForAdmin, AdminActivitiesApiResponse } from "@/types/types";
+import Link from "next/link";
 
 // Tipos actualizados
 
@@ -347,7 +348,12 @@ export default function AdminActivitiesManagementPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
-                <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-indigo-600 to-purple-700 rounded-xl shadow-lg">
+                <div className="mt-10 lg:mt-0">
+                    <Link href="/admin" className="text-sm text-purple-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver
+                    </Link>
+                </div>
+                <div className="lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-indigo-600 to-purple-700 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3"><UserCog className="h-8 w-8" /><h1 className="text-3xl font-bold tracking-tight">Gestión de Actividades</h1></div>
                     <p className="text-purple-100">Visualiza, califica, modifica y elimina actividades de todos los usuarios.</p>
                 </div>

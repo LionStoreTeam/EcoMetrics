@@ -9,6 +9,7 @@ import { GlobeDemo } from "@/components/GlobeDemo"
 import { motion } from "motion/react"
 import HeroBussines from "@/components/home/hero-business"
 import { TabsHero } from "@/components/home/TabsHero"
+import { DynamicCounters } from "@/components/home/DynamicCounters"
 export default function Home() {
   return (
     <div className="home flex flex-col min-h-screen">
@@ -89,6 +90,20 @@ export default function Home() {
               ¿Cómo Funciona EcoMetrics?
             </h1>
             <TabsHero />
+          </section>
+          {/* Aquí integramos los contadores dinámicos */}
+          <section className="w-full py-12 md:py-16 lg:py-20 bg-gray-50">
+            <div className="container px-4 md:px-6">
+              <div className="text-center mb-10 md:mb-12">
+                <h2 className="mx-auto max-w-full text-center text-2xl font-bold text-slate-800 md:text-4xl lg:text-6xl">
+                  Nuestra Comunidad en Números
+                </h2>
+                <p className="mt-3 max-w-2xl mx-auto text-md text-gray-500">
+                  Descubre el impacto colectivo de EcoMetrics y cómo estamos creciendo juntos.
+                </p>
+              </div>
+              <DynamicCounters />
+            </div>
           </section>
           {/* Hero Bussines */}
           <HeroBussines />

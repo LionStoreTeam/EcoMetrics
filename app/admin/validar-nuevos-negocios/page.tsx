@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import {
-    Search, Filter, Eye, CheckCircle, XCircle, MessageSquare, Clock, Building2, UserCog,
-    Loader2, AlertTriangle, Info, BadgeCheck, BadgeX, RotateCcw, MoreHorizontal
+    Search, Filter, Eye, CheckCircle, XCircle, Clock, Building2,
+    Loader2, AlertTriangle, Info, BadgeCheck, BadgeX, RotateCcw,
+    ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,7 +22,7 @@ import {
 } from "@/components/ui/pagination";
 import {
     Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
-    DialogFooter, DialogClose, DialogTrigger
+    DialogFooter, DialogClose,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -31,6 +32,7 @@ import toast from 'react-hot-toast';
 import Image from "next/image";
 import { BusinessPromotionRequest as BusinessPromotionRequestType, BusinessPromotionStatus } from "@prisma/client";
 import { BUSINESS_TYPES } from "@/lib/constants";
+import Link from "next/link";
 
 interface BusinessPromotionRequestFE extends Omit<BusinessPromotionRequestType, 'logoUrl' | 'submittedAt' | 'reviewedAt'> {
     logoUrl?: string | null;
@@ -234,12 +236,17 @@ export default function AdminPromotionsPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
-                <div className="mt-10 lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-purple-600 to-indigo-700 rounded-xl shadow-lg">
+                <div className="mt-10 lg:mt-0">
+                    <Link href="/admin" className="text-sm text-green-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver
+                    </Link>
+                </div>
+                <div className="lg:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-green-600 to-green-700 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3">
                         <Building2 className="h-8 w-8" />
                         <h1 className="text-3xl font-bold tracking-tight">Revisión de Promociones de Negocios</h1>
                     </div>
-                    <p className="text-indigo-100">
+                    <p className="text-green-100">
                         Gestiona las solicitudes para promocionar negocios en la plataforma EcoMetrics.
                     </p>
                 </div>
@@ -264,12 +271,12 @@ export default function AdminPromotionsPage() {
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 text-sm w-full md:w-auto">Buscar Solicitudes</Button>
+                            <Button type="submit" className="bg-green-600 hover:bg-green-700 text-white py-2 text-sm w-full md:w-auto">Buscar Solicitudes</Button>
                         </form>
                     </CardHeader>
                     <CardContent>
                         {isLoading ? (
-                            <div className="flex justify-center items-center h-64"><Loader2 className="h-12 w-12 animate-spin text-indigo-600" /></div>
+                            <div className="flex justify-center items-center h-64"><Loader2 className="h-12 w-12 animate-spin text-green-600" /></div>
                         ) : error ? (
                             <div className="text-center py-10 text-red-600 bg-red-50 p-4 rounded-md"><AlertTriangle className="mx-auto h-10 w-10 mb-2" /><p>{error}</p><Button onClick={() => fetchPromotionRequests(currentPage, searchTerm, statusFilter)} variant="outline" className="mt-4 border-red-600 text-red-600 hover:bg-red-100">Reintentar</Button></div>
                         ) : requests.length > 0 ? (
@@ -295,7 +302,7 @@ export default function AdminPromotionsPage() {
                                                         <TableCell>
                                                             <Avatar className="h-9 w-9">
                                                                 <AvatarImage src={req.logoUrl || ""} alt={req.businessName} />
-                                                                <AvatarFallback className="bg-indigo-100 text-indigo-700 text-xs font-semibold">
+                                                                <AvatarFallback className="bg-green-100 text-green-700 text-xs font-semibold">
                                                                     {getInitials(req.businessName)}
                                                                 </AvatarFallback>
                                                             </Avatar>
@@ -359,7 +366,7 @@ export default function AdminPromotionsPage() {
                     <DialogContent className="sm:max-w-2xl max-h-[85vh] overflow-y-auto">
                         <DialogHeader>
                             <DialogTitle className="text-xl flex items-center gap-2">
-                                <Info className="h-5 w-5 text-indigo-600" />
+                                <Info className="h-5 w-5 text-green-600" />
                                 Detalles de: {selectedRequest?.businessName}
                             </DialogTitle>
                             <DialogDescription>
@@ -379,7 +386,7 @@ export default function AdminPromotionsPage() {
                                 <p><strong className="font-medium text-gray-700">Dirección:</strong> {selectedRequest.address}, {selectedRequest.city}, {selectedRequest.state} {selectedRequest.zipCode}</p>
                                 {selectedRequest.phone && <p><strong className="font-medium text-gray-700">Teléfono:</strong> {selectedRequest.phone}</p>}
                                 {selectedRequest.email && <p><strong className="font-medium text-gray-700">Email:</strong> {selectedRequest.email}</p>}
-                                {selectedRequest.website && <p><strong className="font-medium text-gray-700">Sitio Web:</strong> <a href={selectedRequest.website} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline">{selectedRequest.website}</a></p>}
+                                {selectedRequest.website && <p><strong className="font-medium text-gray-700">Sitio Web:</strong> <a href={selectedRequest.website} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:underline">{selectedRequest.website}</a></p>}
                                 {(selectedRequest.latitude && selectedRequest.longitude) && <p><strong className="font-medium text-gray-700">Ubicación:</strong> Lat: {selectedRequest.latitude}, Lon: {selectedRequest.longitude}</p>}
                                 {selectedRequest.openingHours && <p><strong className="font-medium text-gray-700">Horarios:</strong> {selectedRequest.openingHours}</p>}
                                 {selectedRequest.socialMedia && <p><strong className="font-medium text-gray-700">Redes Sociales:</strong> {selectedRequest.socialMedia}</p>}
