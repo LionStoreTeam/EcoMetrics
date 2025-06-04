@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider  = "sqlite"
+  provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
   // url      = "file:./dev.db"
@@ -33,10 +33,8 @@ model User {
   notifications         Notification[] // Notificaciones recibidas por este usuario
   visualMaterials       VisualMaterial[]
   visualMaterialRatings VisualMaterialRating[]
-  ShortVideo            ShortVideo[]
   createdShortVideos    ShortVideo[]           @relation("UserShortVideos")
   shortVideoRating      ShortVideoRating[]     @relation("UserShortVideoRatings")
-  ShortVideoRating      ShortVideoRating[]
 }
 
 // Tipos de usuario
@@ -561,7 +559,6 @@ model ShortVideo {
   updatedAt DateTime @updatedAt
   // Podríamos añadir una restricción a nivel de base de datos para asegurar que al menos uno de videoS3Key o externalVideoUrl esté presente.
   // @@check(COALESCE(videoS3Key, externalVideoUrl) IS NOT NULL) // Ejemplo de restricción (la sintaxis puede variar según la DB)
-  User      User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([topic])
@@ -577,7 +574,6 @@ model ShortVideoRating {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, shortVideoId])
   @@index([shortVideoId])
