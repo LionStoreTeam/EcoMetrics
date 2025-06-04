@@ -129,9 +129,9 @@ export default function DashboardPage() {
             <Link href="/actividades">
               <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
                 {/* <PlusCircle className="h-4 w-4 text-muted-foreground" /> */}
-                <CardTitle className="text-sm font-medium text-center">
-                  <p className={`mb-7 text-green-500 text-3xl font-light`}>
-                    Registra nuevas Actividades Ecológicas
+                <CardTitle className="text-center">
+                  <p className={`mb-7 text-green-500 text-3xl font-light lg:text-2xl`}>
+                    Registra Nuevas Actividades Ecológicas
                   </p>
                 </CardTitle>
               </CardHeader>
@@ -148,8 +148,8 @@ export default function DashboardPage() {
             <Link href="/recompensas">
               <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
                 {/* <Gift className="h-4 w-4 text-muted-foreground" /> */}
-                <CardTitle className="text-sm font-medium text-center">
-                  <p className={`mb-7 text-amber-400 text-3xl font-light`}>
+                <CardTitle className="text-center">
+                  <p className={`mb-7 text-amber-400 text-3xl font-light lg:text-2xl`}>
                     Cajea increibles Recompensas
                   </p>
                 </CardTitle>
@@ -168,8 +168,8 @@ export default function DashboardPage() {
             <Link href="/mapa">
               <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
                 {/* <Map className="h-4 w-4 text-muted-foreground" /> */}
-                <CardTitle className="text-sm font-medium text-center">
-                  <p className={`mb-7 text-cyan-500 text-3xl font-light`}>
+                <CardTitle className="text-center">
+                  <p className={`mb-7 text-cyan-500 text-3xl font-light lg:text-2xl`}>
                     Encuentra Centros de Acopio cercanos
                   </p>
                 </CardTitle>
