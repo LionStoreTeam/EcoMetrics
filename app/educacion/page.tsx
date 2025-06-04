@@ -20,28 +20,28 @@ interface EducationSectionContentType {
 
 export const EducationSectionsContente: EducationSectionContentType[] = [
     {
-        imageCard: "/report-analysis.svg",
+        imageCard: "/education/robot.svg",
         badgeContent: "EcoMetrics Education",
         title: 'Artículos y guías',
         description: "Explora distintos artículos y guias sobre, sostenibilidad, medio ambiente, entre otros temas.",
         url: "/educacion/articulos/"
     },
     {
-        imageCard: "/global-warming.svg",
+        imageCard: "/education/cactus.svg",
         badgeContent: "EcoMetrics Education",
         title: 'Material Visual',
         description: "Explora distintos elementos visuales como infografías, diagramas, entre otros",
         url: "/educacion/visual/"
     },
     {
-        imageCard: "/global-warming.svg",
+        imageCard: "/education/recording.svg",
         badgeContent: "EcoMetrics Education",
         title: 'Videos Cortos',
         description: "Explora distintos videos educativos sobre medio ambiente, sostenibilidad, recomendaciones y mucho más.",
         url: "/educacion/videos/"
     },
     {
-        imageCard: "/global-warming.svg",
+        imageCard: "/education/monitor.svg",
         badgeContent: "EcoMetrics Education",
         title: 'Directorio Ambiental',
         description: "Enlaces a organizaciones gubernamentales relevantes (SEMARNAT, PROFEPA, secretarías de medio ambiente estatales), ONGs, Documentales, libros, sitios web recomendados y mucho más.",
@@ -62,12 +62,12 @@ export default function EducationPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
-                <div className="mt-16 lg:mt-5 p-8 flex flex-col gap-2 text-white bg-gradient-to-r from-green-600 to-teal-600 rounded-xl shadow-lg">
+                <div className="mt-16 lg:mt-5 p-8 flex flex-col gap-2 text-white bg-gradient-to-r from-pink-700 to-teal-500 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3">
                         <BookText className="h-8 w-8" />
                         <h1 className="text-3xl font-bold tracking-tight">Educación Ambiental</h1>
                     </div>
-                    <p className="text-teal-100">
+                    <p className="text-pink-100">
                         Aprende y explora artículos, guías, material visual y mucho más para un futuro más sostenible.
                     </p>
                 </div>
@@ -77,18 +77,18 @@ export default function EducationPage() {
                             <Card key={index} className="flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                                 <Link href={item.url}>
                                     <CardHeader className="p-0">
-                                        <div className="relative w-full h-48 bg-gray-200">
+                                        <div className="relative w-full h-48 bg-pink-50">
                                             {item.imageCard ? (
                                                 <Image src={item.imageCard} alt="Card Image" layout="fill" objectFit="contain" />
                                             ) : (
-                                                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-100 to-teal-100">
+                                                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-100 to-teal-100">
                                                     <BookText className="h-16 w-16 text-green-400 opacity-70" />
                                                 </div>
                                             )}
                                         </div>
                                     </CardHeader>
                                     <CardContent className="p-4 flex-grow flex flex-col">
-                                        <Badge variant="outline" className="mb-2 text-xs self-start text-green-700 border-green-300 bg-green-50">
+                                        <Badge variant="outline" className="mb-2 text-xs self-start bg-gradient-to-r from-pink-100 to-teal-100 text-teal-500 border-2 border-teal-200">
                                             <p>{item.badgeContent}</p>
                                         </Badge>
                                         <CardTitle className="text-lg font-semibold text-gray-800 mb-1 group-hover:text-green-600 transition-colors line-clamp-2" title="Title">
@@ -99,11 +99,11 @@ export default function EducationPage() {
                                         </CardDescription>
 
                                     </CardContent>
-                                    <CardFooter className="p-3 border-t bg-gray-50 flex items-center justify-between">
+                                    <CardFooter className="p-3 border-t bg-gray-50 flex items-center justify-center md:justify-between">
                                         <div className="flex items-center gap-2">
                                             <Link href={item.url} passHref legacyBehavior>
-                                                <Button variant="outline" size="sm" className="h-auto px-2 py-1 text-xs border-green-400 hover:border-green-500 hover:text-green-600">
-                                                    <Eye className="h-3.5 w-3.5 mr-1" /> Ver
+                                                <Button variant="outline" size="sm" className="h-auto px-2 py-1 text-xs border-teal-400 hover:border-pink-500 hover:text-pink-700">
+                                                    <Eye className="h-3.5 w-3.5 mr-1" /> Ver Contenido
                                                 </Button>
                                             </Link>
                                         </div>

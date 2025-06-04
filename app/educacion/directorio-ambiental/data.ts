@@ -216,13 +216,13 @@ export const directoryData: {
             "Enfocada en la conservación de especies como el lobo mexicano y el jaguar, además de promover la reforestación y el desarrollo sustentable.",
           link: "https://naturalia.org.mx/",
         },
-        {
-          id: "endesu",
-          name: "Espacios Naturales y Desarrollo Sustentable (ENDESU)",
-          description:
-            "Centrada en restaurar ecosistemas dañados y tiene proyectos de desarrollo sustentable en comunidades.",
-          link: "https://www.endesu.org.mx/",
-        },
+        // {
+        //   id: "endesu",
+        //   name: "Espacios Naturales y Desarrollo Sustentable (ENDESU)",
+        //   description:
+        //     "Centrada en restaurar ecosistemas dañados y tiene proyectos de desarrollo sustentable en comunidades.",
+        //   link: "https://www.endesu.org.mx/",
+        // },
         // {
         //   id: "fee-mexico",
         //   name: "Fundación para la Educación Ambiental (FEE) México",
