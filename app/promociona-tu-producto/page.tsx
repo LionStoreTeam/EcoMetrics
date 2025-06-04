@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Calendar } from "@/components/ui/calendar"; //
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; //
 import toast from 'react-hot-toast';
-import { Package, Upload, Image as ImageIcon, X, Loader2, CreditCard, CalendarIcon as CalendarIconLucide, Tag } from "lucide-react";
+import { Package, Upload, Image as ImageIcon, X, Loader2, CreditCard, CalendarIcon as CalendarIconLucide, Tag, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { MEXICAN_STATES, BUSINESS_TYPES, type MexicanState, type BusinessType } from "@/lib/constants";
 import { ProductPromotionFormData } from "@/types/types"; //
@@ -366,7 +366,11 @@ function PromoteProductForm() {
                     <span className="text-2xl font-bold">EcoMetrics</span>
                 </Link>
             </header>
-
+            <div className="mb-6">
+                <Link href="/productos-disponibles" className="text-sm text-sky-600 hover:underline flex items-center">
+                    <ArrowLeft className="h-4 w-4 mr-1" /> Volver
+                </Link>
+            </div>
             <Card className="w-full max-w-2xl shadow-xl">
                 {formStep === "details" && (
                     <>

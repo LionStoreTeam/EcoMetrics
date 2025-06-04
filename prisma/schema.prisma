@@ -3,10 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  // url       = env("DATABASE_URL")
-  // directUrl = env("DIRECT_URL")
-  url      = "file:./dev.db"
+  provider  = "sqlite"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  // url      = "file:./dev.db"
 }
 
 // Modelo de Usuario

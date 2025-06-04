@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"; //
 import { Textarea } from "@/components/ui/textarea"; //
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"; //
 import toast from 'react-hot-toast';
-import { Briefcase, Upload, Image as ImageIcon, X, Loader2, CreditCard } from "lucide-react";
+import { Briefcase, Upload, Image as ImageIcon, X, Loader2, CreditCard, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { MEXICAN_STATES, BUSINESS_TYPES, type MexicanState } from "@/lib/constants"; //
 import { BusinessFormData } from "@/types/types"; //
@@ -305,7 +305,11 @@ function PromoteBusinessForm() {
                     <span className="text-2xl font-bold">EcoMetrics</span>
                 </Link>
             </header>
-
+            <div className="mb-6">
+                <Link href="/negocios-disponibles" className="text-sm text-green-600 hover:underline flex items-center">
+                    <ArrowLeft className="h-4 w-4 mr-1" /> Volver
+                </Link>
+            </div>
             <Card className="w-full max-w-2xl shadow-xl">
                 {formStep === "details" && (
                     <>

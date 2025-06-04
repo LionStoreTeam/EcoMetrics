@@ -148,10 +148,10 @@ const HeroBussines = () => {
                         }}
                     >
                         <span className="mt-5 text-[12px] text-slate-300 flex flex-col w-full text-center items-center justify-center">
-                            <a href="/terminos-promocion-negocio" className="hover:border-b hover:border-b-green-500 hover:text-slate-700">
+                            <a href="/terminos-promocion-negocio" className="transition-all ease-linear duration-300 hover:text-green-600">
                                 Terminos y Condiciones para promocionar un Negocio.
                             </a>
-                            <a href="/terminos-promocion-producto" className="hover:border-b hover:border-b-green-500 hover:text-slate-700">
+                            <a href="/terminos-promocion-producto" className="transition-all ease-linear duration-300 hover:text-cyan-500">
                                 Terminos y Condiciones para promocionar un Producto.
                             </a>
                         </span>

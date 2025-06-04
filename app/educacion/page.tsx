@@ -74,7 +74,7 @@ export default function EducationPage() {
                 <div className="flex flex-col gap-8 m-5 sm:m-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {contentEducation.map((item, index) => (
-                            <Card key={index} className="flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <Card key={index} className="flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all ease-linear duration-300 hover:scale-105">
                                 <Link href={item.url}>
                                     <CardHeader className="p-0">
                                         <div className="relative w-full h-48 bg-pink-50">

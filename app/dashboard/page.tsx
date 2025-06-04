@@ -199,7 +199,7 @@ export default function DashboardPage() {
                       key={activity.id}
                       className="flex flex-col justify-start text-center xl:flex-row"
                     >
-                      <Card className="flex flex-col items-center text-center justify-center gap-4 xl:flex-row xl:w-full xl:px-10 xl:justify-between xl:items-center xl:text-center p-3 hover:bg-blue-700 hover:text-white transition-all ease-linear duration-300">
+                      <Card className="flex flex-col items-center text-center justify-center gap-4 xl:flex-row xl:w-full xl:px-10 xl:justify-between xl:items-center xl:text-center p-3 hover:bg-gray-100 transition-all ease-linear duration-300">
                         <div className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-gray-300">
                           {getActivityIcon(activity.type)}
                         </div>
@@ -207,7 +207,7 @@ export default function DashboardPage() {
                           <div className="font-medium">{activity.title}</div>
                           <div className="text-sm">{formatDate(activity.date)}</div>
                         </div>
-                        <div className="gap-1 text-blue-600 font-medium">+{activity.points} pts</div>
+                        <div className="gap-1 text-green-600 font-medium">+{activity.points} pts</div>
                       </Card>
                     </div>
                   ))}
