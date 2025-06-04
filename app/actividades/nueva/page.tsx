@@ -4,7 +4,7 @@
 import type React from "react"
 import { useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Recycle, TreePine, Droplets, Lightbulb, Leaf, BookOpen, HelpCircle, Upload } from "lucide-react"
+import { Recycle, TreePine, Droplets, Lightbulb, Leaf, BookOpen, HelpCircle, Upload, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -15,6 +15,7 @@ import DashboardLayout from "@/components/dashboard-layout"
 import { z } from "zod"
 import toast from 'react-hot-toast';
 import { MAX_FILES, MIN_FILES } from "@/types/types-s3-service"
+import Link from "next/link"
 
 // Se eliminan ACTIVITY_POINTS ya que no se usan aquí para cálculo automático
 // const ACTIVITY_POINTS = { ... }
@@ -265,6 +266,11 @@ export default function NewActivityPage() {
           <p className="">Registra una nueva actividad ecológica. Será revisada por un administrador.</p>
         </div>
 
+        <div className="mt-3">
+          <Link href="/actividades" className="text-sm text-green-600 hover:underline flex items-center">
+            <ArrowLeft className="h-4 w-4 mr-1" /> Volver
+          </Link>
+        </div>
         <Card>
           <form onSubmit={handleSubmit} ref={formRef}>
             <CardHeader>
@@ -292,7 +298,7 @@ export default function NewActivityPage() {
 
               <div className="grid gap-2">
                 <Label>Tipo de actividad</Label>
-                <RadioGroup value={formData.type} onValueChange={handleTypeChange} className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <RadioGroup value={formData.type} onValueChange={handleTypeChange} className="flex flex-col md:grid sm:grid sm:grid-cols-2 md:grid-cols-3 gap-4 w-max xl:grid xl:grid-cols-4">
                   {[
                     { value: "RECYCLING", label: "Reciclaje" }, { value: "TREE_PLANTING", label: "Plantación" },
                     { value: "WATER_SAVING", label: "Ahorro de agua" }, { value: "ENERGY_SAVING", label: "Ahorro de energía" },
@@ -326,7 +332,7 @@ export default function NewActivityPage() {
                 </div>
               </div>
 
-              <div className="grid gap-2">
+              <div className="grid gap-2 w-max">
                 <Label htmlFor="date">Fecha</Label>
                 <Input id="date" name="date" type="date" value={formData.date} onChange={handleChange} disabled={isLoading} className={errors.date ? "border-red-500" : ""} max={new Date().toISOString().split("T")[0]} />
                 {errors.date && <p className="text-sm text-red-500">{errors.date}</p>}
@@ -398,7 +404,7 @@ export default function NewActivityPage() {
 
               {/* SE ELIMINA LA SECCIÓN DE PUNTOS ESTIMADOS */}
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex flex-col justify-center gap-4 md:flex-row md:items-center">
               <Button type="button" variant="outline" onClick={() => router.back()} disabled={isLoading}>Cancelar</Button>
               <Button type="submit" className="bg-green-600 hover:bg-green-700" disabled={isLoading}>
                 {isLoading ? "Guardando..." : "Guardar actividad"}

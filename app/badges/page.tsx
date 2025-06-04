@@ -40,7 +40,7 @@ export default function BadgesPage() {
     return (
         <DashboardLayout>
             <div className="flex flex-col gap-8 m-5 sm:m-10">
-                <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl shadow-lg">
+                <div className="mt-16 md:mt-0 p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-yellow-500 to-amber-600 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3">
                         <Award className="h-8 w-8" />
                         <h1 className="text-3xl font-bold tracking-tight">Galería de Insignias</h1>

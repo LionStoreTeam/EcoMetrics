@@ -284,7 +284,7 @@ export default function ActivitiesPage() {
 
         <Tabs defaultValue="list" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-4 rounded-md shadow-sm bg-gray-200">
-            <TabsTrigger value="list" className="rounded-md data-[state=active]:bg-green-100 data-[state=active]:text-green-900 bg-green-700">Lista</TabsTrigger>
+            <TabsTrigger value="list" className="rounded-md data-[state=active]:bg-green-100 data-[state=active]:text-green-900">Lista</TabsTrigger>
             <TabsTrigger value="calendar" className="rounded-md data-[state=active]:bg-green-100 data-[state=active]:text-green-900">Calendario</TabsTrigger>
           </TabsList>
           <TabsContent value="list" className="space-y-4">

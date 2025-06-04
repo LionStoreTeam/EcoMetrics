@@ -150,7 +150,7 @@ export default function DashboardPage() {
                 {/* <Gift className="h-4 w-4 text-muted-foreground" /> */}
                 <CardTitle className="text-center">
                   <p className={`mb-7 text-amber-400 text-3xl font-light lg:text-2xl`}>
-                    Cajea increibles Recompensas
+                    Usa tus EcoPoints para canjear recompensas
                   </p>
                 </CardTitle>
               </CardHeader>

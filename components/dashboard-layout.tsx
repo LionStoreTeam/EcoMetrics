@@ -147,24 +147,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header para móviles */}
       <header className="bg-white py-3 px-4 flex justify-between items-center lg:hidden border-shadow-sm top-0 fixed w-full z-40">
-        <Link href="/dashboard" className="flex items-center">
-          <Image src="/logo.png" alt="logo" width={70} height={70} priority />
-          <span className="font-bold pl-3">EcoMetrics</span>
-        </Link>
-
         <div className="flex items-center gap-2">
-          <Link href="/perfil#notifications_tab" passHref> {/* Enlace a la pestaña de notificaciones del perfil */}
-            <Button variant="ghost" size="icon" className="relative text-gray-600">
-              <Bell className="h-5 w-5" />
-              {unreadNotifications > 0 && (
-                <span className="absolute top-0.5 right-0.5 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-white border-px"></span>
-                </span>
-              )}
-              <span className="sr-only">Notificaciones</span>
-            </Button>
-          </Link>
+
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="text-gray-600">
@@ -246,7 +230,23 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </div>
             </SheetContent>
           </Sheet>
+          <Link href="/perfil#notifications_tab" passHref> {/* Enlace a la pestaña de notificaciones del perfil */}
+            <Button variant="ghost" size="icon" className="relative text-gray-600">
+              <Bell className="h-5 w-5" />
+              {unreadNotifications > 0 && (
+                <span className="absolute top-0.5 right-0.5 flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-white border-px"></span>
+                </span>
+              )}
+              <span className="sr-only">Notificaciones</span>
+            </Button>
+          </Link>
         </div>
+        <Link href="/dashboard" className="flex items-center">
+          <span className="font-bold pr-3">EcoMetrics</span>
+          <Image src="/logo.png" alt="logo" width={70} height={70} priority />
+        </Link>
       </header>
       {/* Seccion para Escritorio */}
       <div className="flex flex-1">

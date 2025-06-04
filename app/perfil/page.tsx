@@ -347,7 +347,7 @@ export default function ProfilePage() {
                 {/* Mostrar botón de eliminar solo si hay avatar y está en modo edición */}
                 {isEditing && profile.profile?.publicAvatarDisplayUrl && !avatarPreviewUrl && (<Button variant="ghost" size="sm" className="mt-2 text-red-500 hover:text-red-700" onClick={handleDeleteAvatar} disabled={isSubmitting} title="Eliminar foto"><Trash2 className="mr-1 h-4 w-4" /> Eliminar foto</Button>)}
                 {avatarPreviewUrl && (<p className="text-xs text-green-600 mt-1">Nueva foto seleccionada (guardar para aplicar)</p>)}
-                {!isEditing && (<p className="mt-4 px-5 text-center text-xs text-muted-foreground lg:px-10">Para cambiar la foto de Perfil da clic en "Editar".</p>)}
+                {!isEditing && (<p className="mt-4 px-5 text-center text-xs text-muted-foreground lg:px-10">Para cambiar la foto de Perfil da clic en "Editar Información".</p>)}
                 <CardTitle className="mt-4 text-xl">{profile.name}</CardTitle>
                 <CardDescription>{profile.email}</CardDescription>
               </div>
