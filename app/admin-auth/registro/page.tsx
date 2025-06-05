@@ -52,7 +52,7 @@ export default function AdminRegistroPage() {
             return
         }
 
-        if (formData.secretAdminCode === adminCode && adminCode !== process.env.ADMIN_CODE) {
+        if (formData.secretAdminCode === adminCode && adminCode !== process.env.ADMIN_SECRET_CODE) {
             toast.error("El código de administrador es incorrecto")
             return
         }
