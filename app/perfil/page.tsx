@@ -396,10 +396,10 @@ export default function ProfilePage() {
                   {activeTab === "info" && !isEditing && (<Button variant="outline" size="sm" onClick={() => setIsEditing(true)} disabled={isSubmitting}><Edit className="mr-2 h-4 w-4" /> Editar Información</Button>)}
                   {activeTab === "info" && isEditing && (<div className="flex gap-2"><Button variant="outline" size="sm" onClick={handleCancel} disabled={isSubmitting}><X className="mr-2 h-4 w-4" /> Cancelar</Button><Button size="sm" className="bg-green-600 hover:bg-green-700" onClick={handleSave} disabled={isSubmitting}>{isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}Guardar</Button></div>)}
                 </div>
-                <TabsList className="grid w-full grid-cols-2" id="profile_tabs"> {/* 3 columnas */}
-                  <TabsTrigger value="info">Información</TabsTrigger>
-                  <TabsTrigger value="security">Seguridad</TabsTrigger>
-                  {/* <TabsTrigger value="notifications" id="notifications_tab" className="relative">
+                {/* <TabsList className="grid w-max" id="profile_tabs">  */}
+                {/* <TabsTrigger value="info">Información</TabsTrigger> */}
+                {/* <TabsTrigger value="security">Seguridad</TabsTrigger> */}
+                {/* <TabsTrigger value="notifications" id="notifications_tab" className="relative">
                     Notificaciones
                     {unreadNotificationsCount > 0 && (
                       <span className="absolute top-1 right-1 -mt-0.5 mr-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
@@ -407,7 +407,7 @@ export default function ProfilePage() {
                       </span>
                     )}
                   </TabsTrigger> */}
-                </TabsList>
+                {/* </TabsList> */}
               </CardHeader>
               <CardContent>
                 <TabsContent value="info" className="space-y-6">
@@ -428,9 +428,9 @@ export default function ProfilePage() {
                     </>
                   )}
                 </TabsContent>
-                <TabsContent value="security">
+                {/* <TabsContent value="security">
                   <div className="space-y-6"><div className="space-y-2"><h3 className="font-medium">Cambiar contraseña</h3><p className="text-sm text-muted-foreground">Actualiza tu contraseña para mantener tu cuenta segura</p></div><div className="grid gap-4"><div className="grid gap-2"><Label htmlFor="current-password">Contraseña actual</Label><Input id="current-password" type="password" /></div><div className="grid gap-2"><Label htmlFor="new-password">Nueva contraseña</Label><Input id="new-password" type="password" /></div><div className="grid gap-2"><Label htmlFor="confirm-password">Confirmar nueva</Label><Input id="confirm-password" type="password" /></div></div><Button className="bg-green-600 hover:bg-green-700">Actualizar contraseña</Button></div>
-                </TabsContent>
+                </TabsContent> */}
                 {/* Sección de Notificaciones */}
                 <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 -mr-2 mt-20"> {/* Ajustado max-h y padding */}
                   <h2 className="font-semibold text-xl">Mis notificaciones:</h2>

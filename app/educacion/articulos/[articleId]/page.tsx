@@ -263,7 +263,7 @@ export default function EducationalArticlePage() {
                             </div>
                         </div>
                         {article.authorInfo && (
-                            <p className="mt-2 text-xs italic text-gray-500 bg-gray-50 p-2 rounded-md border">
+                            <p className="mt-2 text-xs italic text-gray-500 bg-gray-50 p-2 rounded-md border overflow-auto">
                                 {article.authorInfo}
                             </p>
                         )}

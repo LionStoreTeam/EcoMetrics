@@ -201,7 +201,9 @@ export default function ShortVideoDetailPage() {
                             <span className="hidden md:inline">•</span>
                             <div className="flex items-center gap-1.5"><CalendarDays className="h-4 w-4" /><span>Publicado: {format(new Date(video.createdAt), "dd MMMM, yyyy", { locale: es })}</span></div>
                         </div>
-                        {video.authorInfo && <p className="mt-3 text-xs italic text-gray-500 bg-gray-50 p-3 rounded-md border">{video.authorInfo}</p>}
+                        <div className="w-full mt-3 bg-gray-50 p-3 rounded-md border">
+                            {video.authorInfo && <p className="text-xs italic text-gray-500 text-balance overflow-auto">{video.authorInfo}</p>}
+                        </div>
                     </CardHeader>
                     {video.description && <CardContent className="px-6 pt-0 pb-4 prose prose-sm sm:prose-base max-w-none text-gray-700 break-words whitespace-pre-line">{video.description}</CardContent>}
                     <CardFooter className="px-6 py-4 border-t flex flex-col sm:flex-row justify-between items-center gap-4">
