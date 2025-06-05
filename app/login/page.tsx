@@ -30,7 +30,7 @@ function LoginFormSkeleton() {
 
 export default function LoginPage() {
   return (
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center">
       <Link href="/" className="absolute left-4 top-4 md:left-8 md:top-8 flex items-center gap-2 text-gray-700 hover:text-green-600 transition-colors">
         <Image src="/logo.png" alt="logo" width={70} height={70} priority />
         <span className="font-bold">EcoMetrics</span>
@@ -41,7 +41,7 @@ export default function LoginPage() {
         <LoginForm />
       </Suspense>
 
-      <footer className="absolute bottom-4 text-center text-xs text-gray-500 w-full px-4">
+      <footer className="bottom-0 text-center text-xs text-gray-500 w-full px-4 mt-10">
         © {new Date().getFullYear()} EcoMetrics. Todos los derechos reservados.
         <div className="mt-1">
           <Link href="/terminos" className="hover:underline">Términos</Link> | <Link href="/privacidad" className="hover:underline">Privacidad</Link>

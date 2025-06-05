@@ -311,6 +311,10 @@ export default function RegisterPage() {
                   disabled={isLoading}
                 />
                 {cretmxError && <p className="text-red-500 text-sm">{cretmxError}</p>}
+                <label
+                  className="text-slate-500 text-sm"
+                  htmlFor="cretmx"
+                >Ponte en contacto con un administrador de EcoMetrics para obtener el Código de Registro (CRETMX). Envía un correo a ecosoporte@ecometricsmx.com</label>
               </div>
             )}
           </CardContent>

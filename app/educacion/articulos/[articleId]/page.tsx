@@ -329,7 +329,7 @@ export default function EducationalArticlePage() {
                 </Card>
                 <div className="mt-8 text-center">
                     <Button asChild variant="link" className="text-green-600">
-                        <Link href="/"><Home className="mr-2 h-4 w-4" /> Volver a la página principal</Link>
+                        <Link href="/educacion"><Home className="mr-2 h-4 w-4" /> Volver a la página principal</Link>
                     </Button>
                 </div>
             </div>

@@ -12,9 +12,28 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"; //
+import toast from "react-hot-toast";
 
 interface BadgeCardProps {
     badge: BadgeApiResponseItem;
+}
+
+const showInfoModalBadge = (badge: BadgeApiResponseItem): string => {
+    switch (badge.criteriaType) {
+        case "ACTIVITY_COUNT":
+            return toast(`Registra ${badge.criteriaThreshold} actividad en total.`);
+        case "USER_LEVEL":
+            return toast(`Alcanza el Nivel ${badge.criteriaThreshold}.`);
+        case "TOTAL_POINTS":
+            return toast(`Acumula ${badge.criteriaThreshold} eco-puntos.`);
+        case "SPECIFIC_ACTIVITY_TYPE_COUNT":
+            const activityTypeName = badge.criteriaActivityType
+                ? badge.criteriaActivityType.toLowerCase().replace(/_/g, " ")
+                : "cierto tipo";
+            return toast(`Acumula ${badge.criteriaThreshold} unidades/kg/árboles en actividades de ${activityTypeName}.`);
+        default:
+            return toast("Completa el objetivo específico para desbloquear.");
+    }
 }
 
 const getCriteriaText = (badge: BadgeApiResponseItem): string => {
@@ -88,7 +107,15 @@ const BadgeCard: React.FC<BadgeCardProps> = ({ badge }) => {
                             <TooltipTrigger asChild>
                                 <UiBadge variant="outline" className="mx-auto text-xs bg-amber-100/80 border-amber-400/50 text-amber-800 cursor-help">
                                     <Info className="h-3.5 w-3.5 mr-1.5" />
-                                    Cómo obtener
+                                    <button
+                                        onClick={
+                                            () => {
+                                                showInfoModalBadge(badge)
+                                            }
+                                        }
+                                    >
+                                        Cómo obtener
+                                    </button>
                                 </UiBadge>
                             </TooltipTrigger>
                             <TooltipContent side="bottom" className="max-w-xs bg-gray-800 text-white border-gray-700 p-2 text-xs rounded-md shadow-lg">
@@ -102,6 +129,7 @@ const BadgeCard: React.FC<BadgeCardProps> = ({ badge }) => {
                     </UiBadge>
                 )}
             </CardFooter>
+
         </div>
     );
 

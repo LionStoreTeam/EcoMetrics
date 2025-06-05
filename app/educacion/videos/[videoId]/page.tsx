@@ -222,7 +222,7 @@ export default function ShortVideoDetailPage() {
                         )}
                     </CardFooter>
                 </Card>
-                <div className="mt-8 text-center"><Button asChild variant="link" className="text-blue-600"><Link href="/"><Home className="mr-2 h-4 w-4" />Volver al Inicio</Link></Button></div>
+                <div className="mt-8 text-center"><Button asChild variant="link" className="text-blue-600"><Link href="/educacion"><Home className="mr-2 h-4 w-4" />Volver a la página principal</Link></Button></div>
             </div>
         </DashboardLayout>
     );

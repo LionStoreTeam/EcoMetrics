@@ -65,7 +65,7 @@ export default function Home() {
                           // Same substring at the start will only be typed out once, initially
                           'Inicia Sesión',
                           1000, // wait 1s before replacing "Mice" with "Hamsters"
-                          'Registrate',
+                          'Regístrate',
                           1000,
                           'EcoMetrics',
                           1000,

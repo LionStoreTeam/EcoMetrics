@@ -324,6 +324,7 @@ function PromoteProductForm() {
             if (!response.ok) throw new Error(result.error || "Error al enviar la solicitud de promoción de producto.");
 
             toast.success("¡Tu solicitud de promoción de producto ha sido enviada con éxito!");
+            toast.success("Dentro de 1 a 24 horas tu producto se podrá ver reflejado en la seccion Productos Disponibles de nuestra plataforma.");
             setFormData({
                 businessName: "", productName: "", businessLogoFile: null, description: "",
                 businessType: "", productImageFiles: [], priceOrPromotion: "", address: "",

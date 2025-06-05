@@ -18,6 +18,7 @@ import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import toast from 'react-hot-toast';
 import Link from "next/link";
+import DashboardLayout from "@/components/dashboard-layout";
 
 export default function CrearRecompensa() {
     const router = useRouter();
@@ -137,103 +138,108 @@ export default function CrearRecompensa() {
         }
     };
     return (
-        <div className="flex flex-col gap-8 m-5 sm:m-10">
-            <div className="mt-10 lg:mt-0">
-                <Link href="/admin" className="text-sm text-amber-600 hover:underline flex items-center">
-                    <ArrowLeft className="h-4 w-4 mr-1" /> Volver
-                </Link>
-            </div>
-            <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl shadow-lg">
-                <div className="flex items-center gap-3">
-                    <Gift className="h-8 w-8" />
-                    <h1 className="text-3xl font-bold tracking-tight">Añadir Nueva Recompensa</h1>
+        <DashboardLayout>
+
+            <div className="flex flex-col gap-8 m-5 sm:m-10">
+                <div className="mt-10 lg:mt-0">
+                    <Link href="/admin" className="text-sm text-amber-600 hover:underline flex items-center">
+                        <ArrowLeft className="h-4 w-4 mr-1" /> Volver
+                    </Link>
                 </div>
-                <p className="text-blue-100">
-                    Completa la información para registrar una nueva recompensa en la plataforma.
-                </p>
-            </div>
-            {/* Tarjeta para Crear Nueva Recompensa */}
-            <Card className="shadow-lg">
-                <CardHeader>
+                <div className="p-6 flex flex-col gap-2 text-white bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3">
-                        <Gift className="h-6 w-6 text-amber-500" />
-                        <CardTitle>Crear Nueva Recompensa</CardTitle>
+                        <Gift className="h-8 w-8" />
+                        <h1 className="text-3xl font-bold tracking-tight">Añadir Nueva Recompensa</h1>
                     </div>
-                    <CardDescription>
-                        Completa el formulario para añadir una nueva recompensa para los usuarios.
-                    </CardDescription>
-                </CardHeader>
-                <form onSubmit={handleSubmitReward}>
-                    <CardContent className="space-y-4">
-                        <div className="space-y-1">
-                            <Label htmlFor="title-reward">Título</Label>
-                            <Input id="title-reward" name="title" placeholder="Ej: Descuento en tienda" value={formData.title} onChange={handleChange} required />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="description-reward">Descripción</Label>
-                            <Textarea id="description-reward" name="description" placeholder="Detalles de la recompensa" value={formData.description} onChange={handleChange} required rows={2} />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-1">
-                                <Label htmlFor="pointsCost-reward">Costo (Puntos)</Label>
-                                <Input id="pointsCost-reward" name="pointsCost" type="number" min={1} value={formData.pointsCost} onChange={handleChange} required />
+                    <p className="text-blue-100">
+                        Completa la información para registrar una nueva recompensa en la plataforma.
+                    </p>
+                </div>
+                {/* Tarjeta para Crear Nueva Recompensa */}
+                <div className="my-10 flex flex-col justify-center items-center">
+                    <Card className="shadow-lg w-max">
+                        <CardHeader>
+                            <div className="flex items-center gap-3">
+                                <Gift className="h-6 w-6 text-amber-500" />
+                                <CardTitle>Crear Nueva Recompensa</CardTitle>
                             </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="category-reward">Categoría</Label>
-                                <Select value={formData.category} onValueChange={(value) => handleSelectChange("category", value)}>
-                                    <SelectTrigger id="category-reward"><SelectValue placeholder="Categoría" /></SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="DISCOUNT">Descuento</SelectItem>
-                                        <SelectItem value="WORKSHOP">Taller</SelectItem>
-                                        <SelectItem value="PRODUCT">Producto</SelectItem>
-                                        <SelectItem value="RECOGNITION">Reconocimiento</SelectItem>
-                                        <SelectItem value="EXPERIENCE">Experiencia</SelectItem>
-                                        <SelectItem value="OTHER">Otro</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-                        {/* Switches para cantidad y expiración */}
-                        <div className="flex items-center space-x-2 pt-2">
-                            <Switch id="available-reward" checked={formData.available} onCheckedChange={(checked) => handleSwitchChange("available", checked)} />
-                            <Label htmlFor="available-reward">Disponible</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <Switch id="hasQuantity-reward" checked={formData.hasQuantity} onCheckedChange={(checked) => handleSwitchChange("hasQuantity", checked)} />
-                            <Label htmlFor="hasQuantity-reward">Cantidad limitada</Label>
-                        </div>
-                        {formData.hasQuantity && (
-                            <div className="pl-6 space-y-1">
-                                <Label htmlFor="quantity-reward">Cantidad</Label>
-                                <Input id="quantity-reward" name="quantity" type="number" min={1} value={formData.quantity} onChange={handleChange} required={formData.hasQuantity} />
-                            </div>
-                        )}
-                        <div className="flex items-center space-x-2">
-                            <Switch id="hasExpiration-reward" checked={formData.hasExpiration} onCheckedChange={(checked) => handleSwitchChange("hasExpiration", checked)} />
-                            <Label htmlFor="hasExpiration-reward">Tiene expiración</Label>
-                        </div>
-                        {formData.hasExpiration && (
-                            <div className="pl-6 space-y-1">
-                                <Label htmlFor="expiresAt-reward">Fecha de Expiración</Label>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !formData.expiresAt && "text-muted-foreground")}>
-                                            <CalendarIcon className="mr-2 h-4 w-4" />
-                                            {formData.expiresAt ? format(formData.expiresAt, "PPP", { locale: es }) : <span>Selecciona fecha</span>}
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={formData.expiresAt || undefined} onSelect={handleDateChange as any} initialFocus disabled={(date) => date < new Date()} /></PopoverContent>
-                                </Popover>
-                            </div>
-                        )}
-                    </CardContent>
-                    <CardFooter>
-                        <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700" disabled={isSubmitting}>
-                            {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creando...</> : <><Check className="mr-2 h-4 w-4" /> Crear Recompensa</>}
-                        </Button>
-                    </CardFooter>
-                </form>
-            </Card>
-        </div>
+                            <CardDescription>
+                                Completa el formulario para añadir una nueva recompensa para los usuarios.
+                            </CardDescription>
+                        </CardHeader>
+                        <form onSubmit={handleSubmitReward}>
+                            <CardContent className="space-y-4">
+                                <div className="space-y-1">
+                                    <Label htmlFor="title-reward">Título</Label>
+                                    <Input id="title-reward" name="title" placeholder="Ej: Descuento en tienda" value={formData.title} onChange={handleChange} required />
+                                </div>
+                                <div className="space-y-1">
+                                    <Label htmlFor="description-reward">Descripción</Label>
+                                    <Textarea id="description-reward" name="description" placeholder="Detalles de la recompensa" value={formData.description} onChange={handleChange} required rows={2} />
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1">
+                                        <Label htmlFor="pointsCost-reward">Costo (Puntos)</Label>
+                                        <Input id="pointsCost-reward" name="pointsCost" type="number" min={1} value={formData.pointsCost} onChange={handleChange} required />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <Label htmlFor="category-reward">Categoría</Label>
+                                        <Select value={formData.category} onValueChange={(value) => handleSelectChange("category", value)}>
+                                            <SelectTrigger id="category-reward"><SelectValue placeholder="Categoría" /></SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="DISCOUNT">Descuento</SelectItem>
+                                                <SelectItem value="WORKSHOP">Taller</SelectItem>
+                                                <SelectItem value="PRODUCT">Producto</SelectItem>
+                                                <SelectItem value="RECOGNITION">Reconocimiento</SelectItem>
+                                                <SelectItem value="EXPERIENCE">Experiencia</SelectItem>
+                                                <SelectItem value="OTHER">Otro</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </div>
+                                {/* Switches para cantidad y expiración */}
+                                <div className="flex items-center space-x-2 pt-2">
+                                    <Switch id="available-reward" checked={formData.available} onCheckedChange={(checked) => handleSwitchChange("available", checked)} />
+                                    <Label htmlFor="available-reward">Disponible</Label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Switch id="hasQuantity-reward" checked={formData.hasQuantity} onCheckedChange={(checked) => handleSwitchChange("hasQuantity", checked)} />
+                                    <Label htmlFor="hasQuantity-reward">Cantidad limitada</Label>
+                                </div>
+                                {formData.hasQuantity && (
+                                    <div className="pl-6 space-y-1">
+                                        <Label htmlFor="quantity-reward">Cantidad</Label>
+                                        <Input id="quantity-reward" name="quantity" type="number" min={1} value={formData.quantity} onChange={handleChange} required={formData.hasQuantity} />
+                                    </div>
+                                )}
+                                <div className="flex items-center space-x-2">
+                                    <Switch id="hasExpiration-reward" checked={formData.hasExpiration} onCheckedChange={(checked) => handleSwitchChange("hasExpiration", checked)} />
+                                    <Label htmlFor="hasExpiration-reward">Tiene expiración</Label>
+                                </div>
+                                {formData.hasExpiration && (
+                                    <div className="pl-6 space-y-1">
+                                        <Label htmlFor="expiresAt-reward">Fecha de Expiración</Label>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !formData.expiresAt && "text-muted-foreground")}>
+                                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                                    {formData.expiresAt ? format(formData.expiresAt, "PPP", { locale: es }) : <span>Selecciona fecha</span>}
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={formData.expiresAt || undefined} onSelect={handleDateChange as any} initialFocus disabled={(date) => date < new Date()} /></PopoverContent>
+                                        </Popover>
+                                    </div>
+                                )}
+                            </CardContent>
+                            <CardFooter>
+                                <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700" disabled={isSubmitting}>
+                                    {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creando...</> : <><Check className="mr-2 h-4 w-4" /> Crear Recompensa</>}
+                                </Button>
+                            </CardFooter>
+                        </form>
+                    </Card>
+                </div>
+            </div>
+        </DashboardLayout>
     )
 }

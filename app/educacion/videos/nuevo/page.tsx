@@ -275,9 +275,15 @@ export default function NewShortVideoPage() {
                                         {errors.authorInstitution && <p className="text-sm text-red-500">{errors.authorInstitution}</p>}
                                     </div>
                                 </div>
-                                <div className="space-y-1 mt-4">
+                                <div className="space-y-1 mt-4 flex flex-col">
                                     <Label htmlFor="authorInfo-video-new">Info. Adicional del Autor</Label>
-                                    <Textarea id="authorInfo-video-new" name="authorInfo" value={formDataState.authorInfo || ""} onChange={handleInputChange} rows={2} disabled={isSubmitting} />
+                                    <Label
+                                        className="text-sm text-slate-500 font-normal"
+                                        htmlFor="authorInfo-video-new"
+                                    >
+                                        Si la URL del video es externa (YouTube). Añade las referencias correspondietes del autor.
+                                    </Label>
+                                    <Textarea id="authorInfo-video-new" name="authorInfo" placeholder="Añade más detalles o información..." value={formDataState.authorInfo || ""} onChange={handleInputChange} rows={2} disabled={isSubmitting} />
                                     {errors.authorInfo && <p className="text-sm text-red-500">{errors.authorInfo}</p>}
                                 </div>
                             </div>
