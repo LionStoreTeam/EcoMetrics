@@ -24,8 +24,8 @@ import Link from "next/link"
 const activitySchema = z.object({
   title: z.string().min(10, { message: "El título debe tener al menos 10 caracteres" }).max(100, { message: "El título no puede tener más de 100 caracteres" }),
   description: z.string().min(10, { message: "La descripción debe tener al menos 10 caracteres" })
-    .max(100, {
-      message: "La descripción no puede tener más de 100 caracteres",
+    .max(500, {
+      message: "La descripción no puede tener más de 500 caracteres",
     }),
   type: z.enum(["RECYCLING", "TREE_PLANTING", "WATER_SAVING", "ENERGY_SAVING", "COMPOSTING", "EDUCATION", "OTHER"], {
     message: "Selecciona un tipo de actividad válido",

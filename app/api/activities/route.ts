@@ -21,8 +21,8 @@ const activitySchema = z.object({
   description: z
     .string()
     .min(10, { message: "La descripción debe tener al menos 10 caracteres" })
-    .max(100, {
-      message: "La descripción no puede tener más de 100 caracteres",
+    .max(500, {
+      message: "La descripción no puede tener más de 500 caracteres",
     }),
   type: z.enum([
     "RECYCLING",
