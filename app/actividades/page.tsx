@@ -136,7 +136,7 @@ const ActivityCard = ({ activity }: { activity: ExtendedActivity }) => (
     transition={{ duration: 0.3, ease: "easeInOut" }}
   >
     <div className="p-5">
-      <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-2 mb-3">
+      <div className="flex flex-col items-center xl:flex-row xl:items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-3">
           <div className="rounded-full bg-green-100 p-2.5">
             {getActivityIcon(activity.type)}
@@ -145,9 +145,12 @@ const ActivityCard = ({ activity }: { activity: ExtendedActivity }) => (
         </div>
         {/* Mostrar puntos solo si la actividad está revisada y tiene puntos > 0 */}
         {activity.status === "REVIEWED" && activity.points > 0 && (
-          <span className="text-green-600 font-bold text-lg self-start xl:self-center">
-            + {activity.points} pts
-          </span>
+          <div className="p-1 flex justify-center items-center gap-2 text-green-600 font-medium border-y-2 border-y-[#53c932]">
+            <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority />
+            <span>
+              +{activity.points}
+            </span>
+          </div>
         )}
       </div>
 

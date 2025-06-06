@@ -111,7 +111,9 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="text-center">
               <div className="flex justify-center items-center text-center gap-2 mb-3">
-                <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority />
+                <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority
+                  className="transition-all ease-linear duration-700 hover:-translate-x-1 hover:-rotate-[360deg]"
+                />
                 <span className="text-2xl text-[#53c932] font-semibold">
                   {stats.totalPoints}
                 </span>
@@ -214,7 +216,14 @@ export default function DashboardPage() {
                           <div className="font-medium">{activity.title}</div>
                           <div className="text-sm">{formatDate(activity.date)}</div>
                         </div>
-                        <div className="gap-1 text-green-600 font-medium">+{activity.points} pts</div>
+                        <div className="p-1 flex justify-center items-center gap-2 text-green-600 font-medium border-y-2 border-y-[#53c932]">
+                          <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority
+                            className="transition-all ease-linear duration-700 hover:-translate-x-1 hover:-rotate-[360deg]"
+                          />
+                          <span>
+                            +{activity.points}
+                          </span>
+                        </div>
                       </Card>
                     </div>
                   ))}

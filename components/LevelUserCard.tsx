@@ -72,7 +72,9 @@ const LevelUserCard = () => {
                 </CardHeader>
                 <CardContent>
                     <div className="flex justify-center items-center text-center gap-2 mb-4">
-                        <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority />
+                        <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority
+                            className="transition-all ease-linear duration-700 hover:-translate-x-1 hover:-rotate-[360deg]"
+                        />
                         <span className="text-2xl text-[#53c932] font-semibold">
                             {stats.totalPoints}
                         </span>
