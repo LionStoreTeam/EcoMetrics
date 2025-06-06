@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { PieChart, TrendingUp } from "lucide-react"
+import { PieChart } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import DashboardLayout from "@/components/dashboard-layout"
 import { StatsData } from "@/types/types"
-
+import Image from "next/image"
 
 
 export default function StatsPage() {
@@ -139,12 +139,16 @@ export default function StatsPage() {
             <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
               <Card className="border-4 border-red-100 rounded-xl transition-all ease-linear hover:border-red-600">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Puntos Totales</CardTitle>
-                  <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                  <CardTitle className="text-md text-[#53c932] font-semibold tracking-wider">EcoPoints Totales:</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{stats.totalPoints}</div>
-                  <p className="text-xs text-muted-foreground">Nivel: {userLevel}</p>
+                  <div className="flex justify-center items-center text-center gap-2 mb-3">
+                    <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority />
+                    <span className="text-2xl text-[#53c932] font-semibold">
+                      {stats.totalPoints}
+                    </span>
+                  </div>
+                  <p className="text-xs text-white font-normal bg-green-600 rounded-xl w-max px-3 py-1 tracking-wider">Nivel: {userLevel}</p>
                   <div className="mt-3">
                     <div className="flex justify-between text-xs mb-1">
                       <span>{currentLevelMinPoints} pts</span>

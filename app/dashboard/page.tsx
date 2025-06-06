@@ -107,11 +107,18 @@ export default function DashboardPage() {
           <Card className="flex flex-col justify-center items-center border-4 border-blue-100 rounded-xl transition-all ease-linear hover:border-blue-700">
             <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
               {/* <TrendingUp className="h-4 w-4 text-muted-foreground" /> */}
-              <CardTitle className="text-sm font-medium text-center">Puntos Totales</CardTitle>
+              <CardTitle className="text-md text-[#53c932] font-semibold tracking-wider">EcoPoints Totales:</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
-              <div className="text-2xl font-bold">{stats.totalPoints}</div>
-              <p className="text-xs text-muted-foreground">Nivel: {stats.level}</p>
+              <div className="flex justify-center items-center text-center gap-2 mb-3">
+                <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority />
+                <span className="text-2xl text-[#53c932] font-semibold">
+                  {stats.totalPoints}
+                </span>
+              </div>
+              <div className="flex justify-center items-center">
+                <p className="text-xs text-white font-normal bg-green-600 rounded-xl w-max px-3 py-1 tracking-wider">Nivel: {stats.level}</p>
+              </div>
               <div className="mt-3">
                 <div className="flex justify-between text-xs mb-1">
                   <span>{currentLevelMinPoints} pts</span>

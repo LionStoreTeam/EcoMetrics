@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import DashboardLayout from "@/components/dashboard-layout"
 import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation"
-
+import Image from "next/image"
 
 interface Reward {
   id: string
@@ -219,10 +219,10 @@ export default function RewardsPage() {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex items-center gap-2 bg-green-100 dark:bg-green-900/20 px-4 py-2 rounded-lg">
-            <Gift className="h-5 w-5 text-green-600" />
-            <span className="font-medium">Tus puntos:</span>
-            <span className="font-bold">{userPoints}</span>
+          <div className="flex items-center gap-2 border-y-2 border-y-[#53c932] px-4 py-2">
+            <Image src="/eco_points_logo.svg" alt="eco_points_logo" width={30} height={30} priority />
+            <span className="font-medium text-[#53c932]">EcoPoints:</span>
+            <span className="font-bold text-[#53c932]">{userPoints}</span>
           </div>
         </div>
 
