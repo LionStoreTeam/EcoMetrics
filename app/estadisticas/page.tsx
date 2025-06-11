@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import DashboardLayout from "@/components/dashboard-layout"
 import { StatsData } from "@/types/types"
 import Image from "next/image"
+import { ReportDownloadButton } from "@/components/report-download-button"
 
 
 export default function StatsPage() {
@@ -410,6 +411,9 @@ export default function StatsPage() {
                   </div>
                 </CardContent>
               </Card>
+              <div className="my-5">
+                <ReportDownloadButton />
+              </div>
             </Tabs>
           </>
         ) : (
