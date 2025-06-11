@@ -61,6 +61,16 @@ export interface StatsData {
     waterSaved: number;
     energySaved: number;
   };
+  impact: {
+    co2Saved: number;
+    waterSaved: number;
+    energySaved: number;
+  };
+  materialsRecycled: {
+    name: string;
+    quantity: number;
+    unit: string;
+  }[];
 }
 
 export interface UserProfileBadge {
